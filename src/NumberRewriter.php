@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Model\Math;
 
 
@@ -113,24 +115,23 @@ class NumberRewriter
 	// --------------------------------------------------- To number ---------------------------------------------------
 
 	/**
-	 * @param string $word
+	 * @param string $haystack
 	 * @return string
 	 */
-	public function toNumber(string $word): string
+	public function toNumber(string $haystack): string
 	{
-		$word = trim(preg_replace('/\s+/', ' ', $word));
+		$haystack = trim(preg_replace('/\s+/', ' ', $haystack));
 
 		foreach ($this->regex as $key => $value) {
-			$word = preg_replace('/' . $key . '/', $value, $word);
+			$haystack = (string) preg_replace('/' . $key . '/', $value, $haystack);
 		}
 
-		foreach ($this->basic as $w => $n) {
-			if ($w === $word) {
-				return $n;
-			}
+		$return = '';
+		foreach (explode(' ', $haystack) as $word) {
+			$return .= $this->processWord($word) . ' ';
 		}
 
-		return $word;
+		return trim($return);
 	}
 
 	// ---------------------------------------------------- To word ----------------------------------------------------
@@ -152,8 +153,8 @@ class NumberRewriter
 		}
 
 		foreach ($this->basic as $w => $n) {
-			if ((string) $n === $number) {
-				return $w;
+			if ($n === $number) {
+				return (string) $w;
 			}
 		}
 
@@ -267,6 +268,21 @@ class NumberRewriter
 		}
 
 		return $forOther;
+	}
+
+	/**
+	 * @param string $word
+	 * @return string
+	 */
+	private function processWord(string $word): string
+	{
+		foreach ($this->basic as $basicWord => $basicRewrite) {
+			if ($basicWord === $word) {
+				return (string) $basicRewrite;
+			}
+		}
+
+		return $word;
 	}
 
 }

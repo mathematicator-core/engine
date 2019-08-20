@@ -17,11 +17,11 @@ class QueryNormalizer
 	private static $regexMap = [
 		'\s*(\#|\/\/).*$' => '',
 		'(\d)([,;])\s+(\d)' => '$1$2$3',
-//		'(\d|[a-z])\s+(\d|[a-z])' => '$1$2',
 		'(\d)\s+(\d)' => '$1$2',
 		'(\d)(\*{2,}|\˘)(\d)' => '$1^$3',
 		'(\d)\s*(\:|÷)\s*(\d)' => '$1/$3',
 		'(^|[^\d\,])(\d+)\,(\d+)($|[^\d\,])' => '$1$2.$3$4',
+		'(\d)\s+([a-z])' => '$1$2',
 		'\+\-' => '-',
 		'(\d+)\s*plus\s*(\d+)' => '$1+$2',
 		'(\d+)\s*(krát|krat)\s*(\d+)' => '$1*$3',
@@ -56,6 +56,8 @@ class QueryNormalizer
 	}
 
 	/**
+	 * Magic convertor of user input to normalized machine-readable form.
+	 *
 	 * @param string $query
 	 * @return string
 	 */
@@ -95,7 +97,7 @@ class QueryNormalizer
 			$return = str_repeat('(', $rightCount - $leftCount) . $query;
 		}
 
-		$redundantBrackets = function (string $return): string {
+		$redundantBrackets = static function (string $return): string {
 			$returnInner = $return;
 			while (true) {
 				if (preg_match('/^\((?<content>.+)\)$/', $returnInner, $bracketParser)) {
