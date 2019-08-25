@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
-use Model\Math\NumberRewriter;
+use Mathematicator\NumberRewriter;
 use Nette\Utils\Strings;
 
 class QueryNormalizer

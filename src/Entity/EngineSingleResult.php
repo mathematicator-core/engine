@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mathematicator\Engine;
 
 
@@ -21,7 +23,7 @@ class EngineSingleResult extends EngineResult
 	/**
 	 * @var Source[]
 	 */
-	private $sources = [];
+	private $sources;
 
 	/**
 	 * @param string $query

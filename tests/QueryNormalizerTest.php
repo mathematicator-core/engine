@@ -6,7 +6,7 @@ namespace Mathematicator\Engine\Test;
 
 
 use Mathematicator\Engine\QueryNormalizer;
-use Model\Math\NumberRewriter;
+use Mathematicator\NumberRewriter;
 use Tester\Assert;
 use Tester\TestCase;
 
