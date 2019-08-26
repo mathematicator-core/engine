@@ -6,11 +6,11 @@ namespace Mathematicator\Engine;
 
 
 use Mathematicator\Router\Router;
-use Mathematicator\SearchController\BaseController;
+use Mathematicator\SearchController\IController;
 use Nette\DI\Container;
 use Tracy\Debugger;
 
-class Engine
+final class Engine
 {
 
 	/**
@@ -36,41 +36,43 @@ class Engine
 	/**
 	 * @param string $query
 	 * @return EngineResult
+	 * @throws InvalidDataException
 	 */
 	public function compute(string $query): EngineResult
 	{
-		if (preg_match('/^(?<left>.+?)\s*vs\.?\s*(?<right>.+?)$/', $query, $versus)) {
-			$result = new EngineMultiResult($query, null);
-
-			$result->addResult($this->compute($versus['left']), 'left');
-			$result->addResult($this->compute($versus['right']), 'right');
-
-			return $result;
+		if (preg_match('/^(?<left>.+?)\s+vs\.?\s+(?<right>.+?)$/', $query, $versus)) {
+			return (new EngineMultiResult($query, null))
+				->addResult($this->compute($versus['left']), 'left')
+				->addResult($this->compute($versus['right']), 'right');
 		}
 
 		$callback = $this->router->routeQuery($query);
-		$callbackResult = $this->callCallback($query, $callback);
+		$matchedRoute = (string) preg_replace('/^.+\\\\([^\\\\]+)$/', '$1', $callback);
 
-		$result = new EngineSingleResult(
-			$query,
-			preg_replace('/^.+\\\\([^\\\\]+)$/', '$1', $callback),
-			$callbackResult === null ? null : $callbackResult->getInterpret(),
-			$callbackResult === null ? null : $callbackResult->getBoxes(),
-			$callbackResult === null ? [] : $callbackResult->getSources()
-		);
-		$result->setTime((int) round(Debugger::timer('search_request') * 1000));
+		if ($result = $this->processCallback($query, $callback)) {
+			$return = new EngineSingleResult(
+				$query,
+				$matchedRoute,
+				$result->getInterpret(),
+				$result->getBoxes(),
+				$result->getSources()
+			);
+		} else {
+			$return = new EngineSingleResult($query, $matchedRoute);
+		}
 
-		return $result;
+		return $return->setTime((int) round(Debugger::timer('search_request') * 1000));
 	}
 
 	/**
 	 * @param string $query
 	 * @param string $callback
-	 * @return BaseController|null
+	 * @return IController|null
+	 * @throws InvalidDataException
 	 */
-	private function callCallback(string $query, string $callback): ?BaseController
+	private function processCallback(string $query, string $callback): ?IController
 	{
-		/** @var BaseController|null $return */
+		/** @var IController|null $return */
 		$return = $this->serviceFactory->getByType($callback);
 
 		if ($return !== null) {
@@ -83,7 +85,7 @@ class Engine
 			}
 		}
 
-		return $return;
+		return $return ?? null;
 	}
 
 }

@@ -38,8 +38,9 @@ class EngineMultiResult extends EngineResult
 	/**
 	 * @param EngineResult $result
 	 * @param string|null $name
+	 * @return EngineMultiResult
 	 */
-	public function addResult(EngineResult $result, ?string $name = null): void
+	public function addResult(EngineResult $result, ?string $name = null): self
 	{
 		if ($name !== null) {
 			$this->results[$name] = $result;
@@ -48,6 +49,8 @@ class EngineMultiResult extends EngineResult
 		}
 
 		$this->setTime($this->getTime() + $result->getTime());
+
+		return $this;
 	}
 
 }

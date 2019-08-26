@@ -32,7 +32,7 @@ class EngineSingleResult extends EngineResult
 	 * @param Box[] $boxes
 	 * @param Source[] $sources
 	 */
-	public function __construct(string $query, string $matchedRoute, ?Box $interpret, array $boxes, array $sources = [])
+	public function __construct(string $query, string $matchedRoute, ?Box $interpret = null, array $boxes = [], array $sources = [])
 	{
 		parent::__construct($query, $matchedRoute);
 		$this->interpret = $interpret;
