@@ -6,6 +6,7 @@ namespace Mathematicator\Engine;
 
 
 use Mathematicator\Router\Router;
+use Mathematicator\Search\Query;
 use Mathematicator\SearchController\IController;
 use Nette\DI\Container;
 use Tracy\Debugger;
@@ -19,65 +20,73 @@ final class Engine
 	private $router;
 
 	/**
+	 * @var QueryNormalizer
+	 */
+	private $queryNormalizer;
+
+	/**
 	 * @var Container
 	 */
 	private $serviceFactory;
 
 	/**
 	 * @param Router $router
+	 * @param QueryNormalizer $queryNormalizer
 	 * @param Container $container
 	 */
-	public function __construct(Router $router, Container $container)
+	public function __construct(Router $router, QueryNormalizer $queryNormalizer, Container $container)
 	{
 		$this->router = $router;
+		$this->queryNormalizer = $queryNormalizer;
 		$this->serviceFactory = $container;
 	}
 
 	/**
 	 * @param string $query
-	 * @return EngineResult
+	 * @return EngineResult|EngineMultiResult
 	 * @throws InvalidDataException
 	 */
 	public function compute(string $query): EngineResult
 	{
-		if (preg_match('/^(?<left>.+?)\s+vs\.?\s+(?<right>.+?)$/', $query, $versus)) {
-			return (new EngineMultiResult($query, null))
+		$queryEntity = $this->buildQuery($query);
+
+		if (preg_match('/^(?<left>.+?)\s+vs\.?\s+(?<right>.+?)$/', $queryEntity->getQuery(), $versus)) {
+			return (new EngineMultiResult($queryEntity->getQuery(), null))
 				->addResult($this->compute($versus['left']), 'left')
 				->addResult($this->compute($versus['right']), 'right');
 		}
 
-		$callback = $this->router->routeQuery($query);
-		$matchedRoute = (string) preg_replace('/^.+\\\\([^\\\\]+)$/', '$1', $callback);
+		$controller = $this->router->routeQuery($queryEntity->getQuery());
+		$matchedRoute = (string) preg_replace('/^.+\\\\([^\\\\]+)$/', '$1', $controller);
 
-		if ($result = $this->processCallback($query, $callback)) {
+		if ($result = $this->processCallback($queryEntity, $controller)) {
 			$return = new EngineSingleResult(
-				$query,
+				$queryEntity->getQuery(),
 				$matchedRoute,
-				$result->getInterpret(),
-				$result->getBoxes(),
-				$result->getSources()
+				$result->getContext()->getInterpret(),
+				$result->getContext()->getBoxes(),
+				$result->getContext()->getSources()
 			);
 		} else {
-			$return = new EngineSingleResult($query, $matchedRoute);
+			$return = new EngineSingleResult($queryEntity->getQuery(), $matchedRoute);
 		}
 
-		return $return->setTime((int) round(Debugger::timer('search_request') * 1000));
+		return $return->setTime((int) (Debugger::timer('search_request') * 1000));
 	}
 
 	/**
-	 * @param string $query
-	 * @param string $callback
+	 * @param Query $query
+	 * @param string $controller
 	 * @return IController|null
 	 * @throws InvalidDataException
 	 */
-	private function processCallback(string $query, string $callback): ?IController
+	private function processCallback(Query $query, string $controller): ?IController
 	{
 		/** @var IController|null $return */
-		$return = $this->serviceFactory->getByType($callback);
+		$return = $this->serviceFactory->getByType($controller);
 
 		if ($return !== null) {
-			$return->setQuery($query);
-			$return->resetBoxes();
+			$return->createContext($query);
 
 			try {
 				$return->actionDefault();
@@ -86,6 +95,18 @@ final class Engine
 		}
 
 		return $return ?? null;
+	}
+
+	/**
+	 * @param string $query
+	 * @return Query
+	 */
+	private function buildQuery(string $query): Query
+	{
+		return new Query(
+			$query,
+			$this->queryNormalizer->normalize($query)
+		);
 	}
 
 }
