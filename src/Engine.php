@@ -9,6 +9,7 @@ use Mathematicator\Router\Router;
 use Mathematicator\Search\Query;
 use Mathematicator\SearchController\IController;
 use Nette\DI\Container;
+use Nette\DI\Extensions\InjectExtension;
 use Tracy\Debugger;
 
 final class Engine
@@ -76,25 +77,31 @@ final class Engine
 
 	/**
 	 * @param Query $query
-	 * @param string $controller
+	 * @param string $serviceName
 	 * @return IController|null
 	 * @throws InvalidDataException
 	 */
-	private function processCallback(Query $query, string $controller): ?IController
+	private function processCallback(Query $query, string $serviceName): ?IController
 	{
-		/** @var IController|null $return */
-		$return = $this->serviceFactory->getByType($controller);
+		/** @var IController|null $controller */
+		$controller = $this->serviceFactory->getByType($serviceName);
 
-		if ($return !== null) {
-			$return->createContext($query);
+		if ($controller !== null) {
+			// 1. Process magic services
+			foreach (InjectExtension::getInjectProperties(\get_class($controller)) as $property => $service) {
+				$controller->{$property} = $this->serviceFactory->getByType($service);
+			}
+
+			// 2. Create context
+			$controller->createContext($query);
 
 			try {
-				$return->actionDefault();
+				$controller->actionDefault();
 			} catch (TerminateException $e) {
 			}
 		}
 
-		return $return ?? null;
+		return $controller ?? null;
 	}
 
 	/**
