@@ -97,4 +97,6 @@ class QueryNormalizerTest extends TestCase
 
 }
 
-(new QueryNormalizerTest)->run();
+if (isset($_SERVER['NETTE_TESTER_RUNNER'])) {
+	(new QueryNormalizerTest)->run();
+}
