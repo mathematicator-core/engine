@@ -31,6 +31,11 @@ final class Engine
 	private $serviceFactory;
 
 	/**
+	 * @var ExtraModule[]
+	 */
+	private $extraModules = [];
+
+	/**
 	 * @param Router $router
 	 * @param QueryNormalizer $queryNormalizer
 	 * @param Container $container
@@ -72,7 +77,28 @@ final class Engine
 			$return = new EngineSingleResult($queryEntity->getQuery(), $matchedRoute);
 		}
 
+		foreach ($this->extraModules as $extraModule) {
+			$extraModule->setEngineSingleResult($return);
+			if ($extraModule->match($queryEntity->getQuery()) === true) {
+				foreach (InjectExtension::getInjectProperties(\get_class($extraModule)) as $property => $service) {
+					$extraModule->{$property} = $this->serviceFactory->getByType($service);
+				}
+				if (method_exists($extraModule, 'setQuery')) {
+					$extraModule->setQuery($queryEntity->getQuery());
+				}
+				$extraModule->actionDefault();
+			}
+		}
+
 		return $return->setTime((int) (Debugger::timer('search_request') * 1000));
+	}
+
+	/**
+	 * @param ExtraModule $extraModule
+	 */
+	public function addExtraModule(ExtraModule $extraModule): void
+	{
+		$this->extraModules[] = $extraModule;
 	}
 
 	/**
