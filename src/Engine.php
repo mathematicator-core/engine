@@ -71,7 +71,8 @@ final class Engine
 				$matchedRoute,
 				$result->getContext()->getInterpret(),
 				$result->getContext()->getBoxes(),
-				$result->getContext()->getSources()
+				$result->getContext()->getSources(),
+				array_keys($queryEntity->getFilteredTags())
 			);
 		} else {
 			$return = new EngineSingleResult($queryEntity->getQuery(), $matchedRoute);
