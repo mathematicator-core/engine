@@ -67,9 +67,8 @@ class QueryNormalizer
 	 */
 	public function normalize(string $query): string
 	{
-		$query = Strings::trim(Strings::normalize($query), " \t\n\r\"'");
+		$query = trim(Strings::normalize($query), " \t\n\r\"'");
 		$query = $this->removeEmoji($query);
-		$query = (string) preg_replace('/\s+/', ' ', $query);
 		$query = (string) preg_replace('/=\??$/', '', $query);
 
 		$queryNew = '';
@@ -82,7 +81,10 @@ class QueryNormalizer
 			$queryNew .= ($queryNew !== '' ? '=' : '') . $queryPart;
 		}
 
-		return $queryNew;
+		$queryNew = $this->replaceSpecialCharacters($queryNew);
+		$queryNew = (string) preg_replace('/\s+/', ' ', $queryNew);
+
+		return trim($queryNew);
 	}
 
 	/**
@@ -179,6 +181,17 @@ class QueryNormalizer
 
 		// Match Dingbats
 		$query = (string) preg_replace('/[\x{2700}-\x{27BF}]/u', '', $query);
+
+		return $query;
+	}
+
+	/**
+	 * @param string $query
+	 * @return string
+	 */
+	private function replaceSpecialCharacters(string $query): string
+	{
+		$query = str_replace(['½', 'Ã'], [' 1/2', 'á'], $query);
 
 		return $query;
 	}
