@@ -93,9 +93,11 @@ class QueryNormalizerTest extends TestCase
 			['5+3=8', '5 + 3 = 8'],
 			['0=1', '0=1'],
 			['0=1', '\'0=1'],
+			['lineární algebra', 'lineární    algebra'],
 			['Analytická geometrie NEW E', 'Analytická geometrie NEW E\''],
 			['Vektory', 'Vektory😉'],
 			['', '🍁🍃🍂🌰🍁🌿🌾🌼🌻'],
+			['nová 1/2', 'novÃ½'],
 		];
 	}
 
