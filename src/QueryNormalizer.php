@@ -67,7 +67,7 @@ class QueryNormalizer
 	 */
 	public function normalize(string $query): string
 	{
-		$query = trim(Strings::normalize($query), " \t\n\r\"'");
+		$query = trim(Strings::normalize(Strings::fixEncoding($query)), " \t\n\r\"'");
 		$query = $this->removeEmoji($query);
 		$query = (string) preg_replace('/=\??$/', '', $query);
 
