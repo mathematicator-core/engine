@@ -10,13 +10,11 @@ use Nette\StaticClass;
 
 class Terminal
 {
-
 	use StaticClass;
 
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private static $staticTtl = 0;
+
 
 	/**
 	 * Render code snippet to Terminal.
@@ -51,6 +49,7 @@ class Terminal
 			echo '----- file -----' . "\n\n";
 		}
 	}
+
 
 	/**
 	 * Ask question in Terminal and return user answer (string or null if empty).
@@ -120,6 +119,7 @@ class Terminal
 		return $input;
 	}
 
+
 	/**
 	 * Render red block with error message.
 	 *
@@ -141,5 +141,4 @@ class Terminal
 
 		echo "\033[0m";
 	}
-
 }

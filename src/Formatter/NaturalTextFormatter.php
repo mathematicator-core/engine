@@ -36,6 +36,7 @@ class NaturalTextFormatter
 	 */
 	private $tokenizer;
 
+
 	/**
 	 * @param QueryNormalizer $queryNormalizer
 	 * @param Tokenizer $tokenizer
@@ -45,6 +46,7 @@ class NaturalTextFormatter
 		$this->queryNormalizer = $queryNormalizer;
 		$this->tokenizer = $tokenizer;
 	}
+
 
 	/**
 	 * @param string $text
@@ -71,6 +73,7 @@ class NaturalTextFormatter
 
 		return $return;
 	}
+
 
 	/**
 	 * @param string $text
@@ -104,6 +107,7 @@ class NaturalTextFormatter
 
 		return $words >= 3;
 	}
+
 
 	/**
 	 * @param string $word

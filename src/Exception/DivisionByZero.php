@@ -8,10 +8,9 @@ namespace Mathematicator\Engine;
 class DivisionByZero extends MathErrorException
 {
 
-	/**
-	 * @var string[]
-	 */
+	/** @var string[] */
 	private $fraction;
+
 
 	/**
 	 * @param string $message
@@ -34,6 +33,7 @@ class DivisionByZero extends MathErrorException
 		$this->fraction = $fraction;
 	}
 
+
 	/**
 	 * @return string[]
 	 */
@@ -41,5 +41,4 @@ class DivisionByZero extends MathErrorException
 	{
 		return $this->fraction;
 	}
-
 }

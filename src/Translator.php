@@ -19,5 +19,4 @@ class Translator implements ITranslator
 	{
 		return (string) $message;
 	}
-
 }

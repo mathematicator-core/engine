@@ -10,10 +10,9 @@ use Mathematicator\Search\Box;
 class EngineMultiResult extends EngineResult
 {
 
-	/**
-	 * @var EngineSingleResult[]
-	 */
+	/** @var EngineSingleResult[] */
 	private $results;
+
 
 	/**
 	 * @return EngineSingleResult[]
@@ -23,6 +22,7 @@ class EngineMultiResult extends EngineResult
 		return $this->results;
 	}
 
+
 	/**
 	 * @return Box|null
 	 */
@@ -30,6 +30,7 @@ class EngineMultiResult extends EngineResult
 	{
 		return null;
 	}
+
 
 	/**
 	 * @return Box[]
@@ -47,6 +48,7 @@ class EngineMultiResult extends EngineResult
 		return $return;
 	}
 
+
 	/**
 	 * @param string|null $name
 	 * @return EngineResult
@@ -60,6 +62,7 @@ class EngineMultiResult extends EngineResult
 
 		return $this->results[$name];
 	}
+
 
 	/**
 	 * @param EngineResult $result
@@ -78,5 +81,4 @@ class EngineMultiResult extends EngineResult
 
 		return $this;
 	}
-
 }

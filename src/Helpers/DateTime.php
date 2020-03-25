@@ -10,8 +10,8 @@ use Nette\StaticClass;
 
 class DateTime
 {
-
 	use StaticClass;
+
 
 	/**
 	 * Format datetime to "Y-m-d H:i:s", if null return current datetime.
@@ -98,5 +98,4 @@ class DateTime
 
 		return trim($result);
 	}
-
 }

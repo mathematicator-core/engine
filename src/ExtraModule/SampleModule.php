@@ -19,6 +19,7 @@ final class SampleModule extends BaseModule
 		return $query === 'help';
 	}
 
+
 	public function actionDefault(): void
 	{
 		$this->result->addBox(
@@ -27,5 +28,4 @@ final class SampleModule extends BaseModule
 				->setText('What can I help you with?')
 		);
 	}
-
 }
