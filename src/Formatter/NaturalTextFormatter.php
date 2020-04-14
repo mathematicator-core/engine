@@ -117,5 +117,4 @@ class NaturalTextFormatter
 
 		return false;
 	}
-
 }
