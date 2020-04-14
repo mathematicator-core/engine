@@ -10,6 +10,8 @@ services:
 	- Mathematicator\NumberRewriter
 	- Mathematicator\NaturalTextFormatter
 	- Mathematicator\Engine\SampleModule
+	- Mathematicator\Engine\Controller\OtherController
+	- Mathematicator\Engine\Controller\ErrorTooLongController
 
 orm.annotations:
 	paths:
