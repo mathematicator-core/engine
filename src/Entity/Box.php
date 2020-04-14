@@ -90,7 +90,7 @@ class Box
 
 
 	/**
-	 * @param int[]|string[] $table
+	 * @param mixed[] $table
 	 * @return Box
 	 */
 	public function setTable(array $table): self
