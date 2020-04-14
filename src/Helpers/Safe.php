@@ -11,7 +11,6 @@ class Safe
 {
 	use StaticClass;
 
-
 	/**
 	 * Convert dirty haystack to scalar haystack. If object implements __toString(), it will be called automatically.
 	 *

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
-use Mathematicator\Search\Box;
-
 final class SampleModule extends BaseModule
 {
 

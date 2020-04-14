@@ -8,7 +8,7 @@ namespace Mathematicator\Engine;
 use Nette\SmartObject;
 use Nette\Utils\Strings;
 
-class EngineResult
+abstract class EngineResult
 {
 	use SmartObject;
 

@@ -12,7 +12,6 @@ class Czech
 {
 	use StaticClass;
 
-
 	/**
 	 * Format number and string by count of items by czech grammar.
 	 *

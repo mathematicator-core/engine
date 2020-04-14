@@ -107,7 +107,7 @@ class Terminal
 			self::renderError('!!! Invalid answer !!!');
 			self::$staticTtl++;
 
-			if (self::$staticTtl > 16) {
+			if (self::$staticTtl >= 16) {
 				throw new MathematicatorException(
 					'The maximum invalid response limit was exceeded. Current limit: ' . self::$staticTtl
 				);

@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
+use Mathematicator\Engine\Controller\IController;
 use Mathematicator\Router\Router;
-use Mathematicator\Search\Query;
-use Mathematicator\SearchController\IController;
 use Nette\DI\Container;
 use Nette\DI\Extensions\InjectExtension;
 use Tracy\Debugger;
@@ -66,7 +65,7 @@ final class Engine
 				$result->getContext()->getInterpret(),
 				$result->getContext()->getBoxes(),
 				$result->getContext()->getSources(),
-				array_keys($queryEntity->getFilteredTags())
+				$queryEntity->getFilteredTags()
 			);
 		} else {
 			$return = new EngineSingleResult($queryEntity->getQuery(), $matchedRoute);

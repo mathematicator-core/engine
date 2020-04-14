@@ -139,7 +139,7 @@ class NumberRewriter
 		}
 
 		foreach ($this->basic as $w => $n) {
-			if ($n === $number) {
+			if ((string) $n === $number) {
 				return (string) $w;
 			}
 		}
@@ -219,11 +219,11 @@ class NumberRewriter
 
 				// ones
 				if (isset($number[0]) && $number[0] !== '0') {
-					$return .= $this->formatOnes($number[0]);
+					$return .= $this->formatOnes((int) $number[0]);
 				}
 			}
 		} elseif (isset($number[0]) && $number[0] !== '0') {
-			$return .= $this->formatOnes($number[0]);
+			$return .= $this->formatOnes((int) $number[0]);
 		}
 
 		return trim($return);

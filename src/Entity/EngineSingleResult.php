@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
-use Mathematicator\Search\Box;
-
-class EngineSingleResult extends EngineResult
+final class EngineSingleResult extends EngineResult
 {
 
 	/** @var Box|null */

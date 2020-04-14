@@ -16,7 +16,7 @@ class DivisionByZero extends MathErrorException
 	 * @param string $message
 	 * @param int $code
 	 * @param \Exception|null $previous
-	 * @param array $fraction
+	 * @param string[] $fraction
 	 * @throws MathematicatorException
 	 */
 	public function __construct(string $message, int $code = 0, \Exception $previous = null, array $fraction = [])

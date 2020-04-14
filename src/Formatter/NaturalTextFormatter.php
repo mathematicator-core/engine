@@ -6,16 +6,14 @@ namespace Mathematicator;
 
 
 use Mathematicator\Engine\QueryNormalizer;
-use Mathematicator\Search\TextRenderer;
+use Mathematicator\Engine\TextRenderer;
 use Mathematicator\Tokenizer\Tokenizer;
 use Nette\Utils\Strings;
 
 class NaturalTextFormatter
 {
 
-	/**
-	 * @var string[]
-	 */
+	/** @var string[] */
 	private static $allowedFunctions = [
 		'sin',
 		'cos',
@@ -26,14 +24,10 @@ class NaturalTextFormatter
 		'sqrt',
 	];
 
-	/**
-	 * @var QueryNormalizer
-	 */
+	/** @var QueryNormalizer */
 	private $queryNormalizer;
 
-	/**
-	 * @var Tokenizer
-	 */
+	/** @var Tokenizer */
 	private $tokenizer;
 
 

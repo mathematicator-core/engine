@@ -5,17 +5,15 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
-use Mathematicator\Search\Box;
-
-class EngineMultiResult extends EngineResult
+final class EngineMultiResult extends EngineResult
 {
 
-	/** @var EngineSingleResult[] */
+	/** @var EngineResult[] */
 	private $results;
 
 
 	/**
-	 * @return EngineSingleResult[]
+	 * @return EngineResult[]
 	 */
 	public function getResults(): array
 	{
@@ -40,8 +38,10 @@ class EngineMultiResult extends EngineResult
 		$return = [];
 
 		foreach ($this->getResults() as $result) {
-			foreach ($result->getBoxes() as $box) {
-				$return[] = $box;
+			if ($result instanceof EngineSingleResult) {
+				foreach ($result->getBoxes() as $box) {
+					$return[] = $box;
+				}
 			}
 		}
 
