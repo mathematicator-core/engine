@@ -22,6 +22,9 @@
 		"tracy/tracy": "^2.7",
 		"phpstan/phpstan-nette": "^0.12.6"
 	},
+	"suggest": {
+		"tracy/tracy": "to advance debugging"
+	},
 	"autoload": {
 		"classmap": [
 			"src/"

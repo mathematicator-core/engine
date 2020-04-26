@@ -179,7 +179,9 @@ abstract class BaseController implements IController
 				'q' => $query,
 			]);
 		} catch (InvalidLinkException $e) {
-			Debugger::log($e);
+			if (class_exists('\Tracy\Debugger') === true) {
+				Debugger::log($e);
+			}
 
 			return '#invalid-link';
 		}

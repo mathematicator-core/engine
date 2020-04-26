@@ -9,7 +9,6 @@ use Mathematicator\Engine\Controller\IController;
 use Mathematicator\Router\Router;
 use Nette\DI\Container;
 use Nette\DI\Extensions\InjectExtension;
-use Tracy\Debugger;
 
 final class Engine
 {
@@ -84,7 +83,7 @@ final class Engine
 			}
 		}
 
-		return $return->setTime((int) (Debugger::timer('search_request') * 1000));
+		return $return->setTime((int) (Helpers::timer('search_request') * 1000));
 	}
 
 
