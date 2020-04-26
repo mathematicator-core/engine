@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Helper;
 
 
+use Mathematicator\Engine\Helpers;
 use Mathematicator\Engine\MathematicatorException;
 use Nette\StaticClass;
 
 final class Czech
 {
 	use StaticClass;
+
 
 	/**
 	 * Format number and string by count of items by czech grammar.
@@ -25,7 +27,7 @@ final class Czech
 	public static function inflection(int $number, array $parameters): string
 	{
 		$numberTxt = number_format($number, 0, '.', ' ');
-		$parameters = Safe::strictScalarType($parameters);
+		$parameters = Helpers::strictScalarType($parameters);
 
 		if (!isset($parameters[0], $parameters[1], $parameters[2])) {
 			throw new MathematicatorException(
