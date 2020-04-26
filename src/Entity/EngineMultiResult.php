@@ -77,8 +77,6 @@ final class EngineMultiResult extends EngineResult
 			$this->results[] = $result;
 		}
 
-		$this->setTime($this->getTime() + $result->getTime());
-
 		return $this;
 	}
 }

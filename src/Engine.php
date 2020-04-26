@@ -83,7 +83,7 @@ final class Engine
 			}
 		}
 
-		return $return->setTime((int) (Helpers::timer('search_request') * 1000));
+		return $return;
 	}
 
 

@@ -16,23 +16,6 @@ final class Helpers
 
 
 	/**
-	 * Starts/stops stopwatch.
-	 *
-	 * @param string $name
-	 * @return float elapsed seconds
-	 */
-	public static function timer(string $name): float
-	{
-		static $time = [];
-		$now = microtime(true);
-		$delta = isset($time[$name]) ? $now - $time[$name] : 0;
-		$time[$name] = $now;
-
-		return $delta;
-	}
-
-
-	/**
 	 * @return string|null
 	 */
 	public static function getBaseUrl(): ?string

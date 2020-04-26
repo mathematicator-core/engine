@@ -21,6 +21,9 @@ abstract class EngineResult
 	/** @var int */
 	private $time;
 
+	/** @var float */
+	private $startTime;
+
 
 	/**
 	 * @param string $query
@@ -30,6 +33,7 @@ abstract class EngineResult
 	{
 		$this->query = $query;
 		$this->matchedRoute = $matchedRoute;
+		$this->startTime = (float) microtime(true);
 	}
 
 
@@ -61,22 +65,12 @@ abstract class EngineResult
 
 
 	/**
-	 * @return int
+	 * Return processing time in milliseconds.
+	 *
+	 * @return float
 	 */
-	public function getTime(): int
+	public function getTime(): float
 	{
-		return $this->time ?? 0;
-	}
-
-
-	/**
-	 * @param int $time
-	 * @return EngineResult
-	 */
-	public function setTime(int $time): self
-	{
-		$this->time = $time;
-
-		return $this;
+		return (microtime(true) - $this->startTime) * 1000;
 	}
 }
