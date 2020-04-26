@@ -10,9 +10,7 @@ use Mathematicator\Engine\Context;
 use Mathematicator\Engine\DynamicConfiguration;
 use Mathematicator\Engine\Query;
 use Mathematicator\Engine\Source;
-use Nette\Application\LinkGenerator;
 use Nette\SmartObject;
-use Tracy\Debugger;
 
 /**
  * @property-read string $query
@@ -24,18 +22,6 @@ abstract class BaseController implements IController
 
 	/** @var Context */
 	private $context;
-
-	/** @var LinkGenerator */
-	private $linkGenerator;
-
-
-	/**
-	 * @param LinkGenerator $linkGenerator
-	 */
-	public function __construct(LinkGenerator $linkGenerator)
-	{
-		$this->linkGenerator = $linkGenerator;
-	}
 
 
 	/**
@@ -173,17 +159,7 @@ abstract class BaseController implements IController
 	 */
 	final public function linkToSearch(string $query): string
 	{
-		try {
-			return $this->linkGenerator->link('Front:Search:default', [
-				'q' => $query,
-			]);
-		} catch (\Throwable $e) {
-			if (class_exists('\Tracy\Debugger') === true) {
-				Debugger::log($e);
-			}
-
-			return '#invalid-link';
-		}
+		return $this->context->link($query);
 	}
 
 

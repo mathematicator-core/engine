@@ -6,7 +6,6 @@ namespace Mathematicator\Engine\Controller;
 
 
 use Mathematicator\Engine\Box;
-use Nette\Application\LinkGenerator;
 use Nette\Http\Request;
 
 class OtherController extends BaseController
@@ -17,12 +16,10 @@ class OtherController extends BaseController
 
 
 	/**
-	 * @param LinkGenerator $linkGenerator
 	 * @param Request $httpRequest
 	 */
-	public function __construct(LinkGenerator $linkGenerator, Request $httpRequest)
+	public function __construct(Request $httpRequest)
 	{
-		parent::__construct($linkGenerator);
 		$baseUri = rtrim($httpRequest->getUrl()->getBaseUrl(), '/');
 		$this->basePath = preg_replace('#https?://[^/]+#A', '', $baseUri);
 	}

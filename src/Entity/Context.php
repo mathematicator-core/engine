@@ -153,4 +153,16 @@ final class Context
 	{
 		return $this->dynamicConfigurations;
 	}
+
+
+	/**
+	 * Generate absolute URL to result page by given query.
+	 *
+	 * @param string $query
+	 * @return string
+	 */
+	public function link(string $query): string
+	{
+		return '#invalid-link';
+	}
 }
