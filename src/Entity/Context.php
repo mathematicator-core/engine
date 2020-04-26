@@ -157,12 +157,13 @@ final class Context
 
 	/**
 	 * Generate absolute URL to result page by given query.
+	 * Route is defined by internal convention, in future it can be changed.
 	 *
 	 * @param string $query
 	 * @return string
 	 */
 	public function link(string $query): string
 	{
-		return '#invalid-link';
+		return Helpers::getBaseUrl() . '/search' . (($query = trim($query)) !== '' ? '?q=' . urlencode($query) : '');
 	}
 }
