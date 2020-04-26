@@ -9,7 +9,7 @@ use Nette\SmartObject;
 use Nette\Utils\DateTime;
 use Nette\Utils\Strings;
 
-class Query
+final class Query
 {
 	use SmartObject;
 

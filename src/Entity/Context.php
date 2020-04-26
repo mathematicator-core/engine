@@ -7,7 +7,7 @@ namespace Mathematicator\Engine;
 
 use Nette\SmartObject;
 
-class Context
+final class Context
 {
 	use SmartObject;
 

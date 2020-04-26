@@ -8,7 +8,7 @@ namespace Mathematicator\Engine;
 use Nette\SmartObject;
 use Nette\Utils\Validators;
 
-class Source
+final class Source
 {
 	use SmartObject;
 

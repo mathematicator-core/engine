@@ -7,7 +7,7 @@ namespace Mathematicator\Engine;
 
 use Nette\SmartObject;
 
-class DynamicConfiguration
+final class DynamicConfiguration
 {
 	use SmartObject;
 

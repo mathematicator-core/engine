@@ -9,7 +9,7 @@ use Nette\SmartObject;
 use Nette\Utils\Json;
 use Nette\Utils\Strings;
 
-class Box
+final class Box
 {
 	use SmartObject;
 
