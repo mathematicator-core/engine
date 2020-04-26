@@ -6,7 +6,6 @@ namespace Mathematicator;
 
 
 use Mathematicator\Engine\QueryNormalizer;
-use Mathematicator\Engine\TextRenderer;
 use Mathematicator\Tokenizer\Tokenizer;
 use Nette\Utils\Strings;
 
@@ -51,8 +50,7 @@ final class NaturalTextFormatter
 		$return = '';
 
 		foreach (explode("\n", Strings::normalize($text)) as $line) {
-			$line = trim($line);
-			if ($line) {
+			if (($line = trim($line)) !== '') {
 				if (!preg_match('/^\s*https?:\/\//', $line) && !$this->containsWords($line)) {
 					$rewrite = $this->queryNormalizer->normalize($line);
 					$tokens = $this->tokenizer->tokenize($rewrite);
@@ -60,7 +58,7 @@ final class NaturalTextFormatter
 
 					$return .= '<div class="latex"><p>\(' . $latex . '\)</p><code>' . $line . '</code></div>';
 				} else {
-					$return .= TextRenderer::process($line) . "\n\n";
+					$return .= htmlspecialchars($line, ENT_NOQUOTES | ENT_SUBSTITUTE, 'UTF-8') . "\n\n";
 				}
 			}
 		}
@@ -70,24 +68,24 @@ final class NaturalTextFormatter
 
 
 	/**
-	 * @param string $text
+	 * @param string $haystack
 	 * @return bool
 	 */
-	private function containsWords(string $text): bool
+	private function containsWords(string $haystack): bool
 	{
 		$words = 0;
 
-		$text = (string) preg_replace('/\s+/', ' ', Strings::toAscii(Strings::lower($text)));
+		$haystack = (string) preg_replace('/\s+/', ' ', Strings::toAscii(Strings::lower($haystack)));
 
 		while (true) {
-			$newText = (string) preg_replace('/([a-z0-9]{2,})\s+([a-z0-9]{1,})(\s+|[:.!?,]|$)/', '$1$2', $text);
-			if ($newText === $text) {
+			$normalized = (string) preg_replace('/([a-z0-9]{2,})\s+([a-z0-9]{1,})(\s+|[:.!?,]|$)/', '$1$2', $haystack);
+			if ($normalized === $haystack) {
 				break;
 			}
-			$text = $newText;
+			$haystack = $normalized;
 		}
 
-		foreach (explode(' ', $text) as $word) {
+		foreach (explode(' ', $haystack) as $word) {
 			if (preg_match('/(?<word>[a-z0-9]{3,32})/', $word, $wordParser)) {
 				if ($this->wordInAllowedFunctions($wordParser['word'])) {
 					continue;
