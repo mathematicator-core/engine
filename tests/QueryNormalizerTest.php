@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine\Test;
 
+namespace Mathematicator\Engine\Test;
 
 use Mathematicator\Engine\QueryNormalizer;
 use Mathematicator\NumberRewriter;
+use Nette\DI\Container;
 use Tester\Assert;
 use Tester\TestCase;
 
-require __DIR__ . '/../../../autoload.php';
+require __DIR__ . '/bootstrap.php';
 
 class QueryNormalizerTest extends TestCase
 {
@@ -20,7 +21,6 @@ class QueryNormalizerTest extends TestCase
 
 	/** @var NumberRewriter */
 	private $numberRewriter;
-
 
 	public function __construct()
 	{
@@ -98,6 +98,7 @@ class QueryNormalizerTest extends TestCase
 			['Vektory', 'Vektory😉'],
 			['', '🍁🍃🍂🌰🍁🌿🌾🌼🌻'],
 			['nová 1/2', 'novÃ½'],
+			['k/6', 'k/6'],
 		];
 	}
 
@@ -115,5 +116,5 @@ class QueryNormalizerTest extends TestCase
 }
 
 if (isset($_SERVER['NETTE_TESTER_RUNNER'])) {
-	(new QueryNormalizerTest)->run();
+	(new QueryNormalizerTest())->run();
 }
