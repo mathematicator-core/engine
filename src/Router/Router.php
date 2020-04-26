@@ -10,7 +10,7 @@ use Mathematicator\Engine\Controller\OtherController;
 use Mathematicator\Engine\TerminateException;
 use Nette\Utils\Strings;
 
-class Router
+final class Router
 {
 
 	/** @var string */

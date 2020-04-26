@@ -8,7 +8,7 @@ namespace Mathematicator\Engine\Helper;
 use Mathematicator\Engine\MathematicatorException;
 use Nette\StaticClass;
 
-class Terminal
+final class Terminal
 {
 	use StaticClass;
 

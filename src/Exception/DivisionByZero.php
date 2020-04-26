@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
-class DivisionByZero extends MathErrorException
+final class DivisionByZero extends MathErrorException
 {
 
 	/** @var string[] */

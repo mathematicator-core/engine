@@ -8,7 +8,7 @@ namespace Mathematicator\Engine\Helper;
 use Mathematicator\Engine\MathematicatorException;
 use Nette\StaticClass;
 
-class DateTime
+final class DateTime
 {
 	use StaticClass;
 

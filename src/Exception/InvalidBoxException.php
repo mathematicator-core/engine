@@ -5,6 +5,6 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
-class InvalidBoxException extends MathematicatorException
+final class InvalidBoxException extends MathematicatorException
 {
 }

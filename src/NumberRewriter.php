@@ -9,7 +9,7 @@ use Mathematicator\Engine\MathematicatorException;
 use Nette\Utils\Strings;
 use Nette\Utils\Validators;
 
-class NumberRewriter
+final class NumberRewriter
 {
 
 	/** @var int[] */

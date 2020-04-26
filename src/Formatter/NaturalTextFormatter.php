@@ -10,7 +10,7 @@ use Mathematicator\Engine\TextRenderer;
 use Mathematicator\Tokenizer\Tokenizer;
 use Nette\Utils\Strings;
 
-class NaturalTextFormatter
+final class NaturalTextFormatter
 {
 
 	/** @var string[] */

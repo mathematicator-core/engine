@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator;
 
 
-class FixSpaces
+final class FixSpaces
 {
 
 	/** @var string[] */

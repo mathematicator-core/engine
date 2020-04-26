@@ -8,7 +8,7 @@ namespace Mathematicator\Engine;
 use Mathematicator\NumberRewriter;
 use Nette\Utils\Strings;
 
-class QueryNormalizer
+final class QueryNormalizer
 {
 
 	/** @var string[] */

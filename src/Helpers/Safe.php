@@ -7,7 +7,7 @@ namespace Mathematicator\Engine\Helper;
 
 use Nette\StaticClass;
 
-class Safe
+final class Safe
 {
 	use StaticClass;
 
