@@ -6,11 +6,16 @@ namespace Mathematicator\Engine\Helper;
 
 
 use Mathematicator\Engine\MathematicatorException;
-use Nette\StaticClass;
 
 final class DateTime
 {
-	use StaticClass;
+
+	/** @throws \Error */
+	public function __construct()
+	{
+		throw new \Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
+	}
+
 
 	/**
 	 * Format datetime to "Y-m-d H:i:s", if null return current datetime.

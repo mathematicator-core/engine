@@ -7,11 +7,15 @@ namespace Mathematicator\Engine\Helper;
 
 use Mathematicator\Engine\Helpers;
 use Mathematicator\Engine\MathematicatorException;
-use Nette\StaticClass;
 
 final class Czech
 {
-	use StaticClass;
+
+	/** @throws \Error */
+	public function __construct()
+	{
+		throw new \Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
+	}
 
 
 	/**
