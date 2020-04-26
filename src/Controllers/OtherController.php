@@ -6,25 +6,9 @@ namespace Mathematicator\Engine\Controller;
 
 
 use Mathematicator\Engine\Box;
-use Nette\Http\Request;
 
 class OtherController extends BaseController
 {
-
-	/** @var string */
-	private $basePath;
-
-
-	/**
-	 * @param Request $httpRequest
-	 */
-	public function __construct(Request $httpRequest)
-	{
-		$baseUri = rtrim($httpRequest->getUrl()->getBaseUrl(), '/');
-		$this->basePath = preg_replace('#https?://[^/]+#A', '', $baseUri);
-	}
-
-
 	public function actionDefault(): void
 	{
 		$this->addBox(Box::TYPE_HTML)
@@ -34,7 +18,7 @@ class OtherController extends BaseController
 				. '<h1>Ale ne!</h1>'
 				. '<p>Obsah se nepodařilo vyhledat…</h1>'
 				. '<div style="text-align: center; padding: 4em 1em;">'
-				. '<img src="' . $this->basePath . '/img/error_dinosaur.gif" alt="Content does not found">'
+				. '<img src="https://mathematicator.com/img/error_dinosaur.gif" alt="Content does not found">'
 				. '</div>'
 				. '</div>'
 			)
