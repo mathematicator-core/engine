@@ -6,14 +6,15 @@ namespace Mathematicator\Engine\Helper;
 
 
 use Mathematicator\Engine\MathematicatorException;
-use Nette\StaticClass;
 
 final class Terminal
 {
-	use StaticClass;
 
-	/** @var int */
-	private static $staticTtl = 0;
+	/** @throws \Error */
+	public function __construct()
+	{
+		throw new \Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
+	}
 
 
 	/**
@@ -22,17 +23,15 @@ final class Terminal
 	 * @param string $path
 	 * @param int|null $line -> if not null mark selected line by red color
 	 */
-	public static function code(string $path, int $line = null): void
+	public static function code(string $path, ?int $line = null): void
 	{
 		echo "\n" . $path . ($line === null ? '' : ' [on line ' . $line . ']') . "\n\n";
-		if (\is_file($path)) {
+		if (\is_file($path) === true) {
 			echo '----- file -----' . "\n";
-			$file = str_replace(["\r\n", "\r"], "\n", (string) file_get_contents($path));
-			$fileParser = explode("\n", $file);
-			$start = $line > 8 ? $line - 8 : 0;
+			$fileParser = explode("\n", str_replace(["\r\n", "\r"], "\n", (string) file_get_contents($path)));
 
-			for ($i = $start; $i <= $start + 15; $i++) {
-				if (!isset($fileParser[$i])) {
+			for ($i = ($start = $line > 8 ? $line - 8 : 0); $i <= $start + 15; $i++) {
+				if (isset($fileParser[$i]) === false) {
 					break;
 				}
 
@@ -63,7 +62,7 @@ final class Terminal
 	 */
 	public static function ask(string $question, ?array $possibilities = null): ?string
 	{
-		self::$staticTtl = 0;
+		static $staticTtl = 0;
 
 		echo "\n" . str_repeat('-', 100) . "\n";
 
@@ -91,13 +90,10 @@ final class Terminal
 		$fOpen = fopen('php://stdin', 'rb');
 
 		if (\is_resource($fOpen) === false) {
-			throw new MathematicatorException('Problem with opening "php://stdin".');
+			throw new \RuntimeException('Problem with opening "php://stdin".');
 		}
 
-		$input = trim((string) fgets($fOpen));
-		echo "\n";
-
-		$input = $input === '' ? null : $input;
+		$input = ($input = trim((string) fgets($fOpen))) === '' ? null : $input;
 
 		if ($possibilities !== [] && $possibilities !== null) {
 			if (\in_array($input, $possibilities, true)) {
@@ -105,11 +101,11 @@ final class Terminal
 			}
 
 			self::renderError('!!! Invalid answer !!!');
-			self::$staticTtl++;
+			$staticTtl++;
 
-			if (self::$staticTtl >= 16) {
-				throw new MathematicatorException(
-					'The maximum invalid response limit was exceeded. Current limit: ' . self::$staticTtl
+			if ($staticTtl > 16) {
+				throw new \RuntimeException(
+					'The maximum invalid response limit was exceeded. Current limit: ' . $staticTtl
 				);
 			}
 
@@ -127,18 +123,43 @@ final class Terminal
 	 */
 	public static function renderError(string $message): void
 	{
-		echo "\033[1;37m\033[41m";
+		echo "\033[1;37m\033[41m" . str_repeat(' ', 100) . "\n";
 
-		for ($i = 0; $i < 100; $i++) {
-			echo ' ';
+		foreach (explode("\n", str_replace(["\r\n", "\r"], "\n", $message)) as $line) {
+			while (true) {
+				if (preg_match('/^(.{85,}?)[\s\n](.*)$/', $line, $match) === 0) {
+					echo self::formatTerminalLine($line);
+					break;
+				}
+
+				$line = $match[2];
+				echo self::formatTerminalLine($match[1]);
+			}
 		}
 
-		echo "\n" . str_pad('      ' . $message . '      ', 100) . "\n";
+		echo str_repeat(' ', 100) . "\033[0m";
+	}
 
-		for ($i = 0; $i < 100; $i++) {
-			echo ' ';
-		}
 
-		echo "\033[0m";
+	/**
+	 * Returns number of characters (not bytes) in UTF-8 string.
+	 * That is the number of Unicode code points which may differ from the number of graphemes.
+	 *
+	 * @param string $s
+	 * @return int
+	 */
+	private static function length(string $s): int
+	{
+		return function_exists('mb_strlen') ? mb_strlen($s, 'UTF-8') : strlen(utf8_decode($s));
+	}
+
+
+	/**
+	 * @param string $line
+	 * @return string
+	 */
+	private static function formatTerminalLine(string $line): string
+	{
+		return '      ' . $line . (($repeat = 88 - self::length($line)) > 0 ? str_repeat(' ', $repeat) : '') . '      ' . "\n";
 	}
 }
