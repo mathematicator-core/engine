@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-
 namespace Mathematicator\Engine\Test;
+
 
 use Mathematicator\Engine\QueryNormalizer;
 use Mathematicator\NumberRewriter;
-use Nette\DI\Container;
 use Tester\Assert;
 use Tester\TestCase;
 
@@ -21,6 +20,7 @@ class QueryNormalizerTest extends TestCase
 
 	/** @var NumberRewriter */
 	private $numberRewriter;
+
 
 	public function __construct()
 	{
