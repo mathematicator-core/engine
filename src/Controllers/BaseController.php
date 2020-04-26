@@ -11,7 +11,6 @@ use Mathematicator\Engine\DynamicConfiguration;
 use Mathematicator\Engine\Query;
 use Mathematicator\Engine\Source;
 use Nette\Application\LinkGenerator;
-use Nette\Application\UI\InvalidLinkException;
 use Nette\SmartObject;
 use Tracy\Debugger;
 
@@ -42,7 +41,7 @@ abstract class BaseController implements IController
 	/**
 	 * @return Context
 	 */
-	public function getContext(): Context
+	final public function getContext(): Context
 	{
 		return $this->context;
 	}
@@ -52,7 +51,7 @@ abstract class BaseController implements IController
 	 * @param string $type
 	 * @return Box
 	 */
-	public function addBox(string $type): Box
+	final public function addBox(string $type): Box
 	{
 		try {
 			return $this->context->addBox($type);
@@ -65,7 +64,7 @@ abstract class BaseController implements IController
 	/**
 	 * @param string $key
 	 */
-	public function addBoxDynamicConfiguration(string $key): void
+	final public function addBoxDynamicConfiguration(string $key): void
 	{
 		$configuration = $this->getDynamicConfiguration($key);
 
@@ -113,7 +112,7 @@ abstract class BaseController implements IController
 	 * @param string|null $content
 	 * @return Box
 	 */
-	public function setInterpret(string $boxType, ?string $content = null): Box
+	final public function setInterpret(string $boxType, ?string $content = null): Box
 	{
 		return $this->context->setInterpret($boxType, $content);
 	}
@@ -122,7 +121,7 @@ abstract class BaseController implements IController
 	/**
 	 * @return string
 	 */
-	public function getQuery(): string
+	final public function getQuery(): string
 	{
 		return $this->context->getQuery();
 	}
@@ -133,7 +132,7 @@ abstract class BaseController implements IController
 	 * @param Query $query
 	 * @return Context
 	 */
-	public function createContext(Query $query): Context
+	final public function createContext(Query $query): Context
 	{
 		if ($this->context === null) {
 			$this->context = new Context($query);
@@ -153,7 +152,7 @@ abstract class BaseController implements IController
 	/**
 	 * @return Query
 	 */
-	public function getQueryEntity(): Query
+	final public function getQueryEntity(): Query
 	{
 		return $this->context->getQueryEntity();
 	}
@@ -172,13 +171,13 @@ abstract class BaseController implements IController
 	 * @param string $query
 	 * @return string
 	 */
-	public function linkToSearch(string $query): string
+	final public function linkToSearch(string $query): string
 	{
 		try {
 			return $this->linkGenerator->link('Front:Search:default', [
 				'q' => $query,
 			]);
-		} catch (InvalidLinkException $e) {
+		} catch (\Throwable $e) {
 			if (class_exists('\Tracy\Debugger') === true) {
 				Debugger::log($e);
 			}
@@ -192,7 +191,7 @@ abstract class BaseController implements IController
 	 * @param string $key
 	 * @return DynamicConfiguration
 	 */
-	public function getDynamicConfiguration(string $key): DynamicConfiguration
+	final public function getDynamicConfiguration(string $key): DynamicConfiguration
 	{
 		return $this->context->getDynamicConfiguration($key);
 	}
@@ -201,7 +200,7 @@ abstract class BaseController implements IController
 	/**
 	 * @param Source $source
 	 */
-	public function addSource(Source $source): void
+	final public function addSource(Source $source): void
 	{
 		$this->context->addSource($source);
 	}
