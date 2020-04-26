@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
-use Latte\Runtime\Filters;
 use Nette\SmartObject;
 use Nette\Utils\Json;
 use Nette\Utils\Strings;
@@ -84,7 +83,7 @@ class Box
 	public function __toString(): string
 	{
 		return $this->type === self::TYPE_TEXT
-			? Filters::escapeHtmlText($this->text)
+			? htmlspecialchars((string) $this->text, ENT_NOQUOTES | ENT_SUBSTITUTE, 'UTF-8')
 			: '';
 	}
 
