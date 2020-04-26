@@ -1,6 +1,12 @@
+# IDEs
 .idea/
-.vscode/*
-log/*
-temp/*
-vendor/*
+.vscode/
+
+# App
+log/
+temp/
+vendor/
 composer.lock
+
+# Tests
+coverage.xml
