@@ -33,7 +33,7 @@ jobs:
           php temp/coding-standard/ecs check src --config temp/coding-standard/coding-standard-php71.yml
 
       - name: Check PHPStan rules
-        run: composer phpstan
+        run: composer phpstan analyse src -c phpstan.neon --level 8 --no-progress
 
   build:
     runs-on: ubuntu-latest

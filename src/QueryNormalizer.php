@@ -105,7 +105,7 @@ final class QueryNormalizer
 			while (true) {
 				if (preg_match('/^\((?<content>.+)\)$/', $returnInner, $bracketParser)) {
 					if (preg_match('/^\(([^)(]+)\)$/', $returnInner)) {
-						$return = preg_replace('/^\(([^)(]+)\)$/', '$1', $returnInner);
+						$return = (string) preg_replace('/^\(([^)(]+)\)$/', '$1', $returnInner);
 					}
 					$returnInner = $bracketParser['content'];
 				} else {
@@ -113,7 +113,7 @@ final class QueryNormalizer
 				}
 			}
 
-			return $return;
+			return (string) $return;
 		};
 
 		return $redundantBrackets($return);
@@ -148,7 +148,7 @@ final class QueryNormalizer
 	 */
 	private function taskNormalizeNumber(string $query): string
 	{
-		return preg_replace_callback('/([\d\,]+\,\d{3})\.(\d+)/', static function (array $match): string {
+		return (string) preg_replace_callback('/([\d\,]+\,\d{3})\.(\d+)/', static function (array $match): string {
 			return preg_replace('/\D/', '', $match[1]) . '.' . $match[2];
 		}, $query);
 	}
