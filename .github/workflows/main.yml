@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Code style check
     steps:
+      - name: Git clone
+        uses: actions/checkout@master
+
       - name: Install PHP
         uses: shivammathur/setup-php@master
         with:
@@ -36,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: ['7.1', '7.2', '7.3', '7.4', '8.0']
+        php: ['7.1', '7.2', '7.3', '7.4'] # 8.0
 
     name: PHP ${{ matrix.php }} tests
     steps:
