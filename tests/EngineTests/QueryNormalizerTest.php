@@ -1,33 +1,29 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
-
-namespace Mathematicator\Engine\Test;
+namespace Mathematicator\Engine\Tests;
 
 
 use Mathematicator\Engine\QueryNormalizer;
-use Mathematicator\NumberRewriter;
+use Nette\DI\Container;
 use Tester\Assert;
 use Tester\TestCase;
 
-require __DIR__ . '/bootstrap.php';
+require __DIR__ . '/../bootstrap.php';
 
 class QueryNormalizerTest extends TestCase
 {
 
-	/** @var QueryNormalizer */
+	/**
+	 * @var QueryNormalizer
+	 */
 	private $queryNormalizer;
 
-	/** @var NumberRewriter */
-	private $numberRewriter;
-
-
-	public function __construct()
+	public function __construct(
+		Container $container
+	)
 	{
-		$this->numberRewriter = new NumberRewriter;
-		$this->queryNormalizer = new QueryNormalizer($this->numberRewriter);
+		$this->queryNormalizer = $container->getService('mathematicator.queryNormalizer');
 	}
-
 
 	/**
 	 * @dataprovider getQueries
@@ -38,18 +34,6 @@ class QueryNormalizerTest extends TestCase
 	{
 		Assert::same($expected, $this->queryNormalizer->normalize($query));
 	}
-
-
-	/**
-	 * @dataprovider getNumberRewriterToNumber
-	 * @param string $expected
-	 * @param string $query
-	 */
-	public function testNumberRewriterToNumber(string $expected, string $query): void
-	{
-		Assert::same($expected, $this->numberRewriter->toNumber($query));
-	}
-
 
 	/**
 	 * @return string[]
@@ -101,20 +85,7 @@ class QueryNormalizerTest extends TestCase
 			['k/6', 'k/6'],
 		];
 	}
-
-
-	/**
-	 * @return string[]
-	 */
-	public function getNumberRewriterToNumber(): array
-	{
-		return [
-			['5', 'pět'],
-			['2 a 3', 'dva a tři'],
-		];
-	}
 }
 
-if (isset($_SERVER['NETTE_TESTER_RUNNER'])) {
-	(new QueryNormalizerTest())->run();
-}
+$container = Bootstrap::boot();
+(new QueryNormalizerTest($container))->run();

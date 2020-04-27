@@ -107,7 +107,7 @@ final class NumberRewriter
 	 */
 	public function toNumber(string $haystack): string
 	{
-		$haystack = trim(preg_replace('/\s+/', ' ', $haystack));
+		$haystack = trim((string) preg_replace('/\s+/', ' ', $haystack));
 
 		foreach ($this->regex as $key => $value) {
 			$haystack = (string) preg_replace('/' . $key . '/', $value, $haystack);
@@ -131,7 +131,7 @@ final class NumberRewriter
 		$number = trim($number);
 
 		if (Strings::startsWith($number, '-')) {
-			return 'minus ' . $this->toWord(preg_replace('/^-/', '', $number));
+			return 'minus ' . $this->toWord((string) preg_replace('/^-/', '', $number));
 		}
 
 		if (!Validators::isNumericInt($number)) {
@@ -175,7 +175,7 @@ final class NumberRewriter
 			$level -= 3;
 		}
 
-		return trim(preg_replace('/\s+/', ' ', $return));
+		return trim((string) preg_replace('/\s+/', ' ', $return));
 	}
 
 

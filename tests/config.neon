@@ -1,0 +1,32 @@
+parameters:
+	math:
+		functions:
+			- sin
+			- cos
+			- tan
+			- cotan
+			- log
+			- log\d*
+			- ln
+			- sqrt
+
+services:
+	mathematicator.engine:
+		factory: Mathematicator\Engine\Engine
+		setup:
+			- addExtraModule(@Mathematicator\Engine\SampleModule)
+	mathematicator.queryNormalizer:
+		factory: Mathematicator\Engine\QueryNormalizer
+	mathematicator.translator:
+		factory: Mathematicator\Engine\Translator
+	- Mathematicator\NumberRewriter
+	- Mathematicator\NaturalTextFormatter
+	- Mathematicator\Engine\SampleModule
+	- Mathematicator\Engine\Controller\OtherController
+	- Mathematicator\Engine\Controller\ErrorTooLongController
+	# Added for tests
+	- Mathematicator\Router\Router(%math.functions%)
+	- Mathematicator\Tokenizer\Tokenizer(%math%)
+	- Mathematicator\Tokenizer\TokensToLatex(%math.functions%)
+	- Mathematicator\Tokenizer\TokensToObject
+	- Mathematicator\Numbers\NumberFactory

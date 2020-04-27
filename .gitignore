@@ -1,5 +1,4 @@
 # IDEs
-.idea/
 .vscode/
 
 # App
@@ -10,3 +9,6 @@ composer.lock
 
 # Tests
 coverage.xml
+
+.idea/*
+!.idea/codeStyles

@@ -41,17 +41,16 @@ final class Czech
 
 		[$for1, $for234, $forOthers] = $parameters;
 
-		if (!$number) {
-			$result = '0 ' . $forOthers;
-		} elseif ($number === 1) {
-			$result = '1 ' . $for1;
-		} elseif ($number >= 2 && $number <= 4) {
-			$result = $numberTxt . ' ' . $for234;
+		$absNumber = abs($number);
+		if ($absNumber === 1) {
+			$result = $for1;
+		} elseif ($absNumber >= 2 && $absNumber <= 4) {
+			$result = $for234;
 		} else {
-			$result = $numberTxt . ' ' . $forOthers;
+			$result = $forOthers;
 		}
 
-		return $result;
+		return $numberTxt . ' ' . $result;
 	}
 
 
