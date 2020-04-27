@@ -8,7 +8,7 @@ jobs:
   code_style:
     runs-on: ubuntu-latest
     name: Code style check
-      steps:
+    steps:
       - name: Install PHP
         uses: shivammathur/setup-php@master
         with:
