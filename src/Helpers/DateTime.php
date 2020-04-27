@@ -81,7 +81,7 @@ final class DateTime
 		}
 
 		$x = $currentTime - ($diff % $lengths[$v]);
-		$no = (int)floor($no);
+		$no = (int) floor($no);
 		$label = null;
 
 		if (isset($labels[$v]) && \is_string($labels[$v])) {
