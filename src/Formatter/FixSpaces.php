@@ -20,6 +20,7 @@ final class FixSpaces
 		'([§\*†©])\s' => '$1&nbsp;',
 	];
 
+
 	/**
 	 * @param string $haystack
 	 * @return string
