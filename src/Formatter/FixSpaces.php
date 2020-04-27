@@ -26,13 +26,13 @@ final class FixSpaces
 	 */
 	public static function fix(string $haystack): string
 	{
-		$haystack = (string)preg_replace('/(\&nbsp\;|\s)+/', ' ', $haystack);
+		$haystack = (string) preg_replace('/(\&nbsp\;|\s)+/', ' ', $haystack);
 		$iterator = 0;
 
 		while (true) {
 			$original = $haystack;
 			foreach (self::$rules as $pattern => $replacement) {
-				$haystack = (string)preg_replace('/' . $pattern . '/', $replacement, $haystack);
+				$haystack = (string) preg_replace('/' . $pattern . '/', $replacement, $haystack);
 			}
 
 			$iterator++;
