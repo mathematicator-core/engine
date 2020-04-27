@@ -30,14 +30,19 @@ final class DateTime
 
 
 	/**
-	 * @param int $time
+	 * @param int $time Unix timestamp of an event
 	 * @param bool $moreAccurate
 	 * @param string $lang [cz, sk, en]
+	 * @param int|null $currentTime
 	 * @return string
 	 * @throws MathematicatorException
 	 */
-	public static function formatTimeAgo(int $time, bool $moreAccurate = true, string $lang = 'cz'): string
+	public static function formatTimeAgo(int $time, bool $moreAccurate = true, string $lang = 'cz', int $currentTime = null): string
 	{
+		if ($currentTime === null) {
+			$currentTime = \time();
+		}
+
 		if ($lang === 'cz') {
 			$labels = [
 				['sekunda', 'sekundy', 'sekund'],
@@ -62,7 +67,6 @@ final class DateTime
 			throw new MathematicatorException('Unsupported lang "' . $lang . '" (supported languages: cz/sk/en)');
 		}
 
-		$currentTime = time();
 		$diff = $currentTime - $time;
 		$no = 0;
 		$lengths = [1, 60, 3600, 86400, 2630880, 31570560];
@@ -77,7 +81,7 @@ final class DateTime
 		}
 
 		$x = $currentTime - ($diff % $lengths[$v]);
-		$no = (int) floor($no);
+		$no = (int)floor($no);
 		$label = null;
 
 		if (isset($labels[$v]) && \is_string($labels[$v])) {
