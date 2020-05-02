@@ -60,7 +60,7 @@ class HelpersTest extends TestCase
 		$_SERVER['HTTP_HOST'] = 'localhost';
 		unset($_SERVER['HTTPS']);
 
-		Assert::same('http://localhost/baraja', Helpers::getBaseUrl(false));
+		Assert::same('http://localhost/baraja/www', Helpers::getBaseUrl(false));
 	}
 
 
