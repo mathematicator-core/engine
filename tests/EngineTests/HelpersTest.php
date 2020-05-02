@@ -25,7 +25,7 @@ class HelpersTest extends TestCase
 
 	public function testGetCurrentUrl(): void
 	{
-		$_SERVER['REQUEST_URI'] = 'kontakt';
+		$_SERVER['REQUEST_URI'] = '/kontakt';
 		$_SERVER['HTTP_HOST'] = 'baraja.cz';
 		$_SERVER['HTTPS'] = 'on';
 
@@ -35,7 +35,7 @@ class HelpersTest extends TestCase
 
 	public function testGetBaseUrl(): void
 	{
-		$_SERVER['REQUEST_URI'] = 'kontakt';
+		$_SERVER['REQUEST_URI'] = '/kontakt';
 		$_SERVER['HTTP_HOST'] = 'baraja.cz';
 		$_SERVER['HTTPS'] = 'on';
 
