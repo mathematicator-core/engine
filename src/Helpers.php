@@ -79,11 +79,7 @@ final class Helpers
 			return $return;
 		}
 
-		if (\is_scalar($haystack)) {
-			return $haystack;
-		}
-
-		if (\is_object($haystack)) {
+		if (\is_object($haystack) === true && \is_callable($haystack) === false) {
 			if ($rewriteObjectsToString === true && method_exists($haystack, '__toString')) {
 				return (string) $haystack;
 			}

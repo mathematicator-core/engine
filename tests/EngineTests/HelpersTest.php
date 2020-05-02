@@ -104,6 +104,8 @@ class HelpersTest extends TestCase
 		return [
 			[1, 1, false],
 			[1, 1, true],
+			[true, true, false],
+			[[], [], true],
 			['Baraja', 'Baraja', false],
 			['Nette\Utils\ArrayHash', ArrayHash::from(['key' => 'value']), true],
 			['Nette\Utils\ArrayHash', ArrayHash::from(['key' => 'value']), false],
