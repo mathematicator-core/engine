@@ -47,10 +47,10 @@ class HelpersTest extends TestCase
 		$_SERVER['HTTPS'] = 'on';
 
 		// First call
-		Assert::same('https://baraja.cz', Helpers::getBaseUrl());
+		Assert::same('https://baraja.cz', Helpers::getBaseUrl(false));
 
 		// Second call is using cache
-		Assert::same('https://baraja.cz', Helpers::getBaseUrl());
+		Assert::same('https://baraja.cz', Helpers::getBaseUrl(false));
 	}
 
 
@@ -58,8 +58,9 @@ class HelpersTest extends TestCase
 	{
 		$_SERVER['REQUEST_URI'] = '/baraja/www/kontakt';
 		$_SERVER['HTTP_HOST'] = 'localhost';
+		unset($_SERVER['HTTPS']);
 
-		Assert::same('http://localhost/baraja', Helpers::getBaseUrl());
+		Assert::same('http://localhost/baraja', Helpers::getBaseUrl(false));
 	}
 
 

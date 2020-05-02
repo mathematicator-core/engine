@@ -16,13 +16,14 @@ final class Helpers
 
 
 	/**
+	 * @param bool $useCache
 	 * @return string|null
 	 */
-	public static function getBaseUrl(): ?string
+	public static function getBaseUrl(bool $useCache = true): ?string
 	{
 		static $return;
 
-		if ($return !== null) {
+		if ($useCache === true && $return !== null) {
 			return $return;
 		}
 
