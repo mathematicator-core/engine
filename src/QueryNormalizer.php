@@ -69,54 +69,46 @@ final class QueryNormalizer
 		$query = $this->removeEmoji($query);
 		$query = (string) preg_replace('/=\??$/', '', $query);
 
-		$queryNew = '';
-		foreach (explode('=', $query) as $queryParser) {
-			$queryPart = trim($queryParser);
-			$queryPart = $this->taskFixBrackets($queryPart);
-			$queryPart = $this->taskRewriteWordNumber($queryPart);
-			$queryPart = $this->taskNormalizeNumber($queryPart);
-			$queryPart = $this->taskRegexReplaceMap($queryPart);
-			$queryNew .= ($queryNew !== '' ? '=' : '') . $queryPart;
+		$return = '';
+		foreach (explode('=', $query) as $part) {
+			$part = trim($part);
+			$part = $this->taskFixBrackets($part);
+			$part = $this->taskRewriteWordNumber($part);
+			$part = $this->taskNormalizeNumber($part);
+			$part = $this->taskRegexReplaceMap($part);
+			$return .= ($return !== '' ? '=' : '') . $part;
 		}
 
-		$queryNew = $this->replaceSpecialCharacters($queryNew);
-		$queryNew = (string) preg_replace('/\s+/', ' ', $queryNew);
+		$return = $this->replaceSpecialCharacters($return);
+		$return = (string) preg_replace('/\s+/', ' ', $return);
 
-		return trim($queryNew);
+		return trim($return);
 	}
 
 
 	/**
+	 * If the number of left and right brackets in the expression does not match, a correction is made.
+	 *
+	 * Cases:
+	 *    1. Number of brackets is same, for ex. "3*(5+1)".
+	 *    2. Number of left brackets is more, for ex. "3*(5+1".
+	 *    3. Number of right brackets is more, for ex. "5+1)+2".
+	 *    4. The outer brackets are redundant, for ex. "(((1+2)))".
+	 *
 	 * @param string $query
 	 * @return string
 	 */
 	private function taskFixBrackets(string $query): string
 	{
-		if (($leftCount = substr_count($query, '(')) === ($rightCount = substr_count($query, ')'))) {
+		if (($leftCount = substr_count($query, '(')) === ($rightCount = substr_count($query, ')'))) { // 1.
 			$return = $query;
-		} elseif ($leftCount > $rightCount) {
+		} elseif ($leftCount > $rightCount) { // 2.
 			$return = $query . str_repeat(')', $leftCount - $rightCount);
-		} else {
+		} else { // 3.
 			$return = str_repeat('(', $rightCount - $leftCount) . $query;
 		}
 
-		$redundantBrackets = static function (string $return): string {
-			$returnInner = $return;
-			while (true) {
-				if (preg_match('/^\((?<content>.+)\)$/', $returnInner, $bracketParser)) {
-					if (preg_match('/^\(([^)(]+)\)$/', $returnInner)) {
-						$return = (string) preg_replace('/^\(([^)(]+)\)$/', '$1', $returnInner);
-					}
-					$returnInner = $bracketParser['content'];
-				} else {
-					break;
-				}
-			}
-
-			return (string) $return;
-		};
-
-		return $redundantBrackets($return);
+		return $this->removeRedundantBrackets($return); // 4.
 	}
 
 
@@ -198,5 +190,27 @@ final class QueryNormalizer
 		$query = str_replace(['½', 'Ã'], [' 1/2', 'á'], $query);
 
 		return $query;
+	}
+
+
+	/**
+	 * @param string $haystack
+	 * @return string
+	 */
+	private function removeRedundantBrackets(string $haystack): string
+	{
+		$returnInner = $haystack;
+		while (true) {
+			if (preg_match('/^\((?<content>.+)\)$/', $returnInner, $bracketParser)) {
+				if (preg_match('/^\(([^)(]+)\)$/', $returnInner)) {
+					$haystack = (string) preg_replace('/^\(([^)(]+)\)$/', '$1', $returnInner);
+				}
+				$returnInner = $bracketParser['content'];
+			} else {
+				break;
+			}
+		}
+
+		return $haystack;
 	}
 }

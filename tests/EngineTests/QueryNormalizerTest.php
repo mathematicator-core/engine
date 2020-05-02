@@ -18,10 +18,12 @@ class QueryNormalizerTest extends TestCase
 	/** @var QueryNormalizer */
 	private $queryNormalizer;
 
+
 	public function __construct(Container $container)
 	{
 		$this->queryNormalizer = $container->getService('mathematicator.queryNormalizer');
 	}
+
 
 	/**
 	 * @dataprovider getQueries
@@ -32,6 +34,7 @@ class QueryNormalizerTest extends TestCase
 	{
 		Assert::same($expected, $this->queryNormalizer->normalize($query));
 	}
+
 
 	/**
 	 * @return string[]
@@ -55,6 +58,9 @@ class QueryNormalizerTest extends TestCase
 			['((5*x+1)/(2*x-4))-5', '((5x+1)/(2x-4))-5'],
 			['(3*x*5-3*x^3)*(x^3-2+sin(x))/(cos(x)*x-sin(x)*x^3)', '(3x*5-3x^3)*(x^3-2+sin(x))/(cos(x)*x-sin(x)*x^3)'],
 			['(x^2-4*x+4)/(4*x^3-2*x^4)', '(x^2-4 x+4)/(4 x^3-2 x^4)'],
+			['3*(5+1)', '3*(5+1'], // missing right bracket
+			['(5+1)+2', '5+1)+2'], // missing left bracket
+			['1+2', '(((1+2)))'], // redundant brackets
 			['sqrt(3^2+4^2)', 'sqrt (3^2 + 4^2)'],
 			['5*x-3 zebry', '5x - 3 zebry'],
 			['5*x-3zebry', '5x - 3zebry'],
