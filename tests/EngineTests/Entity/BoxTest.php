@@ -6,6 +6,8 @@ namespace Mathematicator\Engine\Tests;
 
 
 use Mathematicator\Engine\Box;
+use Mathematicator\Engine\Query;
+use Mathematicator\Engine\Step;
 use Nette\Utils\Json;
 use Tester\Assert;
 use Tester\TestCase;
@@ -76,6 +78,57 @@ class BoxTest extends TestCase
 		$box = new Box(Box::TYPE_TABLE, 'Result');
 
 		Assert::same('', (string) $box);
+	}
+
+
+	public function testKeyValue(): void
+	{
+		$box = new Box(Box::TYPE_TABLE, 'Result');
+		$box->setKeyValue([
+			'Name' => 'Eiffel Tower',
+			'Height' => '300 m',
+		]);
+
+		$code = '<table>'
+			. '<tr><th style="width:33%">Name:</th><td>Eiffel Tower</td></tr>'
+			. '<tr><th>Height:</th><td>300 m</td></tr>'
+			. '</table>';
+
+		Assert::same($code, $box->getText());
+	}
+
+
+	public function testUrl(): void
+	{
+		$box = new Box(Box::TYPE_TEXT, 'No result');
+		Assert::same(null, $box->getUrl());
+
+
+		$box = new Box(Box::TYPE_TEXT, 'No result', '...', 'https://baraja.cz');
+		Assert::same('https://baraja.cz', $box->getUrl());
+	}
+
+
+	public function testSteps(): void
+	{
+		$box = new Box(Box::TYPE_TEXT, 'Result');
+
+		$stepA = new Step('First step', null, 'Let\'s start with...');
+
+		// First empty step state
+		Assert::same([], $box->getSteps());
+
+		// Add first step
+		$box->addStep($stepA);
+
+		// Check step array with one Step entity
+		Assert::same([$stepA], $box->getSteps());
+
+		// Set invalid step entity
+		Assert::exception(function () use ($box) {
+			$query = new Query('1+1', '1+1');
+			$box->setSteps([$query]);
+		}, \InvalidArgumentException::class);
 	}
 
 

@@ -109,18 +109,18 @@ final class Box
 	public function setKeyValue(array $table = []): self
 	{
 		if ($table !== []) {
-			$return = '';
+			$items = [];
 
 			foreach ($table as $key => $value) {
-				$return .= '<tr>'
-					. '<th' . ($return === '' ? ' style="width:33%"' : '') . '>'
+				$items[] = '<tr>'
+					. '<th' . ($items === [] ? ' style="width:33%"' : '') . '>'
 					. htmlspecialchars((string) $key, ENT_NOQUOTES | ENT_SUBSTITUTE, 'UTF-8')
 					. ':</th>'
 					. '<td>' . htmlspecialchars((string) $value, ENT_NOQUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</td>'
 					. '</tr>';
 			}
 
-			$this->text = '<table>' . $return . '</table>';
+			$this->text = '<table>' . implode('', $items) . '</table>';
 		}
 
 		return $this;
@@ -269,16 +269,26 @@ final class Box
 
 
 	/**
-	 * @param Step[] $steps
+	 * First check all given items. When all items is type for Step, replace current step array.
+	 *
+	 * @param Step[]|mixed[] $steps
 	 * @return Box
 	 * @throws \InvalidArgumentException
 	 */
 	public function setSteps(array $steps): self
 	{
-		$this->steps = [];
+		$return = [];
 
 		foreach ($steps as $step) {
-			$this->addStep($step);
+			if (!$step instanceof Step) {
+				throw new \InvalidArgumentException('Step must be instance of "' . Step::class . '".');
+			}
+			$return[] = $step;
+		}
+
+		$this->steps = [];
+		foreach ($return as $stepItem) {
+			$this->addStep($stepItem);
 		}
 
 		return $this;
@@ -291,10 +301,6 @@ final class Box
 	 */
 	public function addStep(Step $step): self
 	{
-		if (!$step instanceof Step) {
-			throw new \InvalidArgumentException('Step must be instance of "' . Step::class . '".');
-		}
-
 		$this->steps[] = $step;
 
 		return $this;
