@@ -7,6 +7,7 @@ namespace Mathematicator\Engine;
 
 use Nette\SmartObject;
 use Nette\Utils\Json;
+use Nette\Utils\JsonException;
 use Nette\Utils\Strings;
 
 final class Box
@@ -91,6 +92,7 @@ final class Box
 	/**
 	 * @param mixed[] $table
 	 * @return Box
+	 * @throws JsonException
 	 */
 	public function setTable(array $table): self
 	{
@@ -107,18 +109,18 @@ final class Box
 	public function setKeyValue(array $table = []): self
 	{
 		if ($table !== []) {
-			$buffer = '';
+			$return = '';
 
 			foreach ($table as $key => $value) {
-				$buffer .= '<tr>'
-					. '<th' . ($buffer === '' ? ' style="width:33%"' : '') . '>'
-					. $key
+				$return .= '<tr>'
+					. '<th' . ($return === '' ? ' style="width:33%"' : '') . '>'
+					. htmlspecialchars((string) $key, ENT_NOQUOTES | ENT_SUBSTITUTE, 'UTF-8')
 					. ':</th>'
-					. '<td>' . $value . '</td>'
+					. '<td>' . htmlspecialchars((string) $value, ENT_NOQUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</td>'
 					. '</tr>';
 			}
 
-			$this->text = '<table>' . $buffer . '</table>';
+			$this->text = '<table>' . $return . '</table>';
 		}
 
 		return $this;
@@ -131,11 +133,7 @@ final class Box
 	public function getIcon(): string
 	{
 		if ($this->icon === null) {
-			$icon = 'fas fa-hashtag';
-
-			if ($this->type === self::TYPE_IMAGE) {
-				$icon = 'fas fa-image';
-			}
+			$icon = $this->type === self::TYPE_IMAGE ? 'fas fa-image' : 'fas fa-hashtag';
 		} else {
 			$icon = $this->icon;
 		}
@@ -153,9 +151,7 @@ final class Box
 		if (preg_match('/^(fas?)\s+(fa-[a-z0-9\-]+)$/', Strings::normalize($icon), $parser)) {
 			$this->icon = $parser[1] . ' ' . $parser[2];
 		} else {
-			trigger_error(
-				'Icon "' . $icon . '" is not valid FontAwesome icon. Use format "fas fa-xxx".'
-			);
+			throw new \RuntimeException('Icon "' . $icon . '" is not valid FontAwesome icon. Use format "fas fa-xxx".');
 		}
 
 		return $this;
