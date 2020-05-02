@@ -25,7 +25,7 @@ services:
 	- Mathematicator\Engine\Controller\OtherController
 	- Mathematicator\Engine\Controller\ErrorTooLongController
 	# Added for tests
-	- Mathematicator\Router\Router(%math.functions%)
+	- Mathematicator\Router\Router
 	- Mathematicator\Tokenizer\Tokenizer(%math%)
 	- Mathematicator\Tokenizer\TokensToLatex(%math.functions%)
 	- Mathematicator\Tokenizer\TokensToObject

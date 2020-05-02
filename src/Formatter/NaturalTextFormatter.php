@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace Mathematicator;
 
 
+use Mathematicator\Engine\Engine;
 use Mathematicator\Engine\QueryNormalizer;
 use Mathematicator\Tokenizer\Tokenizer;
 use Nette\Utils\Strings;
 
 final class NaturalTextFormatter
 {
-
-	/** @var string[] */
-	private static $allowedFunctions = ['sin', 'cos', 'tan', 'cotan', 'tg', 'log\d*', 'sqrt'];
 
 	/** @var QueryNormalizer */
 	private $queryNormalizer;
@@ -99,7 +97,7 @@ final class NaturalTextFormatter
 	 */
 	private function wordInAllowedFunctions(string $word): bool
 	{
-		foreach (self::$allowedFunctions as $allowedFunction) {
+		foreach (Engine::getAllowedFunctions() as $allowedFunction) {
 			if (preg_match('/^' . $allowedFunction . '$/', $word)) {
 				return true;
 			}

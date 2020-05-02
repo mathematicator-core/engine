@@ -13,6 +13,9 @@ use Nette\DI\Extensions\InjectExtension;
 final class Engine
 {
 
+	/** @var string[] */
+	private static $allowedFunctions = ['sin', 'cos', 'tan', 'cotan', 'tg', 'log\d*', 'ln', 'sqrt'];
+
 	/** @var Router */
 	private $router;
 
@@ -36,6 +39,24 @@ final class Engine
 		$this->router = $router;
 		$this->queryNormalizer = $queryNormalizer;
 		$this->serviceFactory = $container;
+	}
+
+
+	/**
+	 * @return string[]
+	 */
+	public static function getAllowedFunctions(): array
+	{
+		return self::$allowedFunctions;
+	}
+
+
+	/**
+	 * @param string $function
+	 */
+	public static function addAllowedFunction(string $function): void
+	{
+		self::$allowedFunctions[] = $function;
 	}
 
 

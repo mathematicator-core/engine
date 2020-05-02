@@ -7,6 +7,7 @@ namespace Mathematicator\Router;
 
 use Mathematicator\Engine\Controller\ErrorTooLongController;
 use Mathematicator\Engine\Controller\OtherController;
+use Mathematicator\Engine\Engine;
 use Mathematicator\Engine\TerminateException;
 use Nette\Utils\Strings;
 
@@ -16,20 +17,8 @@ final class Router
 	/** @var string */
 	private $query;
 
-	/** @var string[] */
-	private $functions;
-
 	/** @var DynamicRoute[] */
 	private $dynamicRoutes = [];
-
-
-	/**
-	 * @param string[] $functions
-	 */
-	public function __construct(array $functions)
-	{
-		$this->functions = $functions;
-	}
 
 
 	/**
@@ -132,7 +121,7 @@ final class Router
 	 */
 	private function tokenizeRoute(string $entity): void
 	{
-		if (preg_match('/([\+\-\*\/\^\!])|INF[^a-zA-Z]|PI[^a-zA-Z]|<=>|<=+|>=+|!=+|=+|<>|>+|<+|(' . implode('\(|', $this->functions) . '\()/', $this->query, $match)) {
+		if (preg_match('/([\+\-\*\/\^\!])|INF[^a-zA-Z]|PI[^a-zA-Z]|<=>|<=+|>=+|!=+|=+|<>|>+|<+|(' . implode('\(|', Engine::getAllowedFunctions()) . '\()/', $this->query, $match)) {
 			throw new TerminateException($entity);
 		}
 	}
