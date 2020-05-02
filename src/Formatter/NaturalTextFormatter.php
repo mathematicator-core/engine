@@ -13,15 +13,7 @@ final class NaturalTextFormatter
 {
 
 	/** @var string[] */
-	private static $allowedFunctions = [
-		'sin',
-		'cos',
-		'tan',
-		'cotan',
-		'tg',
-		'log\d*',
-		'sqrt',
-	];
+	private static $allowedFunctions = ['sin', 'cos', 'tan', 'cotan', 'tg', 'log\d*', 'sqrt'];
 
 	/** @var QueryNormalizer */
 	private $queryNormalizer;
