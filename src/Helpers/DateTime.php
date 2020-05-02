@@ -33,16 +33,12 @@ final class DateTime
 	 * @param int $time Unix timestamp of an event
 	 * @param bool $moreAccurate
 	 * @param string $lang [cz, sk, en]
-	 * @param int|null $currentTime
+	 * @param int|null $now
 	 * @return string
 	 * @throws MathematicatorException
 	 */
-	public static function formatTimeAgo(int $time, bool $moreAccurate = true, string $lang = 'cz', int $currentTime = null): string
+	public static function formatTimeAgo(int $time, bool $moreAccurate = true, string $lang = 'cz', ?int $now = null): string
 	{
-		if ($currentTime === null) {
-			$currentTime = \time();
-		}
-
 		if ($lang === 'cz') {
 			$labels = [
 				['sekunda', 'sekundy', 'sekund'],
@@ -67,7 +63,7 @@ final class DateTime
 			throw new MathematicatorException('Unsupported lang "' . $lang . '" (supported languages: cz/sk/en)');
 		}
 
-		$diff = $currentTime - $time;
+		$diff = ($now = $now ?? \time()) - $time;
 		$no = 0;
 		$lengths = [1, 60, 3600, 86400, 2630880, 31570560];
 		$v = \count($lengths) - 1;
@@ -80,7 +76,7 @@ final class DateTime
 			$v = 0;
 		}
 
-		$x = $currentTime - ($diff % $lengths[$v]);
+		$x = $now - ($diff % $lengths[$v]);
 		$no = (int) floor($no);
 		$label = null;
 
@@ -100,7 +96,7 @@ final class DateTime
 		}
 
 		$result = $no . ' ' . $label . ' ';
-		if ($moreAccurate && ($v >= 1) && (($currentTime - $x) > 0)) {
+		if ($moreAccurate && ($v >= 1) && (($now - $x) > 0)) {
 			$result .= self::formatTimeAgo($x, false, $lang);
 		}
 
