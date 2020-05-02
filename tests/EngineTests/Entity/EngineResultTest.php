@@ -53,8 +53,18 @@ class EngineResultTest extends TestCase
 		$result->addResult($singleResultA);
 		$result->addResult($singleResultB, 'second');
 
+		$boxA = new Box(Box::TYPE_TEXT, 'Result', '11');
+		$boxA->setRank(10);
+
+		$boxB = new Box(Box::TYPE_TEXT, 'Result', '11');
+		$boxB->setRank(50);
+
+		$singleResultA->addBox($boxA);
+		$singleResultB->addBox($boxB);
+
 		Assert::same(null, $result->getInterpret());
 		Assert::same(null, $result->getMatchedRoute());
+		Assert::same([$boxB, $boxA], $result->getBoxes());
 		Assert::same($singleResultB, $result->getResult('second'));
 		Assert::same([$singleResultA, 'second' => $singleResultB], $result->getResults());
 	}
@@ -98,6 +108,26 @@ class EngineResultTest extends TestCase
 		// Filter all results without "result"
 		$result->addFilter('result');
 		Assert::same([$boxWithTag], $result->getBoxes(), 'Filter boxes without tag');
+	}
+
+
+	public function testBoxSorting(): void
+	{
+		$boxA = new Box(Box::TYPE_TEXT, 'Result', '11');
+		$boxA->setRank(10);
+
+		$boxB = new Box(Box::TYPE_TEXT, 'Result', '11');
+		$boxB->setRank(50);
+
+		$boxC = new Box(Box::TYPE_TEXT, 'Result', '11');
+		$boxC->setRank(30);
+
+		$result = new EngineSingleResult('5+3*2', DynamicRoute::class);
+		$result->addBox($boxA);
+		$result->addBox($boxB);
+		$result->addBox($boxC);
+
+		Assert::same([$boxB, $boxC, $boxA], $result->getBoxes());
 	}
 }
 

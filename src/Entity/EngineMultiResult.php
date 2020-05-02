@@ -54,6 +54,10 @@ final class EngineMultiResult extends EngineResult
 			}
 		}
 
+		usort($return, static function (Box $a, Box $b): int {
+			return $a->getRank() < $b->getRank() ? 1 : -1;
+		});
+
 		return $return;
 	}
 
