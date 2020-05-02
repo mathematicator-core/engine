@@ -110,4 +110,16 @@ final class EngineSingleResult extends EngineResult
 
 		return $this;
 	}
+
+
+	/**
+	 * @param string $filter
+	 * @return EngineSingleResult
+	 */
+	public function addFilter(string $filter): self
+	{
+		$this->filters[] = $filter;
+
+		return $this;
+	}
 }

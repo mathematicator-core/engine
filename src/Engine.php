@@ -70,7 +70,7 @@ final class Engine
 		$queryEntity = $this->buildQuery($query);
 
 		if (preg_match('/^(?<left>.+?)\s+vs\.?\s+(?<right>.+?)$/', $queryEntity->getQuery(), $versus)) {
-			return (new EngineMultiResult($queryEntity->getQuery(), null))
+			return (new EngineMultiResult($queryEntity->getQuery()))
 				->addResult($this->compute($versus['left']), 'left')
 				->addResult($this->compute($versus['right']), 'right');
 		}

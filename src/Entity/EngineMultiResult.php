@@ -13,6 +13,15 @@ final class EngineMultiResult extends EngineResult
 
 
 	/**
+	 * @param string $query
+	 */
+	public function __construct(string $query)
+	{
+		parent::__construct($query, null);
+	}
+
+
+	/**
 	 * @return EngineResult[]
 	 */
 	public function getResults(): array
@@ -56,7 +65,7 @@ final class EngineMultiResult extends EngineResult
 	 */
 	public function getResult(string $name = null): EngineResult
 	{
-		if (!isset($this->results[$name])) {
+		if (isset($this->results[$name]) === false) {
 			throw new NoResultsException('Result "' . $name . '" does not exist.');
 		}
 

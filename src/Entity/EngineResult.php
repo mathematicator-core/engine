@@ -40,7 +40,7 @@ abstract class EngineResult
 	/**
 	 * @return string
 	 */
-	public function getQuery(): string
+	final public function getQuery(): string
 	{
 		return $this->query;
 	}
@@ -49,7 +49,7 @@ abstract class EngineResult
 	/**
 	 * @return int
 	 */
-	public function getLength(): int
+	final public function getLength(): int
 	{
 		return Strings::length($this->getQuery());
 	}
@@ -58,7 +58,7 @@ abstract class EngineResult
 	/**
 	 * @return string|null
 	 */
-	public function getMatchedRoute(): ?string
+	final public function getMatchedRoute(): ?string
 	{
 		return $this->matchedRoute;
 	}
@@ -69,7 +69,7 @@ abstract class EngineResult
 	 *
 	 * @return float
 	 */
-	public function getTime(): float
+	final public function getTime(): float
 	{
 		return (microtime(true) - $this->startTime) * 1000;
 	}
