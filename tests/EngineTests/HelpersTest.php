@@ -6,6 +6,7 @@ namespace Mathematicator\Engine\Tests;
 
 
 use Mathematicator\Engine\Helpers;
+use Mathematicator\Engine\Query;
 use Nette\Utils\ArrayHash;
 use Tester\Assert;
 use Tester\TestCase;
@@ -25,10 +26,16 @@ class HelpersTest extends TestCase
 
 	public function testGetCurrentUrl(): void
 	{
+		unset($_SERVER['REQUEST_URI'], $_SERVER['HTTP_HOST']);
+
+		// CLI mode
+		Assert::same(null, Helpers::getCurrentUrl());
+
 		$_SERVER['REQUEST_URI'] = '/kontakt';
 		$_SERVER['HTTP_HOST'] = 'baraja.cz';
 		$_SERVER['HTTPS'] = 'on';
 
+		// Request mode
 		Assert::same('https://baraja.cz/kontakt', Helpers::getCurrentUrl());
 	}
 
@@ -39,7 +46,20 @@ class HelpersTest extends TestCase
 		$_SERVER['HTTP_HOST'] = 'baraja.cz';
 		$_SERVER['HTTPS'] = 'on';
 
+		// First call
 		Assert::same('https://baraja.cz', Helpers::getBaseUrl());
+
+		// Second call is using cache
+		Assert::same('https://baraja.cz', Helpers::getBaseUrl());
+	}
+
+
+	public function testGetBaseUrlLocalhost(): void
+	{
+		$_SERVER['REQUEST_URI'] = '/baraja/www/kontakt';
+		$_SERVER['HTTP_HOST'] = 'localhost';
+
+		Assert::same('http://localhost/baraja', Helpers::getBaseUrl());
 	}
 
 
@@ -52,6 +72,26 @@ class HelpersTest extends TestCase
 	public function testStrictScalarType($expected, $haystack, bool $rewriteObjectsToString): void
 	{
 		Assert::equal($expected, Helpers::strictScalarType($haystack, $rewriteObjectsToString));
+	}
+
+
+	public function testStrictScalarTypeClosure(): void
+	{
+		$closure = function (): bool {
+			return true;
+		};
+
+		Assert::same($closure, Helpers::strictScalarType($closure, true));
+		Assert::same($closure, Helpers::strictScalarType($closure, false));
+	}
+
+
+	public function testStrictScalarTypeQuery(): void
+	{
+		$query = new Query('1+2', '1+2');
+
+		Assert::same('1+2', Helpers::strictScalarType($query, true));
+		Assert::same('Mathematicator\Engine\Query', Helpers::strictScalarType($query, false));
 	}
 
 
