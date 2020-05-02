@@ -1,6 +1,9 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Mathematicator\Engine\Tests;
+
 
 use Mathematicator\NumberRewriter;
 use Nette\DI\Container;
@@ -12,17 +15,14 @@ require __DIR__ . '/../bootstrap.php';
 class NumberRewriterTest extends TestCase
 {
 
-	/**
-	 * @var NumberRewriter
-	 */
+	/** @var NumberRewriter */
 	private $numberRewriter;
 
-	public function __construct(
-		Container $container
-	)
+	public function __construct(Container $container)
 	{
 		$this->numberRewriter = $container->getByType(NumberRewriter::class);
 	}
+
 
 	/**
 	 * @dataprovider getNumberRewriterToNumber
@@ -33,6 +33,7 @@ class NumberRewriterTest extends TestCase
 	{
 		Assert::same($expected, $this->numberRewriter->toNumber($query));
 	}
+
 
 	/**
 	 * @return string[]
@@ -46,5 +47,4 @@ class NumberRewriterTest extends TestCase
 	}
 }
 
-$container = Bootstrap::boot();
-(new NumberRewriterTest($container))->run();
+(new NumberRewriterTest(Bootstrap::boot()))->run();

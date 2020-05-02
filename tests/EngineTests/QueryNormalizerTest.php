@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Mathematicator\Engine\Tests;
 
@@ -13,14 +15,10 @@ require __DIR__ . '/../bootstrap.php';
 class QueryNormalizerTest extends TestCase
 {
 
-	/**
-	 * @var QueryNormalizer
-	 */
+	/** @var QueryNormalizer */
 	private $queryNormalizer;
 
-	public function __construct(
-		Container $container
-	)
+	public function __construct(Container $container)
 	{
 		$this->queryNormalizer = $container->getService('mathematicator.queryNormalizer');
 	}
@@ -87,5 +85,4 @@ class QueryNormalizerTest extends TestCase
 	}
 }
 
-$container = Bootstrap::boot();
-(new QueryNormalizerTest($container))->run();
+(new QueryNormalizerTest(Bootstrap::boot()))->run();

@@ -1,6 +1,9 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Mathematicator\Engine\Tests\Helper;
+
 
 use Mathematicator\FixSpaces;
 use Tester\Assert;
@@ -21,6 +24,7 @@ class FixSpacesTest extends TestCase
 		Assert::same($expected, FixSpaces::fix($input));
 	}
 
+
 	/**
 	 * @return string[]
 	 */
@@ -33,7 +37,6 @@ class FixSpacesTest extends TestCase
 			// ['5*8', ' 5*  8'] // TODO: current result: 5*&nbsp;8
 		];
 	}
-
 }
 
 (new FixSpacesTest())->run();

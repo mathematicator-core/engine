@@ -1,6 +1,9 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Mathematicator\Engine\Tests\Helper;
+
 
 use Mathematicator\Engine\Helper\Czech;
 use Mathematicator\Engine\MathematicatorException;
@@ -22,6 +25,7 @@ class CzechTest extends TestCase
 		Assert::same($expected, Czech::getDate($input[0], $input[1]));
 	}
 
+
 	/**
 	 * @dataprovider getInflectionTestCases
 	 * @param string $expected
@@ -31,6 +35,7 @@ class CzechTest extends TestCase
 	{
 		Assert::same($expected, Czech::inflection($input[0], $input[1]));
 	}
+
 
 	/**
 	 * @dataprovider getInflectionExceptionTestCases
@@ -44,6 +49,7 @@ class CzechTest extends TestCase
 		}, $expected);
 	}
 
+
 	/**
 	 * @return string[]
 	 */
@@ -54,6 +60,7 @@ class CzechTest extends TestCase
 			['2. květen 2020', [new \DateTime('2020-05-02 10:50:01'), true]],
 		];
 	}
+
 
 	/**
 	 * @return string[]
@@ -70,6 +77,7 @@ class CzechTest extends TestCase
 		];
 	}
 
+
 	/**
 	 * @return string[]
 	 */
@@ -79,7 +87,6 @@ class CzechTest extends TestCase
 			[MathematicatorException::class, [1, ['zájezdy', 'zájezdů']]],
 		];
 	}
-
 }
 
 (new CzechTest())->run();

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Mathematicator\Engine\Tests;
 
@@ -14,17 +16,14 @@ require __DIR__ . '/../bootstrap.php';
 class EngineTest extends TestCase
 {
 
-	/**
-	 * @var Engine
-	 */
+	/** @var Engine */
 	private $engine;
 
-	public function __construct(
-		Container $container
-	)
+	public function __construct(Container $container)
 	{
 		$this->engine = $container->getService('mathematicator.engine');
 	}
+
 
 	/**
 	 * @dataprovider getComputeQueries
@@ -37,6 +36,7 @@ class EngineTest extends TestCase
 		Assert::true($engineResult instanceof EngineResult); // TODO: Not easy to test
 	}
 
+
 	/**
 	 * @return string[]
 	 */
@@ -48,5 +48,4 @@ class EngineTest extends TestCase
 	}
 }
 
-$container = Bootstrap::boot();
-(new EngineTest($container))->run();
+(new EngineTest(Bootstrap::boot()))->run();

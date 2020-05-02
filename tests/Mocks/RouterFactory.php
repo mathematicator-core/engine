@@ -5,20 +5,19 @@ declare(strict_types=1);
 namespace App;
 
 
-use Nette\Application\IRouter;
 use Nette\Application\Routers\Route;
 use Nette\Application\Routers\RouteList;
+use Nette\Routing\Router;
 use Nette\StaticClass;
 
 class RouterFactory
 {
-
 	use StaticClass;
 
 	/**
-	 * @return IRouter
+	 * @return Router
 	 */
-	public static function createRouter(): IRouter
+	public static function createRouter(): Router
 	{
 		$router = new RouteList;
 
@@ -27,7 +26,8 @@ class RouterFactory
 		return $router;
 	}
 
-	private static function createFrontRouter(): IRouter
+
+	private static function createFrontRouter(): Router
 	{
 		$router = new RouteList('Front');
 
@@ -35,5 +35,4 @@ class RouterFactory
 
 		return $router;
 	}
-
 }

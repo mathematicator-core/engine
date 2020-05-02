@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mathematicator\Engine\Tests;
 
+
 require __DIR__ . '/../vendor/autoload.php';
 
 use FrontModule\LinkGeneratorMock;
@@ -23,8 +24,8 @@ class Bootstrap
 		$configurator->setTempDirectory(__DIR__ . '/../temp');
 
 		$configurator->createRobotLoader()
-			->addDirectory(__DIR__ . "/../src")
-			->addDirectory(__DIR__ . "/Mocks")
+			->addDirectory(__DIR__ . '/../src')
+			->addDirectory(__DIR__ . '/Mocks')
 			->register();
 
 		$configurator

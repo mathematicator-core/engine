@@ -1,6 +1,9 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Mathematicator\Engine\Tests\Helper;
+
 
 use Mathematicator\Engine\Tests\Bootstrap;
 use Mathematicator\NaturalTextFormatter;
@@ -13,17 +16,14 @@ require __DIR__ . '/../../bootstrap.php';
 class NaturalTextFormatterTest extends TestCase
 {
 
-	/**
-	 * @var NaturalTextFormatter
-	 */
+	/** @var NaturalTextFormatter */
 	private $naturalTextFormatter;
 
-	public function __construct(
-		Container $container
-	)
+	public function __construct(Container $container)
 	{
 		$this->naturalTextFormatter = $container->getByType(NaturalTextFormatter::class);
 	}
+
 
 	/**
 	 * @dataprovider getFormatNaturalTextTestCases
@@ -35,19 +35,17 @@ class NaturalTextFormatterTest extends TestCase
 		Assert::same($expected, $this->naturalTextFormatter->formatNaturalText($input));
 	}
 
+
 	/**
 	 * @return string[]
 	 */
 	public function getFormatNaturalTextTestCases(): array
 	{
 		return [
-			['<div class="latex"><p>\(\frac{9}{2}\)</p><code>9/2</code></div>', '9/2
-			  '],
+			['<div class="latex"><p>\(\frac{9}{2}\)</p><code>9/2</code></div>', '9/2' . "\n\t\t\t"],
 			// ['<div class="latex"><p>\(\frac{k}{2}\)</p><code>k/2</code></div>', 'k/2'] // todo: fix in tokenizer
 		];
 	}
-
 }
 
-$container = Bootstrap::boot();
-(new NaturalTextFormatterTest($container))->run();
+(new NaturalTextFormatterTest(Bootstrap::boot()))->run();
