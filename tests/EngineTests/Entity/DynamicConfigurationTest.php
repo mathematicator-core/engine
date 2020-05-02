@@ -28,6 +28,8 @@ class DynamicConfigurationTest extends TestCase
 
 		$config->addLabel('key', 'Value');
 		Assert::same(['key' => 'Value'], $config->getLabels());
+		Assert::same('Value', $config->getLabel('key'));
+		Assert::same('unknown', $config->getLabel('unknown'));
 
 		$config->addLabel('key', null);
 		Assert::same([], $config->getLabels());
@@ -44,6 +46,8 @@ class DynamicConfigurationTest extends TestCase
 
 		Assert::same('256', $config->getValue('x'));
 		Assert::same('unknown', $config->getValue('myValue', 'unknown'));
+
+		Assert::equal(['a' => '1', 'b' => '2', 'x' => '256', 'y' => '512', 'myValue' => 'unknown'], $config->getValues());
 
 		Assert::same('a=1&b=2&x=256&y=512', $config->getSerialized());
 	}
