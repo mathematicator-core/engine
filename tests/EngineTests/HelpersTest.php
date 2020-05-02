@@ -49,8 +49,11 @@ class HelpersTest extends TestCase
 		// First call
 		Assert::same('https://baraja.cz', Helpers::getBaseUrl(false));
 
-		// Second call is using cache
+		// Second call is using cache but cache is disabled
 		Assert::same('https://baraja.cz', Helpers::getBaseUrl(false));
+
+		// Second call is using cache
+		Assert::same('https://baraja.cz', Helpers::getBaseUrl(true));
 	}
 
 
