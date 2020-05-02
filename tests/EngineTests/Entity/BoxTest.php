@@ -129,6 +129,10 @@ class BoxTest extends TestCase
 			$query = new Query('1+1', '1+1');
 			$box->setSteps([$query]);
 		}, \InvalidArgumentException::class);
+
+		// Check valid steps array
+		$box->setSteps([$stepA, $stepA]);
+		Assert::same([$stepA, $stepA], $box->getSteps());
 	}
 
 
