@@ -28,7 +28,7 @@ final class Router
 	public function routeQuery(string $query): string
 	{
 		$this->query = $query;
-		$route = OtherController::class;
+		$route = null;
 
 		try {
 			$this->process();
@@ -36,7 +36,7 @@ final class Router
 			$route = $e->getMessage();
 		}
 
-		return $route;
+		return $route ?? OtherController::class;
 	}
 
 
@@ -77,7 +77,7 @@ final class Router
 	 */
 	private function tooLongQueryRoute(string $entity): void
 	{
-		if (Strings::length($this->query) > 1024) {
+		if (Strings::length($this->query) > ErrorTooLongController::QUERY_LENGTH_LIMIT) {
 			throw new TerminateException($entity);
 		}
 	}
