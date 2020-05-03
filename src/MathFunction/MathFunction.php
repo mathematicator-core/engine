@@ -9,7 +9,8 @@ interface MathFunction
 {
 	/**
 	 * @param mixed $haystack
+	 * @param mixed ...$params
 	 * @return mixed
 	 */
-	public function invoke($haystack);
+	public function invoke($haystack, ...$params);
 }

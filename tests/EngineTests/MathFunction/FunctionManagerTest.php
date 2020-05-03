@@ -35,6 +35,18 @@ class FunctionManagerTest extends TestCase
 			FunctionManager::getFunction('unknown-function');
 		}, \RuntimeException::class);
 	}
+
+
+	public function testBasicCalculator(): void
+	{
+		Assert::same('1', (string) FunctionManager::invoke('sin', M_PI_2), 'sin(PI/2)');
+		Assert::same('1', (string) FunctionManager::invoke('cos', 0), 'cos(0)');
+		Assert::same('0', (string) FunctionManager::invoke('tan', 0), 'tan(0)');
+		Assert::same('4', (string) FunctionManager::invoke('sqrt', 16), 'sqrt(16)');
+		Assert::same('2', (string) FunctionManager::invoke('log', 100), 'log(100)');
+		Assert::same('2', (string) FunctionManager::invoke('log', 100, 10), 'log(100)');
+		Assert::same('1', (string) FunctionManager::invoke('ln', M_E, M_E), 'ln(e)');
+	}
 }
 
 (new FunctionManagerTest)->run();

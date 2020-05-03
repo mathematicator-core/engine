@@ -7,7 +7,7 @@ namespace Mathematicator\Engine\MathFunction;
 
 final class Sin implements MathFunction
 {
-	public function invoke($haystack): float
+	public function invoke($haystack, ...$params): float
 	{
 		return sin((float) $haystack);
 	}

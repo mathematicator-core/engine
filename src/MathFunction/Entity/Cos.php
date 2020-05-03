@@ -8,7 +8,7 @@ namespace Mathematicator\Engine\MathFunction;
 
 final class Cos implements MathFunction
 {
-	public function invoke($haystack): float
+	public function invoke($haystack, ...$params): float
 	{
 		return cos((float) $haystack);
 	}

@@ -59,6 +59,18 @@ final class FunctionManager
 	}
 
 
+	/**
+	 * @param string $name
+	 * @param mixed $haystack
+	 * @param mixed $params
+	 * @return mixed
+	 */
+	public static function invoke(string $name, $haystack, ...$params)
+	{
+		return self::getFunction($name)->invoke($haystack, $params);
+	}
+
+
 	private static function mountBasicFunctions(): void
 	{
 		if (self::$functions !== []) {
