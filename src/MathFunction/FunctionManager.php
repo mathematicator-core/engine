@@ -62,7 +62,7 @@ final class FunctionManager
 	/**
 	 * @param string $name
 	 * @param mixed $haystack
-	 * @param mixed $params
+	 * @param array<int, mixed> $params
 	 * @return mixed
 	 */
 	public static function invoke(string $name, $haystack, ...$params)
