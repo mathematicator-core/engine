@@ -146,6 +146,21 @@ class RouterTest extends TestCase
 			}
 		}, \RuntimeException::class);
 	}
+
+
+	public function testCustomInterpret(): void
+	{
+		$router = new Router;
+		$controllerClass = $router->routeQuery('1+1');
+		/** @var OtherController $controller */
+		$controller = new $controllerClass;
+
+		$controller->createContext(new Query('1+1', '1+1'));
+
+		$interpret = $controller->getContext()->setInterpret(Box::TYPE_TEXT, '1+1');
+
+		Assert::same('Interpretace zadání dotazu', $interpret->getTitle());
+	}
 }
 
 (new RouterTest)->run();
