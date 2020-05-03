@@ -19,6 +19,7 @@ class NaturalTextFormatterTest extends TestCase
 	/** @var NaturalTextFormatter */
 	private $naturalTextFormatter;
 
+
 	public function __construct(Container $container)
 	{
 		$this->naturalTextFormatter = $container->getByType(NaturalTextFormatter::class);
@@ -42,6 +43,10 @@ class NaturalTextFormatterTest extends TestCase
 	public function getFormatNaturalTextTestCases(): array
 	{
 		return [
+			['This is common text.', 'This is common text.'],
+			['<div class="latex"><p>\(1+1\)</p><code>1+1</code></div>', '1+1'],
+			['Text about 1+1', 'Text about 1+1'],
+			['<div class="latex"><p>\(sin\)</p><code>sin</code></div>', 'sin'],
 			['<div class="latex"><p>\(\frac{9}{2}\)</p><code>9/2</code></div>', '9/2' . "\n\t\t\t"],
 			// ['<div class="latex"><p>\(\frac{k}{2}\)</p><code>k/2</code></div>', 'k/2'] // todo: fix in tokenizer
 		];
