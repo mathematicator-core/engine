@@ -11,15 +11,9 @@ use Mathematicator\Engine\DynamicConfiguration;
 use Mathematicator\Engine\Query;
 use Mathematicator\Engine\Source;
 use Mathematicator\Engine\TerminateException;
-use Nette\SmartObject;
 
-/**
- * @property-read string $query
- * @property-read Query $queryEntity
- */
 abstract class BaseController implements Controller
 {
-	use SmartObject;
 
 	/** @var Context */
 	private $context;

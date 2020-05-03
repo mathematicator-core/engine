@@ -9,7 +9,7 @@ use Mathematicator\Engine\Box;
 use Mathematicator\Engine\Query;
 use Nette\Utils\Strings;
 
-class ErrorTooLongController extends BaseController
+final class ErrorTooLongController extends BaseController
 {
 	public function actionDefault(): void
 	{

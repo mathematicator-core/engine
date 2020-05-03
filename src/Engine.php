@@ -96,7 +96,7 @@ final class Engine
 		$controller = $this->container->getByType($serviceName);
 
 		// 1. Inject services to public properties
-		foreach (InjectExtension::getInjectProperties(\get_class($controller)) as $property => $service) {
+		foreach (InjectExtension::getInjectProperties($serviceName) as $property => $service) {
 			$controller->{$property} = $this->container->getByType($service);
 		}
 
