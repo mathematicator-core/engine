@@ -157,7 +157,7 @@ class RouterTest extends TestCase
 
 		$controller->createContext(new Query('1+1', '1+1'));
 
-		$interpret = $controller->getContext()->setInterpret(Box::TYPE_TEXT, '1+1');
+		$interpret = $controller->setInterpret(Box::TYPE_TEXT, '1+1');
 
 		Assert::same('Interpretace zadání dotazu', $interpret->getTitle());
 	}
