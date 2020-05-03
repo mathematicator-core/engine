@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator;
 
 
-use Mathematicator\Engine\Engine;
+use Mathematicator\Engine\MathFunction\FunctionManager;
 use Mathematicator\Engine\QueryNormalizer;
 use Mathematicator\Tokenizer\Tokenizer;
 use Nette\Utils\Strings;
@@ -97,7 +97,7 @@ final class NaturalTextFormatter
 	 */
 	private function wordInAllowedFunctions(string $word): bool
 	{
-		foreach (Engine::getAllowedFunctions() as $allowedFunction) {
+		foreach (FunctionManager::getFunctionNames() as $allowedFunction) {
 			if (preg_match('/^' . $allowedFunction . '$/', $word)) {
 				return true;
 			}
