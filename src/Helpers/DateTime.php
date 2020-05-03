@@ -64,9 +64,9 @@ final class DateTime
 		}
 
 		$diff = ($now = $now ?? \time()) - $time;
-		$no = 0;
 		$lengths = [1, 60, 3600, 86400, 2630880, 31570560];
-		$v = \count($lengths) - 1;
+		$no = 0;
+		$v = 5;
 
 		for (true; ($v >= 0) && (($no = $diff / $lengths[$v]) <= 1); true) {
 			$v--;
@@ -96,7 +96,7 @@ final class DateTime
 		}
 
 		$result = $no . ' ' . $label . ' ';
-		if ($moreAccurate && ($v >= 1) && (($now - $x) > 0)) {
+		if ($moreAccurate === true && ($v >= 1) && (($now - $x) > 0)) {
 			$result .= self::formatTimeAgo($x, false, $lang);
 		}
 

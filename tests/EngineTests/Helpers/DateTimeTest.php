@@ -33,7 +33,7 @@ class DateTimeTest extends TestCase
 	 */
 	public function testFormatTimeAgo(string $expected, array $input): void
 	{
-		Assert::same($expected, DateTime::formatTimeAgo($input[0], $input[1], $input[2], $input[3]));
+		Assert::same($expected, DateTime::formatTimeAgo($input[0], $input[1], $input[2], $input[3]), $expected);
 	}
 
 
@@ -70,9 +70,14 @@ class DateTimeTest extends TestCase
 	public function getFormatTimeAgoTestCases(): array
 	{
 		return [
-			['1 měsíc', [(int) (new \DateTime('2019-12-25 20:12:03'))->format('U'), false, 'cz', (int) (new \DateTime('2020-01-25 20:12:03'))->format('U')]],
-			['1 mesiac', [(int) (new \DateTime('2019-12-25 20:12:03'))->format('U'), false, 'sk', (int) (new \DateTime('2020-01-25 20:12:03'))->format('U')]],
-			['2 months', [(int) (new \DateTime('2019-12-25 20:12:03'))->format('U'), false, 'en', (int) (new \DateTime('2020-02-25 20:12:03'))->format('U')]],
+			['1 sekunda', [strtotime('2020-01-25 20:12:03'), false, 'cz', strtotime('2020-01-25 20:12:04')]],
+			['1 minuta', [strtotime('2020-01-25 20:12:03'), false, 'cz', strtotime('2020-01-25 20:13:04')]],
+			['1 minuta 3 měsíce', [strtotime('2020-01-25 20:12:03'), true, 'cz', strtotime('2020-01-25 20:13:10')]], // Possible bug
+			['5 minut', [strtotime('2020-01-25 20:12:03'), false, 'cz', strtotime('2020-01-25 20:17:03')]],
+			['1 měsíc', [strtotime('2019-12-25 20:12:03'), false, 'cz', strtotime('2020-01-25 20:12:03')]],
+			['9 let', [strtotime('2010-01-25 20:12:03'), false, 'cz', strtotime('2020-01-25 20:12:05')]], // Possible bug
+			['1 mesiac', [strtotime('2019-12-25 20:12:03'), false, 'sk', strtotime('2020-01-25 20:12:03')]],
+			['2 months', [strtotime('2019-12-25 20:12:03'), false, 'en', strtotime('2020-02-25 20:12:03')]],
 		];
 	}
 }
