@@ -24,5 +24,7 @@ class OtherController extends BaseController
 			)
 			->setIcon('fas fa-exclamation-triangle')
 			->setTag('no-results');
+
+		$this->terminate();
 	}
 }

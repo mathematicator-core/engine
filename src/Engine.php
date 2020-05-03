@@ -20,7 +20,7 @@ final class Engine
 	private $queryNormalizer;
 
 	/** @var Container */
-	private $serviceFactory;
+	private $container;
 
 	/** @var ExtraModule[] */
 	private $extraModules = [];
@@ -35,18 +35,18 @@ final class Engine
 	{
 		$this->router = $router;
 		$this->queryNormalizer = $queryNormalizer;
-		$this->serviceFactory = $container;
+		$this->container = $container;
 	}
 
 
 	/**
 	 * @param string $query
-	 * @return EngineResult|EngineMultiResult
+	 * @return EngineResult
 	 * @throws InvalidDataException
 	 */
 	public function compute(string $query): EngineResult
 	{
-		$queryEntity = $this->buildQuery($query);
+		$queryEntity = new Query($query, $this->queryNormalizer->normalize($query));
 
 		if (preg_match('/^(?<left>.+?)\s+(?:vs\.?|versus)\s+(?<right>.+?)$/', $queryEntity->getQuery(), $versus)) {
 			return (new EngineMultiResult($queryEntity->getQuery()))
@@ -54,17 +54,15 @@ final class Engine
 				->addResult($this->compute($versus['right']), 'right');
 		}
 
-		$controller = $this->router->routeQuery($queryEntity->getQuery());
-		$matchedRoute = (string) preg_replace('/^.+\\\\([^\\\\]+)$/', '$1', $controller);
-
-		$engineResult = ($result = $this->processCallback($queryEntity, $controller))
-			? new EngineSingleResult($queryEntity->getQuery(), $matchedRoute, $result->getContext()->getInterpret(), $result->getContext()->getBoxes(), $result->getContext()->getSources(), $queryEntity->getFilteredTags())
-			: new EngineSingleResult($queryEntity->getQuery(), $matchedRoute);
+		$controllerClass = $this->router->routeQuery($queryEntity->getQuery());
+		$matchedRoute = (string) preg_replace('/^.+\\\\([^\\\\]+)$/', '$1', $controllerClass);
+		$context = $this->invokeController($queryEntity, $controllerClass)->getContext();
+		$result = new EngineSingleResult($queryEntity->getQuery(), $matchedRoute, $context->getInterpret(), $context->getBoxes(), $context->getSources(), $queryEntity->getFilteredTags());
 
 		foreach ($this->extraModules as $extraModule) {
-			if ($extraModule->setEngineSingleResult($engineResult)->match($queryEntity->getQuery()) === true) {
+			if ($extraModule->setEngineSingleResult($result)->match($queryEntity->getQuery()) === true) {
 				foreach (InjectExtension::getInjectProperties(\get_class($extraModule)) as $property => $service) {
-					$extraModule->{$property} = $this->serviceFactory->getByType($service);
+					$extraModule->{$property} = $this->container->getByType($service);
 				}
 				if ($extraModule instanceof ExtraModuleWithQuery) {
 					$extraModule->setQuery($queryEntity->getQuery());
@@ -73,7 +71,7 @@ final class Engine
 			}
 		}
 
-		return $engineResult;
+		return $result;
 	}
 
 
@@ -89,39 +87,27 @@ final class Engine
 	/**
 	 * @param Query $query
 	 * @param string $serviceName
-	 * @return Controller|null
+	 * @return Controller
 	 * @throws InvalidDataException
 	 */
-	private function processCallback(Query $query, string $serviceName): ?Controller
+	private function invokeController(Query $query, string $serviceName): Controller
 	{
-		/** @var Controller|null $controller */
-		$controller = $this->serviceFactory->getByType($serviceName);
+		/** @var Controller $controller */
+		$controller = $this->container->getByType($serviceName);
 
-		if ($controller !== null) {
-			// 1. Process magic services
-			foreach (InjectExtension::getInjectProperties(\get_class($controller)) as $property => $service) {
-				$controller->{$property} = $this->serviceFactory->getByType($service);
-			}
-
-			// 2. Create context
-			$controller->createContext($query);
-
-			try {
-				$controller->actionDefault();
-			} catch (TerminateException $e) {
-			}
+		// 1. Inject services to public properties
+		foreach (InjectExtension::getInjectProperties(\get_class($controller)) as $property => $service) {
+			$controller->{$property} = $this->container->getByType($service);
 		}
 
-		return $controller ?? null;
-	}
+		// 2. Create context
+		$controller->createContext($query);
 
+		try {
+			$controller->actionDefault();
+		} catch (TerminateException $e) {
+		}
 
-	/**
-	 * @param string $query
-	 * @return Query
-	 */
-	private function buildQuery(string $query): Query
-	{
-		return new Query($query, $this->queryNormalizer->normalize($query));
+		return $controller;
 	}
 }

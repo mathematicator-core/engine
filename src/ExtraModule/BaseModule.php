@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
-abstract class BaseModule implements ExtraModule
+abstract class BaseModule implements ExtraModuleWithQuery
 {
 
 	/** @var EngineSingleResult */

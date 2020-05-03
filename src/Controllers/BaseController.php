@@ -10,6 +10,7 @@ use Mathematicator\Engine\Context;
 use Mathematicator\Engine\DynamicConfiguration;
 use Mathematicator\Engine\Query;
 use Mathematicator\Engine\Source;
+use Mathematicator\Engine\TerminateException;
 use Nette\SmartObject;
 
 /**
@@ -114,20 +115,20 @@ abstract class BaseController implements Controller
 
 
 	/**
+	 * Create new context. If context already exist rewrite existing.
+	 *
 	 * @internal
 	 * @param Query $query
 	 * @return Context
 	 */
 	final public function createContext(Query $query): Context
 	{
-		if ($this->context === null) {
-			$this->context = new Context($query);
+		$this->context = new Context($query);
 
-			// Set dynamic configuration from user
-			foreach ($_GET ?? [] as $getKey => $getValue) {
-				if (preg_match('/^([a-zA-Z0-9-]+)_(.+)$/', $getKey, $parseKey)) {
-					$this->context->getDynamicConfiguration($parseKey[1])->setValue($parseKey[2], $getValue);
-				}
+		// Set dynamic configuration from user
+		foreach ($_GET ?? [] as $getKey => $getValue) {
+			if (preg_match('/^([a-zA-Z0-9-]+)_(.+)$/', $getKey, $parseKey)) {
+				$this->context->getDynamicConfiguration($parseKey[1])->setValue($parseKey[2], $getValue);
 			}
 		}
 
@@ -170,5 +171,14 @@ abstract class BaseController implements Controller
 	final public function addSource(Source $source): void
 	{
 		$this->context->addSource($source);
+	}
+
+
+	/**
+	 * @throws TerminateException
+	 */
+	final public function terminate(): void
+	{
+		throw new TerminateException('Automatically terminated by "' . \get_class($this) . '".');
 	}
 }

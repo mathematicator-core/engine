@@ -7,7 +7,6 @@ namespace Mathematicator\Router;
 
 use Mathematicator\Engine\Controller\ErrorTooLongController;
 use Mathematicator\Engine\Controller\OtherController;
-use Mathematicator\Engine\Engine;
 use Mathematicator\Engine\MathFunction\FunctionManager;
 use Mathematicator\Engine\Query;
 use Mathematicator\Engine\TerminateException;
