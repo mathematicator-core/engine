@@ -44,7 +44,7 @@ final class Step
 
 
 	/**
-	 * @return null|string
+	 * @return string|null
 	 */
 	public function getTitle(): ?string
 	{
