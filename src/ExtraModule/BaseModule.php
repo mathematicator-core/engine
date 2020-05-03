@@ -18,10 +18,13 @@ abstract class BaseModule implements ExtraModule
 	/**
 	 * @internal
 	 * @param EngineSingleResult $result
+	 * @return ExtraModule
 	 */
-	final public function setEngineSingleResult(EngineSingleResult $result): void
+	final public function setEngineSingleResult(EngineSingleResult $result): ExtraModule
 	{
 		$this->result = $result;
+
+		return $this;
 	}
 
 

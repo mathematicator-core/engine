@@ -10,7 +10,7 @@ use Mathematicator\Engine\InvalidDataException;
 use Mathematicator\Engine\Query;
 use Mathematicator\Engine\TerminateException;
 
-interface IController
+interface Controller
 {
 	/**
 	 * @throws TerminateException

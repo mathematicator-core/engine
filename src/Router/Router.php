@@ -8,6 +8,7 @@ namespace Mathematicator\Router;
 use Mathematicator\Engine\Controller\ErrorTooLongController;
 use Mathematicator\Engine\Controller\OtherController;
 use Mathematicator\Engine\Engine;
+use Mathematicator\Engine\Query;
 use Mathematicator\Engine\TerminateException;
 use Nette\Utils\Strings;
 
@@ -77,7 +78,7 @@ final class Router
 	 */
 	private function tooLongQueryRoute(string $entity): void
 	{
-		if (Strings::length($this->query) > ErrorTooLongController::QUERY_LENGTH_LIMIT) {
+		if (Strings::length($this->query) > Query::LENGTH_LIMIT) {
 			throw new TerminateException($entity);
 		}
 	}

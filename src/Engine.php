@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
-use Mathematicator\Engine\Controller\IController;
+use Mathematicator\Engine\Controller\Controller;
 use Mathematicator\Router\Router;
 use Nette\DI\Container;
 use Nette\DI\Extensions\InjectExtension;
@@ -69,7 +69,7 @@ final class Engine
 	{
 		$queryEntity = $this->buildQuery($query);
 
-		if (preg_match('/^(?<left>.+?)\s+vs\.?\s+(?<right>.+?)$/', $queryEntity->getQuery(), $versus)) {
+		if (preg_match('/^(?<left>.+?)\s+(?:vs\.?|versus)\s+(?<right>.+?)$/', $queryEntity->getQuery(), $versus)) {
 			return (new EngineMultiResult($queryEntity->getQuery()))
 				->addResult($this->compute($versus['left']), 'left')
 				->addResult($this->compute($versus['right']), 'right');
@@ -78,33 +78,23 @@ final class Engine
 		$controller = $this->router->routeQuery($queryEntity->getQuery());
 		$matchedRoute = (string) preg_replace('/^.+\\\\([^\\\\]+)$/', '$1', $controller);
 
-		if ($result = $this->processCallback($queryEntity, $controller)) {
-			$return = new EngineSingleResult(
-				$queryEntity->getQuery(),
-				$matchedRoute,
-				$result->getContext()->getInterpret(),
-				$result->getContext()->getBoxes(),
-				$result->getContext()->getSources(),
-				$queryEntity->getFilteredTags()
-			);
-		} else {
-			$return = new EngineSingleResult($queryEntity->getQuery(), $matchedRoute);
-		}
+		$engineResult = ($result = $this->processCallback($queryEntity, $controller))
+			? new EngineSingleResult($queryEntity->getQuery(), $matchedRoute, $result->getContext()->getInterpret(), $result->getContext()->getBoxes(), $result->getContext()->getSources(), $queryEntity->getFilteredTags())
+			: new EngineSingleResult($queryEntity->getQuery(), $matchedRoute);
 
 		foreach ($this->extraModules as $extraModule) {
-			$extraModule->setEngineSingleResult($return);
-			if ($extraModule->match($queryEntity->getQuery()) === true) {
+			if ($extraModule->setEngineSingleResult($engineResult)->match($queryEntity->getQuery()) === true) {
 				foreach (InjectExtension::getInjectProperties(\get_class($extraModule)) as $property => $service) {
 					$extraModule->{$property} = $this->serviceFactory->getByType($service);
 				}
-				if (method_exists($extraModule, 'setQuery')) {
+				if ($extraModule instanceof ExtraModuleWithQuery) {
 					$extraModule->setQuery($queryEntity->getQuery());
 				}
 				$extraModule->actionDefault();
 			}
 		}
 
-		return $return;
+		return $engineResult;
 	}
 
 
@@ -120,12 +110,12 @@ final class Engine
 	/**
 	 * @param Query $query
 	 * @param string $serviceName
-	 * @return IController|null
+	 * @return Controller|null
 	 * @throws InvalidDataException
 	 */
-	private function processCallback(Query $query, string $serviceName): ?IController
+	private function processCallback(Query $query, string $serviceName): ?Controller
 	{
-		/** @var IController|null $controller */
+		/** @var Controller|null $controller */
 		$controller = $this->serviceFactory->getByType($serviceName);
 
 		if ($controller !== null) {
@@ -153,9 +143,6 @@ final class Engine
 	 */
 	private function buildQuery(string $query): Query
 	{
-		return new Query(
-			$query,
-			$this->queryNormalizer->normalize($query)
-		);
+		return new Query($query, $this->queryNormalizer->normalize($query));
 	}
 }

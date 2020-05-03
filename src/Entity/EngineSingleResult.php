@@ -40,6 +40,10 @@ final class EngineSingleResult extends EngineResult
 
 
 	/**
+	 * Get list of active boxes by rank order.
+	 *
+	 * Boxes can be filtered.
+	 *
 	 * @return Box[]
 	 */
 	public function getBoxes(): array

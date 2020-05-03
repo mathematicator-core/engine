@@ -11,8 +11,9 @@ interface ExtraModule
 	/**
 	 * @internal
 	 * @param EngineSingleResult $result
+	 * @return ExtraModule
 	 */
-	public function setEngineSingleResult(EngineSingleResult $result): void;
+	public function setEngineSingleResult(EngineSingleResult $result): self;
 
 	/**
 	 * @param string $query

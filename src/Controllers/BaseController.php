@@ -16,7 +16,7 @@ use Nette\SmartObject;
  * @property-read string $query
  * @property-read Query $queryEntity
  */
-abstract class BaseController implements IController
+abstract class BaseController implements Controller
 {
 	use SmartObject;
 

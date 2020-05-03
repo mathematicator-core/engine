@@ -13,6 +13,8 @@ final class Query
 {
 	use SmartObject;
 
+	public const LENGTH_LIMIT = 1024;
+
 	/** @var string */
 	private $original;
 
