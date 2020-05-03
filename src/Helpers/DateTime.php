@@ -20,12 +20,12 @@ final class DateTime
 	/**
 	 * Format datetime to "Y-m-d H:i:s", if null return current datetime.
 	 *
-	 * @param int|null $timestamp
+	 * @param int|null $now
 	 * @return string (Y-m-d H:i:s)
 	 */
-	public static function getDateTimeIso(int $timestamp = null): string
+	public static function getDateTimeIso(?int $now = null): string
 	{
-		return date('Y-m-d H:i:s', $timestamp ?? \time());
+		return date('Y-m-d H:i:s', $now ?? \time());
 	}
 
 

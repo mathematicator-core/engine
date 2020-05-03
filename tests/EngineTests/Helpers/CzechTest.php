@@ -18,7 +18,7 @@ class CzechTest extends TestCase
 	/**
 	 * @dataprovider getGetDateTestCases
 	 * @param string $expected
-	 * @param array $input
+	 * @param mixed[] $input
 	 */
 	public function testGetDate(string $expected, array $input): void
 	{
@@ -59,6 +59,20 @@ class CzechTest extends TestCase
 			['2. května 2020', [new \DateTime('2020-05-02 10:50:01'), false]],
 			['2. květen 2020', [new \DateTime('2020-05-02 10:50:01'), true]],
 		];
+	}
+
+
+	public function testCreateInstance(): void
+	{
+		Assert::exception(function () {
+			new Czech;
+		}, \Error::class);
+	}
+
+
+	public function testEmptyGetDate(): void
+	{
+		Assert::same(Czech::getDate(\time(), true), Czech::getDate(null, true));
 	}
 
 

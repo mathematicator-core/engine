@@ -6,6 +6,7 @@ namespace Mathematicator\Engine\Tests\Helper;
 
 
 use Mathematicator\Engine\Helper\DateTime;
+use Mathematicator\Engine\MathematicatorException;
 use Tester\Assert;
 use Tester\TestCase;
 
@@ -36,6 +37,22 @@ class DateTimeTest extends TestCase
 	}
 
 
+	public function testCreateInstance(): void
+	{
+		Assert::exception(function () {
+			new DateTime;
+		}, \Error::class);
+	}
+
+
+	public function testUnknownLanguage(): void
+	{
+		Assert::exception(function () {
+			DateTime::formatTimeAgo(256, true, 'de');
+		}, MathematicatorException::class);
+	}
+
+
 	/**
 	 * @return string[]
 	 */
@@ -54,6 +71,7 @@ class DateTimeTest extends TestCase
 	{
 		return [
 			['1 měsíc', [(int) (new \DateTime('2019-12-25 20:12:03'))->format('U'), false, 'cz', (int) (new \DateTime('2020-01-25 20:12:03'))->format('U')]],
+			['1 mesiac', [(int) (new \DateTime('2019-12-25 20:12:03'))->format('U'), false, 'sk', (int) (new \DateTime('2020-01-25 20:12:03'))->format('U')]],
 			['2 months', [(int) (new \DateTime('2019-12-25 20:12:03'))->format('U'), false, 'en', (int) (new \DateTime('2020-02-25 20:12:03'))->format('U')]],
 		];
 	}
