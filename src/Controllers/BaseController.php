@@ -125,7 +125,7 @@ abstract class BaseController implements IController
 
 			// Set dynamic configuration from user
 			foreach ($_GET ?? [] as $getKey => $getValue) {
-				if (preg_match('/^([a-z0-9-]+)_(.+)$/', $getKey, $parseKey)) {
+				if (preg_match('/^([a-zA-Z0-9-]+)_(.+)$/', $getKey, $parseKey)) {
 					$this->context->getDynamicConfiguration($parseKey[1])->setValue($parseKey[2], $getValue);
 				}
 			}
@@ -141,15 +141,6 @@ abstract class BaseController implements IController
 	final public function getQueryEntity(): Query
 	{
 		return $this->context->getQueryEntity();
-	}
-
-
-	/**
-	 * @throws \InvalidArgumentException
-	 */
-	public function actionDefault(): void
-	{
-		throw new \InvalidArgumentException(__METHOD__ . ': Method actionDefault() does not found in result Entity.');
 	}
 
 

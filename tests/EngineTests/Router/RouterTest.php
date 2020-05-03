@@ -5,8 +5,13 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Tests;
 
 
+use Mathematicator\Engine\Box;
+use Mathematicator\Engine\Context;
 use Mathematicator\Engine\Controller\ErrorTooLongController;
 use Mathematicator\Engine\Controller\OtherController;
+use Mathematicator\Engine\DynamicConfiguration;
+use Mathematicator\Engine\Query;
+use Mathematicator\Engine\Source;
 use Mathematicator\Router\DynamicRoute;
 use Mathematicator\Router\Router;
 use Tester\Assert;
@@ -29,8 +34,34 @@ class RouterTest extends TestCase
 	{
 		$router = new Router;
 		$query = str_repeat('1+', ErrorTooLongController::QUERY_LENGTH_LIMIT + 10) . '1';
+		$controller = $router->routeQuery($query);
 
-		Assert::same(ErrorTooLongController::class, $router->routeQuery($query));
+		Assert::same(ErrorTooLongController::class, $controller);
+
+		/** @var ErrorTooLongController $errorTooLongController */
+		$errorTooLongController = new $controller;
+		$errorTooLongController->createContext($queryEntity = new Query($query, $query));
+		$errorTooLongController->actionDefault();
+
+		Assert::same($query, $errorTooLongController->getQuery());
+		Assert::same($queryEntity, $errorTooLongController->getQueryEntity());
+		Assert::same('/search', $errorTooLongController->linkToSearch(''));
+		Assert::same('/search?q=1', $errorTooLongController->linkToSearch('1'));
+		Assert::type(DynamicConfiguration::class, $errorTooLongController->getDynamicConfiguration('my-config'));
+
+		$errorTooLongController->addSource($source = new Source);
+		Assert::same([$source], $errorTooLongController->getContext()->getSources());
+
+		$boxes = $errorTooLongController->getContext()->getBoxes();
+		Assert::type('array', $boxes);
+		Assert::count(1, $boxes);
+
+		$box = $boxes[0];
+
+		Assert::same(Box::TYPE_TEXT, $box->getType());
+		Assert::same('Příliš dlouhý dotaz', $box->getTitle());
+		Assert::same('<i class="fas fa-exclamation-triangle"></i>', $box->getIcon());
+		Assert::same('no-results', $box->getTag());
 	}
 
 
@@ -61,6 +92,59 @@ class RouterTest extends TestCase
 
 		Assert::same(OtherController::class, $router->routeQuery('now'));
 		Assert::same('CalculatorController', $router->routeQuery('5+3'));
+	}
+
+
+	public function testDynamicConfigurationFromUrl(): void
+	{
+		$router = new Router;
+		$controllerClass = $router->routeQuery('1+1');
+
+		Assert::same(OtherController::class, $controllerClass);
+
+		/** @var OtherController $controller */
+		$controller = new $controllerClass;
+
+		Assert::type(OtherController::class, $controller);
+
+		$_GET['myConfig_x'] = '34';
+		$_GET['myConfig_y'] = '256';
+		$_GET['second-parameter'] = 'hello';
+		$controller->createContext(new Query('1+1', '1+1'));
+		$dynamicConfigurations = $controller->getContext()->getDynamicConfigurations();
+
+		Assert::count(1, $dynamicConfigurations);
+
+		$dynamicConfiguration = $dynamicConfigurations['myConfig'];
+
+		Assert::same(['myConfig' => $dynamicConfiguration], $dynamicConfigurations);
+		Assert::same('34', $dynamicConfiguration->getValue('x'));
+		Assert::same('256', $dynamicConfiguration->getValue('y'));
+
+		$controller->addBoxDynamicConfiguration('myConfig');
+
+		$_SERVER['HTTP_HOST'] = 'baraja.cz';
+		$_SERVER['REQUEST_URI'] = '/kontakt';
+		$_SERVER['HTTPS'] = 'on';
+
+		$controller->addBoxDynamicConfiguration('myConfig');
+	}
+
+
+	public function testMaxBoxLimitation(): void
+	{
+		$router = new Router;
+		$controllerClass = $router->routeQuery('1+1');
+		/** @var OtherController $controller */
+		$controller = new $controllerClass;
+
+		$controller->createContext(new Query('1+1', '1+1'));
+
+		Assert::exception(function () use ($controller) {
+			for ($i = 0; $i <= Context::BOXES_LIMIT + 10; $i++) {
+				$controller->addBox(Box::TYPE_TEXT);
+			}
+		}, \RuntimeException::class);
 	}
 }
 
