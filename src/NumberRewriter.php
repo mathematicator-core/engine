@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mathematicator;
 
 
-use Mathematicator\Engine\MathematicatorException;
 use Nette\Utils\Strings;
 use Nette\Utils\Validators;
 
@@ -13,7 +12,7 @@ final class NumberRewriter
 {
 
 	/** @var int[] */
-	private $basic = [
+	private static $basic = [
 		'nula' => 0,
 		'jedna' => 1,
 		'dvě' => 2,
@@ -134,11 +133,11 @@ final class NumberRewriter
 			return 'minus ' . $this->toWord((string) preg_replace('/^-/', '', $number));
 		}
 
-		if (!Validators::isNumericInt($number)) {
+		if (Validators::isNumericInt($number) === false) {
 			return $this->toWordFloat($number);
 		}
 
-		foreach ($this->basic as $w => $n) {
+		foreach (self::$basic as $w => $n) {
 			if ((string) $n === $number) {
 				return (string) $w;
 			}
@@ -192,7 +191,6 @@ final class NumberRewriter
 	/**
 	 * @param string $number
 	 * @return string
-	 * @throws \Exception
 	 */
 	private function toWordTrinity(string $number): string
 	{
@@ -200,7 +198,7 @@ final class NumberRewriter
 		$return = '';
 
 		if (\strlen($number) > 3) {
-			throw new MathematicatorException('Number length must be 1-3 chars.');
+			throw new \RuntimeException('Number length must be 1-3 chars.');
 		}
 
 		// hundreds
@@ -267,7 +265,7 @@ final class NumberRewriter
 	 */
 	private function processWord(string $word): string
 	{
-		foreach ($this->basic as $basicWord => $basicRewrite) {
+		foreach (self::$basic as $basicWord => $basicRewrite) {
 			if ($basicWord === $word) {
 				return (string) $basicRewrite;
 			}
