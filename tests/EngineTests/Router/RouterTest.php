@@ -33,7 +33,7 @@ class RouterTest extends TestCase
 	public function testTooLongQuery(): void
 	{
 		$router = new Router;
-		$query = str_repeat('1+', ErrorTooLongController::QUERY_LENGTH_LIMIT + 10) . '1';
+		$query = str_repeat('1+', Query::LENGTH_LIMIT + 10) . '1';
 		$controller = $router->routeQuery($query);
 
 		Assert::same(ErrorTooLongController::class, $controller);
