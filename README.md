@@ -1,8 +1,9 @@
 Math PHP computational engine
 =============================
 
-![Integrity check](https://github.com/mathematicator-core/engine/workflows/Integrity%20check/badge.svg)
+[![Integrity check](https://github.com/mathematicator-core/engine/workflows/Integrity%20check/badge.svg)](https://github.com/mathematicator-core/engine/actions?query=workflow%3A%22Integrity+check%22)
 [![codecov](https://codecov.io/gh/mathematicator-core/engine/branch/master/graph/badge.svg)](https://codecov.io/gh/mathematicator-core/engine)
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](./LICENSE)
 
 Extremely complex library for advance work with math patterns, tokens and computing.
 
