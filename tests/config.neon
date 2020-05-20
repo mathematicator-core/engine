@@ -30,3 +30,6 @@ services:
 	- Mathematicator\Tokenizer\TokensToLatex(%math.functions%)
 	- Mathematicator\Tokenizer\TokensToObject
 	- Mathematicator\Numbers\NumberFactory
+
+extensions:
+	psr11: Contributte\Psr11\DI\Psr11ContainerExtension
