@@ -7,8 +7,8 @@ namespace Mathematicator\Engine;
 
 use Mathematicator\Engine\Controller\Controller;
 use Mathematicator\Router\Router;
-use Nette\DI\Container;
 use Nette\DI\Extensions\InjectExtension;
+use Psr\Container\ContainerInterface;
 
 final class Engine
 {
@@ -29,9 +29,9 @@ final class Engine
 	/**
 	 * @param Router $router
 	 * @param QueryNormalizer $queryNormalizer
-	 * @param Container $container
+	 * @param ContainerInterface $container
 	 */
-	public function __construct(Router $router, QueryNormalizer $queryNormalizer, Container $container)
+	public function __construct(Router $router, QueryNormalizer $queryNormalizer, ContainerInterface $container)
 	{
 		$this->router = $router;
 		$this->queryNormalizer = $queryNormalizer;
@@ -62,7 +62,7 @@ final class Engine
 		foreach ($this->extraModules as $extraModule) {
 			if ($extraModule->setEngineSingleResult($result)->match($queryEntity->getQuery()) === true) {
 				foreach (InjectExtension::getInjectProperties(\get_class($extraModule)) as $property => $service) {
-					$extraModule->{$property} = $this->container->getByType($service);
+					$extraModule->{$property} = $this->container->get($service);
 				}
 				if ($extraModule instanceof ExtraModuleWithQuery) {
 					$extraModule->setQuery($queryEntity->getQuery());
@@ -93,11 +93,11 @@ final class Engine
 	private function invokeController(Query $query, string $serviceName): Controller
 	{
 		/** @var Controller $controller */
-		$controller = $this->container->getByType($serviceName);
+		$controller = $this->container->get($serviceName);
 
 		// 1. Inject services to public properties
 		foreach (InjectExtension::getInjectProperties($serviceName) as $property => $service) {
-			$controller->{$property} = $this->container->getByType($service);
+			$controller->{$property} = $this->container->get($service);
 		}
 
 		// 2. Create context
