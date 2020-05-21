@@ -14,6 +14,7 @@ use Mathematicator\Engine\Source;
 use Mathematicator\Engine\TerminateException;
 use RuntimeException;
 use Mathematicator\Engine\Translator;
+use RuntimeException;
 use Throwable;
 
 abstract class BaseController implements Controller
