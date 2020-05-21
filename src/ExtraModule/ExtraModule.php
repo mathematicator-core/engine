@@ -9,9 +9,9 @@ interface ExtraModule
 {
 
 	/**
-	 * @internal
 	 * @param EngineSingleResult $result
 	 * @return ExtraModule
+	 * @internal
 	 */
 	public function setEngineSingleResult(EngineSingleResult $result): self;
 

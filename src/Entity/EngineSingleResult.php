@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
+use function in_array;
+
 final class EngineSingleResult extends EngineResult
 {
 
@@ -60,7 +62,7 @@ final class EngineSingleResult extends EngineResult
 
 		if ($this->filters !== []) {
 			foreach ($return as $boxKey => $box) {
-				if (\in_array($box->getTag(), $this->filters, true) === false) {
+				if (in_array($box->getTag(), $this->filters, true) === false) {
 					unset($return[$boxKey]);
 				}
 			}

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\MathFunction;
 
 
+use RuntimeException;
+
 final class FunctionManager
 {
 	/** @var MathFunction[] (functionName => MathFunction) */
@@ -42,7 +44,7 @@ final class FunctionManager
 		self::mountBasicFunctions();
 
 		if (isset(self::$functions[$name]) === false) {
-			throw new \RuntimeException('Function "' . $name . '" does not exist.');
+			throw new RuntimeException('Function "' . $name . '" does not exist.');
 		}
 
 		return self::$functions[$name];
@@ -52,7 +54,7 @@ final class FunctionManager
 	public static function addFunction(string $name, MathFunction $function): void
 	{
 		if (isset(self::$functions[$name]) === true && self::$functions[$name] !== $function) {
-			throw new \RuntimeException('Function "' . $name . '" already exist.');
+			throw new RuntimeException('Function "' . $name . '" already exist.');
 		}
 
 		self::$functions[$name] = $function;

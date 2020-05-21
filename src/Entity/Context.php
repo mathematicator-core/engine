@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
+use function count;
 use Nette\SmartObject;
 
 final class Context
@@ -67,7 +68,7 @@ final class Context
 	 */
 	public function addBox(string $type): Box
 	{
-		if (\count($this->boxes) >= self::BOXES_LIMIT) {
+		if (count($this->boxes) >= self::BOXES_LIMIT) {
 			throw new TerminateException(__METHOD__);
 		}
 

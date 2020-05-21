@@ -14,6 +14,8 @@ use Mathematicator\Engine\Query;
 use Mathematicator\Engine\Source;
 use Mathematicator\Router\DynamicRoute;
 use Mathematicator\Router\Router;
+use Mathematicator\Search\Translation\TranslatorHelper;
+use Nette\DI\Container;
 use Tester\Assert;
 use Tester\TestCase;
 
@@ -21,6 +23,22 @@ require __DIR__ . '/../../bootstrap.php';
 
 class RouterTest extends TestCase
 {
+
+	/**
+	 * @var Container
+	 */
+	private $container;
+
+	/**
+	 * @param Container $container
+	 */
+	public function __construct(
+		Container $container
+	)
+	{
+		$this->container = $container;
+	}
+
 
 	public function testWithoutRoutes(): void
 	{
@@ -39,7 +57,7 @@ class RouterTest extends TestCase
 		Assert::same(ErrorTooLongController::class, $controller);
 
 		/** @var ErrorTooLongController $errorTooLongController */
-		$errorTooLongController = new $controller;
+		$errorTooLongController = $this->container->getByType($controller);
 		$errorTooLongController->createContext($queryEntity = new Query($query, $query));
 		$errorTooLongController->actionDefault();
 
@@ -163,4 +181,5 @@ class RouterTest extends TestCase
 	}
 }
 
-(new RouterTest)->run();
+$container = (new Bootstrap())::boot();
+(new RouterTest($container))->run();

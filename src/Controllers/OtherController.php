@@ -6,28 +6,19 @@ namespace Mathematicator\Engine\Controller;
 
 
 use Mathematicator\Engine\Box;
-use Mathematicator\Engine\Translator;
 
 final class OtherController extends BaseController
 {
-
-	/**
-	 * @var Translator
-	 * @inject
-	 */
-	public $translator;
-
-
 	public function actionDefault(): void
 	{
 		$this->addBox(Box::TYPE_HTML)
 			->setTitle('&nbsp;')
 			->setText(
 				'<div style="padding:1em;background:#FEFEFE">'
-				. '<h1>' . $this->translator->translate('Ale ne!') . '</h1>'
-				. '<p>Obsah se nepodařilo vyhledat…</p>'
+				. '<h1>' . $this->translator->trans('ohNo') . '</h1>'
+				. '<p>' . $this->translator->trans('contentSearchFailed') . '</p>'
 				. '<div style="text-align:center;padding:4em 1em">'
-				. '<img src="https://mathematicator.com/img/error_dinosaur.gif" alt="Content does not found">'
+				. '<img src="https://mathematicator.com/img/error_dinosaur.gif" alt="' . $this->translator->trans('contentSearchFailed') . '">'
 				. '</div>'
 				. '</div>'
 			)

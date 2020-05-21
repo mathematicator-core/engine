@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
+use function get_class;
 use Mathematicator\Engine\Controller\Controller;
 use Mathematicator\Router\Router;
 use Nette\DI\Extensions\InjectExtension;
@@ -19,7 +20,7 @@ final class Engine
 	/** @var QueryNormalizer */
 	private $queryNormalizer;
 
-	/** @var Container */
+	/** @var ContainerInterface */
 	private $container;
 
 	/** @var ExtraModule[] */
@@ -61,7 +62,7 @@ final class Engine
 
 		foreach ($this->extraModules as $extraModule) {
 			if ($extraModule->setEngineSingleResult($result)->match($queryEntity->getQuery()) === true) {
-				foreach (InjectExtension::getInjectProperties(\get_class($extraModule)) as $property => $service) {
+				foreach (InjectExtension::getInjectProperties(get_class($extraModule)) as $property => $service) {
 					$extraModule->{$property} = $this->container->get($service);
 				}
 				if ($extraModule instanceof ExtraModuleWithQuery) {

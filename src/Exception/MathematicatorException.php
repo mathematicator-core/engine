@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
-class MathematicatorException extends \Exception
+use Exception;
+
+class MathematicatorException extends Exception
 {
 }

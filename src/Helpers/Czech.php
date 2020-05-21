@@ -5,16 +5,18 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Helper;
 
 
+use Error;
 use Mathematicator\Engine\Helpers;
 use Mathematicator\Engine\MathematicatorException;
+use function time;
 
 final class Czech
 {
 
-	/** @throws \Error */
+	/** @throws Error */
 	public function __construct()
 	{
-		throw new \Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
+		throw new Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
 	}
 
 
@@ -64,7 +66,7 @@ final class Czech
 	public static function getDate($date = null, bool $singular = false): string
 	{
 		if ($date === null) {
-			$time = \time();
+			$time = time();
 		} elseif ($date instanceof \DateTime) {
 			$time = $date->getTimestamp();
 		} else {

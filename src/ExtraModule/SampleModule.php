@@ -9,13 +9,6 @@ final class SampleModule extends BaseModule
 {
 
 	/**
-	 * @var Translator
-	 * @inject
-	 */
-	public $translator;
-
-
-	/**
 	 * @param string $query
 	 * @return bool
 	 */
@@ -29,8 +22,8 @@ final class SampleModule extends BaseModule
 	{
 		$this->result->addBox(
 			(new Box(Box::TYPE_TEXT))
-				->setTitle($this->translator->translate('Help'))
-				->setText('What can I help you with?')
+				->setTitle($this->translator->trans('help'))
+				->setText($this->translator->trans('helpQuestion'))
 		);
 	}
 }

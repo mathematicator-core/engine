@@ -5,13 +5,18 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
+use Error;
+use function is_array;
+use function is_callable;
+use function is_object;
+
 final class Helpers
 {
 
-	/** @throws \Error */
+	/** @throws Error */
 	public function __construct()
 	{
-		throw new \Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
+		throw new Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
 	}
 
 
@@ -69,7 +74,7 @@ final class Helpers
 	 */
 	public static function strictScalarType($haystack, bool $rewriteObjectsToString = true)
 	{
-		if (\is_array($haystack)) {
+		if (is_array($haystack)) {
 			$return = [];
 
 			foreach ($haystack as $key => $value) {
@@ -79,7 +84,7 @@ final class Helpers
 			return $return;
 		}
 
-		if (\is_object($haystack) === true && \is_callable($haystack) === false) {
+		if (is_object($haystack) === true && is_callable($haystack) === false) {
 			if ($rewriteObjectsToString === true && method_exists($haystack, '__toString')) {
 				return (string) $haystack;
 			}

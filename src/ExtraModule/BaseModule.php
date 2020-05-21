@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
+use Symfony\Component\Translation\Translator;
+
 abstract class BaseModule implements ExtraModuleWithQuery
 {
 
@@ -14,11 +16,24 @@ abstract class BaseModule implements ExtraModuleWithQuery
 	/** @var string */
 	protected $query;
 
+	/** @var Translator */
+	protected $translator;
+
 
 	/**
-	 * @internal
+	 * @param Translator $translator
+	 */
+	public function __construct(
+		Translator $translator
+	) {
+		$this->translator = $translator;
+	}
+
+
+	/**
 	 * @param EngineSingleResult $result
 	 * @return ExtraModule
+	 * @internal
 	 */
 	final public function setEngineSingleResult(EngineSingleResult $result): ExtraModule
 	{
@@ -29,8 +44,8 @@ abstract class BaseModule implements ExtraModuleWithQuery
 
 
 	/**
-	 * @internal
 	 * @param string $query
+	 * @internal
 	 */
 	final public function setQuery(string $query): void
 	{
