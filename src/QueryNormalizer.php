@@ -48,12 +48,9 @@ final class QueryNormalizer
 	private $numberRewriter;
 
 
-	/**
-	 * @param NumberRewriter $numberRewriter
-	 */
-	public function __construct(NumberRewriter $numberRewriter)
+	public function __construct()
 	{
-		$this->numberRewriter = $numberRewriter;
+		$this->numberRewriter = new NumberRewriter;
 	}
 
 
