@@ -8,14 +8,15 @@ namespace Mathematicator\Engine\Translation;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Translation\Translator;
 
+/**
+ * Class TranslatorHelper decorates Translator
+ * @package Mathematicator\Engine\Translation
+ */
 class TranslatorHelper
 {
 
 	/** @var Translator */
-	private $translator;
-
-	/** @var bool */
-	private $isInitialized = false;
+	public $translator;
 
 
 	/**
@@ -40,28 +41,30 @@ class TranslatorHelper
 	public function __construct(Translator $translator)
 	{
 		$this->translator = $translator;
-	}
-
-
-	public function init(): void
-	{
-		if ($this->isInitialized) {
-			return;
-		}
-
-		$this->isInitialized = true;
 
 		$this->translator->addLoader('yaml', new YamlFileLoader());
 
-		foreach ($this->languages as $languageCode) {
-			$this->translator->addResource(
-				'yaml',
-				__DIR__ . '/../../translations/translations.' . $languageCode . '.yml',
-				$languageCode
-			);
-		}
-
 		$this->translator->setFallbackLocales($this->fallbackLanguages);
 		$this->translator->setLocale($this->languages[0]);
+	}
+
+
+	/**
+	 * Adds
+	 * @param string $dir Directory path
+	 * @param string $domain Translation file prefix (without trailing dot)
+	 * @param string $suffix Translation file suffix (without leading dot)
+	 * @param string $format Data format in translation file
+	 */
+	public function addResource($dir, $domain = null, $suffix = 'yml', $format = 'yaml'): void
+	{
+		foreach ($this->languages as $languageCode) {
+			$this->translator->addResource(
+				$format,
+				$dir . '/' . ($domain ?: 'messages') . '.' . $languageCode . '.' . $suffix,
+				$languageCode,
+				$domain
+			);
+		}
 	}
 }

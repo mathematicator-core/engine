@@ -1,8 +1,14 @@
 {
 	"name": "mathematicator-core/engine",
 	"description": "Math computational Engine",
-	"homepage": "https://github.com/mathematicator-core/engine",
+	"keywords": [
+		"mathematicator",
+		"math",
+		"php"
+	],
+	"type": "library",
 	"license": "MIT",
+	"homepage": "https://github.com/mathematicator-core/engine",
 	"authors": [
 		{
 			"name": "Jan Barášek",
@@ -11,18 +17,18 @@
 	],
 	"require": {
 		"php": ">=7.2",
+		"contributte/psr11-container-interface": "^0.4.1",
+		"mathematicator-core/tokenizer": "^2.0",
 		"nette/di": "^3.0",
 		"nette/utils": "^3.0",
-		"mathematicator-core/tokenizer": "^2.0",
-		"contributte/psr11-container-interface": "^0.4.1",
-		"symfony/translation": "^4.0 || ^5.0",
-		"symfony/yaml": "^5.0"
+		"symfony/yaml": "^5.0",
+		"symfony/translation": "^4.0 || ^5.0"
 	},
 	"require-dev": {
-		"phpstan/phpstan": "^0.12.18",
-		"phpstan/phpstan-nette": "^0.12.6",
 		"nette/bootstrap": "^3.0.1",
-		"nette/tester": "^2.3"
+		"nette/tester": "^2.3",
+		"phpstan/phpstan": "^0.12.18",
+		"phpstan/phpstan-nettec": "^0.12.6"
 	},
 	"suggest": {
 		"nette/di": "To use package in Nette Framework",
@@ -32,6 +38,11 @@
 		"classmap": [
 			"src/"
 		]
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Mathematicator\\Engine\\Tests\\": "tests/EngineTests/"
+		}
 	},
 	"scripts": {
 		"codecheck:install": [
@@ -58,5 +69,14 @@
 			"vendor/bin/tester -s -c tests/php.ini -p php tests --coverage coverage.xml --coverage-src src"
 		]
 	},
-	"minimum-stability": "stable"
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"config": {
+		"sort-packages": true
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "2.0.x-dev"
+		}
+	}
 }

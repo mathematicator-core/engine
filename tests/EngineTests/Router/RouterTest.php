@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine\Tests;
+namespace Mathematicator\Engine\Tests\Router;
 
 
 use Mathematicator\Engine\Box;
@@ -12,6 +12,7 @@ use Mathematicator\Engine\Controller\OtherController;
 use Mathematicator\Engine\DynamicConfiguration;
 use Mathematicator\Engine\Query;
 use Mathematicator\Engine\Source;
+use Mathematicator\Engine\Tests\Bootstrap;
 use Mathematicator\Router\DynamicRoute;
 use Mathematicator\Router\Router;
 use Mathematicator\Search\Translation\TranslatorHelper;
@@ -24,17 +25,13 @@ require __DIR__ . '/../../bootstrap.php';
 class RouterTest extends TestCase
 {
 
-	/**
-	 * @var Container
-	 */
+	/** @var Container */
 	private $container;
 
 	/**
 	 * @param Container $container
 	 */
-	public function __construct(
-		Container $container
-	)
+	public function __construct(Container $container)
 	{
 		$this->container = $container;
 	}
@@ -121,7 +118,7 @@ class RouterTest extends TestCase
 		Assert::same(OtherController::class, $controllerClass);
 
 		/** @var OtherController $controller */
-		$controller = new $controllerClass;
+		$controller = $this->container->getByType($controllerClass);
 
 		Assert::type(OtherController::class, $controller);
 
@@ -154,7 +151,7 @@ class RouterTest extends TestCase
 		$router = new Router;
 		$controllerClass = $router->routeQuery('1+1');
 		/** @var OtherController $controller */
-		$controller = new $controllerClass;
+		$controller = $this->container->getByType($controllerClass);
 
 		$controller->createContext(new Query('1+1', '1+1'));
 
@@ -171,7 +168,7 @@ class RouterTest extends TestCase
 		$router = new Router;
 		$controllerClass = $router->routeQuery('1+1');
 		/** @var OtherController $controller */
-		$controller = new $controllerClass;
+		$controller = $this->container->getByType($controllerClass);
 
 		$controller->createContext(new Query('1+1', '1+1'));
 

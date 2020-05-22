@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine\Tests;
+namespace Mathematicator\Engine\Tests\MathFunction;
 
 
 use Mathematicator\Engine\MathFunction\FunctionManager;

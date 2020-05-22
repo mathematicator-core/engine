@@ -6,7 +6,6 @@ namespace Mathematicator\Engine\Tests\Translation;
 
 
 use Mathematicator\Engine\Tests\Bootstrap;
-use Mathematicator\Engine\Translation\TranslatorHelper;
 use Nette\DI\Container;
 use Symfony\Component\Translation\Translator;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -28,20 +27,25 @@ class TranslationTest extends TestCase
 	)
 	{
 		$this->translator = $container->getByType(Translator::class);
-		$translatorHelper = $container->getByType(TranslatorHelper::class);
-		$translatorHelper->init();
 	}
 
 	public function testTranslate(): void
 	{
 		// Check simple translation
-		Assert::same('Řešení', $this->translator->trans('solution', [], null, 'cs_CZ'));
+		Assert::same('Ale ne!', $this->translator->trans('ohNo', [], 'engine', 'cs_CZ'));
+		Assert::same('Oh no!', $this->translator->trans('ohNo', [], 'engine', 'en_US'));
 
 		// Check translation with parameter
-		Assert::same('"5" cannot be divided by zero.', $this->translator->trans('divisionByZeroDesc', ['%number%' => 5], null, 'en_US'));
+		Assert::same('The number is 5.', $this->translator->trans('withParam', ['%number%' => 5], 'test', 'en_US'));
 
 		// Check default language
-		Assert::same('Řešení', $this->translator->trans('solution'));
+		Assert::same('Oh no!', $this->translator->trans('ohNo', [], 'engine'));
+
+		// Test fallback
+		Assert::same('Nepřeloženo', $this->translator->trans('testFallback', [], 'test'));
+
+		// Test hierarchy
+		Assert::same('Child of a parent.', $this->translator->trans('parent.child', [], 'test'));
 	}
 
 }

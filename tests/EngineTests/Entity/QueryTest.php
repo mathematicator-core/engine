@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine\Tests;
+namespace Mathematicator\Engine\Tests\Entity;
 
 
 use Mathematicator\Engine\Query;
