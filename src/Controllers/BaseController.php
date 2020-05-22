@@ -13,11 +13,17 @@ use Mathematicator\Engine\Query;
 use Mathematicator\Engine\Source;
 use Mathematicator\Engine\TerminateException;
 use RuntimeException;
-use Symfony\Component\Translation\Translator;
+use Mathematicator\Engine\Translator;
 use Throwable;
 
 abstract class BaseController implements Controller
 {
+
+	/**
+	 * @var Translator
+	 * @inject
+	 */
+	public $translator;
 
 	/**
 	 * @var Translator
