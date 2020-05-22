@@ -44,6 +44,20 @@ class Bootstrap
 		// Set default language to english for tests for better understandability.
 		$translatorHelper->translator->setLocale('en_US');
 
-		return $configurator->createContainer();
+		$container = $configurator->createContainer();
+
+		/** @var TranslatorHelper $translatorHelper */
+		$translatorHelper = $container->getByType(TranslatorHelper::class);
+
+		// Package translations
+		$translatorHelper->addResource(__DIR__ . '/../translations', 'engine');
+
+		// Translations for testing purposes
+		$translatorHelper->addResource(__DIR__ . '/translations', 'test');
+
+		// Set default language to english for tests for better understandability.
+		$translatorHelper->translator->setLocale('en_US');
+
+		return $container;
 	}
 }
