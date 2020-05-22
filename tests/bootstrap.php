@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mathematicator\Engine\Tests;
 
+
 require __DIR__ . '/../vendor/autoload.php';
 
 

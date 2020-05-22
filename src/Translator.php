@@ -23,7 +23,6 @@ final class Translator implements ITranslator
 		$this->translatorHelper->addResource(__DIR__ . '/../translations', 'engine');
 	}
 
-
 	/**
 	 * @param mixed $message
 	 * @param mixed ...$parameters
