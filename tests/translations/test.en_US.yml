@@ -1,3 +1,4 @@
 withParam: The number is %number%.
 parent:
   child: Child of a parent.
+test: Test

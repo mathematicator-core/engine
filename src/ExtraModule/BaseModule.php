@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
-use Symfony\Component\Translation\Translator;
-
 abstract class BaseModule implements ExtraModuleWithQuery
 {
 

@@ -35,12 +35,9 @@ class TranslatorHelper
 	private $fallbackLanguages = ['en_US', 'cs_CZ'];
 
 
-	/**
-	 * @param Translator $translator
-	 */
-	public function __construct(Translator $translator)
+	public function __construct()
 	{
-		$this->translator = $translator;
+		$this->translator = new Translator($this->languages[0]);
 
 		$this->translator->addLoader('yaml', new YamlFileLoader());
 

@@ -6,8 +6,8 @@ namespace Mathematicator\Engine\Tests\Translation;
 
 
 use Mathematicator\Engine\Tests\Bootstrap;
+use Mathematicator\Engine\Translation\TranslatorHelper;
 use Nette\DI\Container;
-use Symfony\Component\Translation\Translator;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Tester\Assert;
 use Tester\TestCase;
@@ -26,7 +26,7 @@ class TranslationTest extends TestCase
 		Container $container
 	)
 	{
-		$this->translator = $container->getByType(Translator::class);
+		$this->translator = $container->getByType(TranslatorHelper::class)->translator;
 	}
 
 	public function testTranslate(): void

@@ -29,8 +29,8 @@ services:
 	- Mathematicator\Tokenizer\TokensToObject
 	- Mathematicator\Numbers\NumberFactory
 	# other
+	- Mathematicator\Engine\Translator
 	- Mathematicator\Engine\Translation\TranslatorHelper
-	- Symfony\Component\Translation\Translator('cs_CZ')
 
 extensions:
 	psr11: Contributte\Psr11\DI\Psr11ContainerExtension
