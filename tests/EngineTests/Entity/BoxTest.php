@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Tests\Entity;
 
 
+use InvalidArgumentException;
 use Mathematicator\Engine\Box;
 use Mathematicator\Engine\Query;
 use Mathematicator\Engine\Step;
 use Nette\Utils\Json;
+use RuntimeException;
 use Tester\Assert;
 use Tester\TestCase;
 
@@ -54,7 +56,7 @@ class BoxTest extends TestCase
 		Assert::exception(function () {
 			$boxInvalidCustomIcon = new Box(Box::TYPE_TEXT);
 			$boxInvalidCustomIcon->setIcon('invalid icon name');
-		}, \RuntimeException::class);
+		}, RuntimeException::class);
 	}
 
 
@@ -127,7 +129,7 @@ class BoxTest extends TestCase
 		Assert::exception(function () use ($box) {
 			$query = new Query('1+1', '1+1');
 			$box->setSteps([$query]);
-		}, \InvalidArgumentException::class);
+		}, InvalidArgumentException::class);
 
 		// Check valid steps array
 		$box->setSteps([$stepA, $stepA]);

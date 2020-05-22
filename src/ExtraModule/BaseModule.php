@@ -10,24 +10,17 @@ use Symfony\Component\Translation\Translator;
 abstract class BaseModule implements ExtraModuleWithQuery
 {
 
+	/**
+	 * @var Translator
+	 * @inject
+	 */
+	public $translator;
+
 	/** @var EngineSingleResult */
 	protected $result;
 
 	/** @var string */
 	protected $query;
-
-	/** @var Translator */
-	protected $translator;
-
-
-	/**
-	 * @param Translator $translator
-	 */
-	public function __construct(
-		Translator $translator
-	) {
-		$this->translator = $translator;
-	}
 
 
 	/**

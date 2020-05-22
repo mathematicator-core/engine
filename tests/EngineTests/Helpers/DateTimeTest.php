@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Tests\Helpers;
 
 
+use Error;
 use Mathematicator\Engine\Helper\DateTime;
 use Mathematicator\Engine\MathematicatorException;
 use Tester\Assert;
@@ -41,7 +42,7 @@ class DateTimeTest extends TestCase
 	{
 		Assert::exception(function () {
 			new DateTime;
-		}, \Error::class);
+		}, Error::class);
 	}
 
 

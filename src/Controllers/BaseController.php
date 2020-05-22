@@ -19,21 +19,14 @@ use Throwable;
 abstract class BaseController implements Controller
 {
 
-	/** @var Translator */
+	/**
+	 * @var Translator
+	 * @inject
+	 */
 	public $translator;
 
 	/** @var Context */
 	private $context;
-
-
-	/**
-	 * @param Translator $translator
-	 */
-	public function __construct(
-		Translator $translator
-	) {
-		$this->translator = $translator;
-	}
 
 
 	/**

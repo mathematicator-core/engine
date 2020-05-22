@@ -7,6 +7,7 @@ namespace Mathematicator\Engine\Helper;
 
 use Error;
 use Mathematicator\Engine\Helpers;
+use RuntimeException;
 use function time;
 
 final class Czech
@@ -34,7 +35,7 @@ final class Czech
 		$parameters = Helpers::strictScalarType($parameters);
 
 		if (!isset($parameters[0], $parameters[1], $parameters[2])) {
-			throw new \RuntimeException('Parameter [0, 1, 2] does not set. Given: ["' . implode('", "', $parameters) . '"].');
+			throw new RuntimeException('Parameter [0, 1, 2] does not set. Given: ["' . implode('", "', $parameters) . '"].');
 		}
 
 		[$for1, $for234, $forOthers] = $parameters;

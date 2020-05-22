@@ -17,6 +17,7 @@ use Mathematicator\Router\DynamicRoute;
 use Mathematicator\Router\Router;
 use Mathematicator\Search\Translation\TranslatorHelper;
 use Nette\DI\Container;
+use RuntimeException;
 use Tester\Assert;
 use Tester\TestCase;
 
@@ -159,7 +160,7 @@ class RouterTest extends TestCase
 			for ($i = 0; $i <= Context::BOXES_LIMIT + 10; $i++) {
 				$controller->addBox(Box::TYPE_TEXT);
 			}
-		}, \RuntimeException::class);
+		}, RuntimeException::class);
 	}
 
 
