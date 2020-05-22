@@ -8,6 +8,7 @@ services:
 	- Mathematicator\NumberRewriter
 	- Mathematicator\NaturalTextFormatter
 	- Mathematicator\Engine\SampleModule
+	- Mathematicator\Router\Router
 	- Mathematicator\Engine\Controller\OtherController
 	- Mathematicator\Engine\Controller\ErrorTooLongController
 	- Mathematicator\Engine\Translation\TranslatorHelper
@@ -19,3 +20,5 @@ extensions:
 orm.annotations:
 	paths:
 		Mathematicator: %appDir%/../vendor/mathematicator-core
+	ignore:
+		Mathematicator: %appDir%/../vendor/mathematicator-core/*/tests
