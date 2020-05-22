@@ -13,7 +13,6 @@ require __DIR__ . '/../../bootstrap.php';
 
 class SourceTest extends TestCase
 {
-
 	public function testComplete(): void
 	{
 		$source = new Source;

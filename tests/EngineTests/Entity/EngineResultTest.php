@@ -18,7 +18,6 @@ require __DIR__ . '/../../bootstrap.php';
 
 class EngineResultTest extends TestCase
 {
-
 	public function testSingleResult(): void
 	{
 		$interpret = new Box(Box::TYPE_TEXT, 'Interpret', '5+3*2');

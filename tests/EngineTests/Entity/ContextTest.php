@@ -17,7 +17,6 @@ require __DIR__ . '/../../bootstrap.php';
 
 class ContextTest extends TestCase
 {
-
 	public function testContent(): void
 	{
 		$context = new Context($query = new Query('1+2', '1+2'));
