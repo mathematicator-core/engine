@@ -6,7 +6,7 @@ namespace Mathematicator\Engine\Tests\Helpers;
 
 
 use Mathematicator\Engine\Helper\Czech;
-use Mathematicator\Engine\MathematicatorException;
+use RuntimeException;
 use Tester\Assert;
 use Tester\TestCase;
 
@@ -98,7 +98,7 @@ class CzechTest extends TestCase
 	public function getInflectionExceptionTestCases(): array
 	{
 		return [
-			[MathematicatorException::class, [1, ['zájezdy', 'zájezdů']]],
+			[RuntimeException::class, [1, ['zájezdy', 'zájezdů']]],
 		];
 	}
 }

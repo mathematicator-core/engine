@@ -22,8 +22,8 @@ final class SampleModule extends BaseModule
 	{
 		$this->result->addBox(
 			(new Box(Box::TYPE_TEXT))
-				->setTitle($this->translator->trans('help'))
-				->setText($this->translator->trans('helpQuestion'))
+				->setTitle($this->translator->trans('help', [], 'engine'))
+				->setText($this->translator->trans('helpQuestion', [], 'engine'))
 		);
 	}
 }

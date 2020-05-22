@@ -15,10 +15,10 @@ final class OtherController extends BaseController
 			->setTitle('&nbsp;')
 			->setText(
 				'<div style="padding:1em;background:#FEFEFE">'
-				. '<h1>' . $this->translator->trans('ohNo') . '</h1>'
-				. '<p>' . $this->translator->trans('contentSearchFailed') . '</p>'
+				. '<h1>' . $this->translator->trans('ohNo', [], 'engine') . '</h1>'
+				. '<p>' . $this->translator->trans('contentSearchFailed', [], 'engine') . '</p>'
 				. '<div style="text-align:center;padding:4em 1em">'
-				. '<img src="https://mathematicator.com/img/error_dinosaur.gif" alt="' . $this->translator->trans('contentSearchFailed') . '">'
+				. '<img src="https://mathematicator.com/img/error_dinosaur.gif" alt="' . $this->translator->trans('contentSearchFailed', [], 'engine') . '">'
 				. '</div>'
 				. '</div>'
 			)
