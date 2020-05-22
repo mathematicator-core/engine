@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Controller;
 
 
+use function get_class;
 use Mathematicator\Engine\Box;
 use Mathematicator\Engine\Context;
 use Mathematicator\Engine\DynamicConfiguration;
@@ -14,7 +15,6 @@ use Mathematicator\Engine\TerminateException;
 use Mathematicator\Engine\Translator;
 use RuntimeException;
 use Throwable;
-use function get_class;
 
 abstract class BaseController implements Controller
 {

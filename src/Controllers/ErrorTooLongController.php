@@ -11,7 +11,6 @@ use Nette\Utils\Strings;
 
 final class ErrorTooLongController extends BaseController
 {
-
 	public function actionDefault(): void
 	{
 		$this->addBox(Box::TYPE_TEXT)
