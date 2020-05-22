@@ -7,7 +7,6 @@ namespace Mathematicator\Engine\Helper;
 
 use Error;
 use Mathematicator\Engine\Helpers;
-use Mathematicator\Engine\MathematicatorException;
 use function time;
 
 final class Czech
