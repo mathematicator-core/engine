@@ -11,9 +11,16 @@ use Mathematicator\Engine\DynamicConfiguration;
 use Mathematicator\Engine\Query;
 use Mathematicator\Engine\Source;
 use Mathematicator\Engine\TerminateException;
+use Mathematicator\Engine\Translator;
 
 abstract class BaseController implements Controller
 {
+
+	/**
+	 * @var Translator
+	 * @inject
+	 */
+	public $translator;
 
 	/** @var Context */
 	private $context;
