@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Mathematicator\Engine\Tests;
 
+// TODO: require __DIR__ . '/../vendor/autoload.php';
 
-require __DIR__ . '/../vendor/autoload.php';
 
-use FrontModule\LinkGeneratorMock;
 use Mathematicator\Engine\Translation\TranslatorHelper;
 use Nette\Configurator;
 use Nette\DI\Container;
@@ -30,14 +29,8 @@ class Bootstrap
 			->register();
 
 		$configurator
-			/**
-			 * TODO: common.neon fails: Nette\DI\InvalidConfigurationException: Found section 'orm.annotations'
-			 * in configuration, but corresponding extension is missing.
-			 */
-			// ->addConfig(__DIR__ . '/../common.neon')
-			->addConfig(__DIR__ . '/config.neon');
-
-		$container = $configurator->createContainer();
+			->addConfig(__DIR__ . '/../common.neon')
+			->addConfig(__DIR__ . '/test.common.neon');
 
 		/** @var TranslatorHelper $translatorHelper */
 		$translatorHelper = $container->getByType(TranslatorHelper::class);
@@ -51,6 +44,6 @@ class Bootstrap
 		// Set default language to english for tests for better understandability.
 		$translatorHelper->translator->setLocale('en_US');
 
-		return $container;
+		return $configurator->createContainer();
 	}
 }

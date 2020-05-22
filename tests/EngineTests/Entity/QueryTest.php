@@ -13,7 +13,6 @@ require __DIR__ . '/../../bootstrap.php';
 
 class QueryTest extends TestCase
 {
-
 	public function testQuery(): void
 	{
 		$query = new Query('1+2', '1+1');

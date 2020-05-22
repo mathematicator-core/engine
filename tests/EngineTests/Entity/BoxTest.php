@@ -16,7 +16,6 @@ require __DIR__ . '/../../bootstrap.php';
 
 class BoxTest extends TestCase
 {
-
 	public function testSimpleText(): void
 	{
 		$box = new Box(Box::TYPE_TEXT, 'Result', 'Result does not exist.');

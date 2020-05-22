@@ -13,7 +13,6 @@ require __DIR__ . '/../../bootstrap.php';
 
 class DynamicConfigurationTest extends TestCase
 {
-
 	public function testTranslator(): void
 	{
 		$config = new DynamicConfiguration('my-config');

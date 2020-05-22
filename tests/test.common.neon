@@ -1,0 +1,6 @@
+services: # added for tests
+	- Mathematicator\Router\Router
+	- Mathematicator\Tokenizer\Tokenizer
+	- Mathematicator\Tokenizer\TokensToLatex
+	- Mathematicator\Tokenizer\TokensToObject
+	- Mathematicator\Numbers\NumberFactory
