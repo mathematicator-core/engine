@@ -31,6 +31,12 @@ class TranslatorTest extends TestCase
 	{
 		// Check simple translation
 		Assert::same('Test', $this->translator->translate('test.test'));
+
+		// Named parameters
+		Assert::same('The number is 5.', $this->translator->translate('test.withParam', ['number' => 5]));
+
+		// Sequential parameters
+		Assert::same('Sample FIRST | THIRD | SECOND', $this->translator->translate('test.sequentialParams.sample', 'FIRST', 'SECOND', 'THIRD'));
 	}
 
 }

@@ -13,6 +13,7 @@ use Mathematicator\Engine\DynamicConfiguration;
 use Mathematicator\Engine\Query;
 use Mathematicator\Engine\Source;
 use Mathematicator\Engine\Tests\Bootstrap;
+use Mathematicator\Engine\Translator;
 use Mathematicator\Router\DynamicRoute;
 use Mathematicator\Router\Router;
 use Mathematicator\Search\Translation\TranslatorHelper;
@@ -56,6 +57,7 @@ class RouterTest extends TestCase
 
 		/** @var ErrorTooLongController $errorTooLongController */
 		$errorTooLongController = $this->container->getByType($controller);
+		$errorTooLongController->translator = $this->container->getByType(Translator::class);
 		$errorTooLongController->createContext($queryEntity = new Query($query, $query));
 		$errorTooLongController->actionDefault();
 
@@ -75,7 +77,7 @@ class RouterTest extends TestCase
 		$box = $boxes[0];
 
 		Assert::same(Box::TYPE_TEXT, $box->getType());
-		Assert::same('Příliš dlouhý dotaz', $box->getTitle());
+		Assert::same('Too long query', $box->getTitle());
 		Assert::same('<i class="fas fa-exclamation-triangle"></i>', $box->getIcon());
 		Assert::same('no-results', $box->getTag());
 	}
@@ -127,6 +129,7 @@ class RouterTest extends TestCase
 		$_GET['myConfig_y'] = '256';
 		$_GET['second-parameter'] = 'hello';
 		$controller->createContext(new Query('1+1', '1+1'));
+		$controller->translator = $this->container->getByType(Translator::class);
 		$dynamicConfigurations = $controller->getContext()->getDynamicConfigurations();
 
 		Assert::count(1, $dynamicConfigurations);

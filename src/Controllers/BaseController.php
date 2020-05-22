@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Controller;
 
 
-use function get_class;
 use Mathematicator\Engine\Box;
 use Mathematicator\Engine\Context;
 use Mathematicator\Engine\DynamicConfiguration;
@@ -15,6 +14,7 @@ use Mathematicator\Engine\TerminateException;
 use Mathematicator\Engine\Translator;
 use RuntimeException;
 use Throwable;
+use function get_class;
 
 abstract class BaseController implements Controller
 {
@@ -92,7 +92,7 @@ abstract class BaseController implements Controller
 				'<form action="' . $currentUrl . '" method="get">' . $form . '<table>'
 				. $content
 				. '</table>'
-				. '<input type="submit" value="Použít" class="btn btn-primary mt-2">'
+				. '<input type="submit" value="' . $this->translator->translate('engine.button.apply') . '" class="btn btn-primary mt-2">'
 				. '</form>'
 			);
 	}
