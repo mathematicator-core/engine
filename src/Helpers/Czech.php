@@ -26,7 +26,6 @@ final class Czech
 	 * @param int $number
 	 * @param string[] $parameters
 	 * @return string
-	 * @throws MathematicatorException
 	 */
 	public static function inflection(int $number, array $parameters): string
 	{
@@ -34,9 +33,7 @@ final class Czech
 		$parameters = Helpers::strictScalarType($parameters);
 
 		if (!isset($parameters[0], $parameters[1], $parameters[2])) {
-			throw new MathematicatorException(
-				'Parameter [0, 1, 2] does not set. Given: ["' . implode('", "', $parameters) . '"].'
-			);
+			throw new \RuntimeException('Parameter [0, 1, 2] does not set. Given: ["' . implode('", "', $parameters) . '"].');
 		}
 
 		[$for1, $for234, $forOthers] = $parameters;
