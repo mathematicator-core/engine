@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
+use Exception;
+
 final class DivisionByZero extends MathErrorException
 {
 
@@ -15,11 +17,11 @@ final class DivisionByZero extends MathErrorException
 	/**
 	 * @param string $message
 	 * @param int $code
-	 * @param \Exception|null $previous
+	 * @param Exception|null $previous
 	 * @param string[] $fraction
 	 * @throws MathematicatorException
 	 */
-	public function __construct(string $message, int $code = 0, \Exception $previous = null, array $fraction = [])
+	public function __construct(string $message, int $code = 0, Exception $previous = null, array $fraction = [])
 	{
 		parent::__construct($message, $code, $previous);
 

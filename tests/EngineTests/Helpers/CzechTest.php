@@ -2,13 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine\Tests\Helper;
+namespace Mathematicator\Engine\Tests\Helpers;
 
 
+use DateTime;
+use Error;
 use Mathematicator\Engine\Helper\Czech;
-use Mathematicator\Engine\MathematicatorException;
+use RuntimeException;
 use Tester\Assert;
 use Tester\TestCase;
+use function time;
 
 require __DIR__ . '/../../bootstrap.php';
 
@@ -56,8 +59,8 @@ class CzechTest extends TestCase
 	public function getGetDateTestCases(): array
 	{
 		return [
-			['2. května 2020', [new \DateTime('2020-05-02 10:50:01'), false]],
-			['2. květen 2020', [new \DateTime('2020-05-02 10:50:01'), true]],
+			['2. května 2020', [new DateTime('2020-05-02 10:50:01'), false]],
+			['2. květen 2020', [new DateTime('2020-05-02 10:50:01'), true]],
 		];
 	}
 
@@ -66,13 +69,13 @@ class CzechTest extends TestCase
 	{
 		Assert::exception(function () {
 			new Czech;
-		}, \Error::class);
+		}, Error::class);
 	}
 
 
 	public function testEmptyGetDate(): void
 	{
-		Assert::same(Czech::getDate(\time(), true), Czech::getDate(null, true));
+		Assert::same(Czech::getDate(time(), true), Czech::getDate(null, true));
 	}
 
 
@@ -98,7 +101,7 @@ class CzechTest extends TestCase
 	public function getInflectionExceptionTestCases(): array
 	{
 		return [
-			[MathematicatorException::class, [1, ['zájezdy', 'zájezdů']]],
+			[RuntimeException::class, [1, ['zájezdy', 'zájezdů']]],
 		];
 	}
 }

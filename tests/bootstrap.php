@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Mathematicator\Engine\Tests;
 
-// TODO: require __DIR__ . '/../vendor/autoload.php';
+
+require __DIR__ . '/../vendor/autoload.php';
 
 
+use Mathematicator\Engine\Translation\TranslatorHelper;
 use Nette\Configurator;
 use Nette\DI\Container;
 use Tester\Environment;
@@ -28,9 +30,23 @@ class Bootstrap
 			->register();
 
 		$configurator
-			->addConfig(__DIR__ . '/../common.neon')
+			// TODO make this work: ->addConfig(__DIR__ . '/../common.neon')
 			->addConfig(__DIR__ . '/test.common.neon');
 
-		return $configurator->createContainer();
+		$container = $configurator->createContainer();
+
+		/** @var TranslatorHelper $translatorHelper */
+		$translatorHelper = $container->getByType(TranslatorHelper::class);
+
+		// Package translations
+		$translatorHelper->addResource(__DIR__ . '/../translations', 'engine');
+
+		// Translations for testing purposes
+		$translatorHelper->addResource(__DIR__ . '/translations', 'test');
+
+		// Set default language to english for tests for better understandability.
+		$translatorHelper->translator->setLocale('en_US');
+
+		return $container;
 	}
 }

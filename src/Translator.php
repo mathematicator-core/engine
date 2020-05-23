@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
-use Baraja\Localization\Localization;
+use Mathematicator\Engine\Translation\TranslatorHelper;
 use Nette\Localization\ITranslator;
 
 final class Translator implements ITranslator
 {
-
-	/** @var Localization */
-	private $localization;
+	/** @var TranslatorHelper */
+	private $translatorHelper;
 
 
 	/**
-	 * @param Localization $localization
+	 * @param TranslatorHelper $translatorHelper
 	 */
-	public function __construct(Localization $localization)
+	public function __construct(TranslatorHelper $translatorHelper)
 	{
-		$this->localization = $localization;
+		$this->translatorHelper = $translatorHelper;
+		$this->translatorHelper->addResource(__DIR__ . '/../translations', 'engine');
 	}
 
 
@@ -31,7 +31,24 @@ final class Translator implements ITranslator
 	 */
 	public function translate($message, ...$parameters): string
 	{
-		// TODO: Implement me!
-		return (string) $message;
+		$translatorParams = [];
+		if (isset($parameters[0]) && is_array($parameters[0])) {
+			// Process named parameters
+			foreach ($parameters[0] as $paramKey => $paramValue) {
+				$translatorParams['%' . $paramKey . '%'] = $paramValue;
+			}
+		} else {
+			// Process sequential parameters
+			for ($i = 0; isset($parameters[$i]); $i++) {
+				$translatorParams['%' . $i . '%'] = $parameters[$i];
+			}
+		}
+
+		$domain = explode('.', $message)[0];
+		return $this->translatorHelper->translator->trans(
+			mb_substr($message, mb_strlen($domain) + 1),
+			$translatorParams,
+			$domain
+		);
 	}
 }

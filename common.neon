@@ -5,20 +5,18 @@ services:
 			- addExtraModule(@Mathematicator\Engine\SampleModule)
 	mathematicator.queryNormalizer:
 		factory: Mathematicator\Engine\QueryNormalizer
-	mathematicator.translator:
-		factory: Mathematicator\Engine\Translator
 	- Mathematicator\NumberRewriter
 	- Mathematicator\NaturalTextFormatter
 	- Mathematicator\Engine\SampleModule
 	- Mathematicator\Router\Router
 	- Mathematicator\Engine\Controller\OtherController
 	- Mathematicator\Engine\Controller\ErrorTooLongController
+	- Mathematicator\Engine\Translator
+	- Mathematicator\Engine\Translation\TranslatorHelper
 
 extensions:
 	psr11: Contributte\Psr11\DI\Psr11ContainerExtension
 
 orm.annotations:
 	paths:
-		Mathematicator: %appDir%/../vendor/mathematicator-core
-	ignore:
-		Mathematicator: %appDir%/../vendor/mathematicator-core/*/tests
+		Mathematicator: %appDir%/../vendor/mathematicator-core/engine/src

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine\Tests\Helper;
+namespace Mathematicator\Engine\Tests\Formatter;
 
 
 use Mathematicator\FixSpaces;

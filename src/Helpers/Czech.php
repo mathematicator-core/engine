@@ -5,16 +5,18 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Helper;
 
 
+use Error;
 use Mathematicator\Engine\Helpers;
-use Mathematicator\Engine\MathematicatorException;
+use RuntimeException;
+use function time;
 
 final class Czech
 {
 
-	/** @throws \Error */
+	/** @throws Error */
 	public function __construct()
 	{
-		throw new \Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
+		throw new Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
 	}
 
 
@@ -33,7 +35,7 @@ final class Czech
 		$parameters = Helpers::strictScalarType($parameters);
 
 		if (!isset($parameters[0], $parameters[1], $parameters[2])) {
-			throw new \RuntimeException('Parameter [0, 1, 2] does not set. Given: ["' . implode('", "', $parameters) . '"].');
+			throw new RuntimeException('Parameter [0, 1, 2] does not set. Given: ["' . implode('", "', $parameters) . '"].');
 		}
 
 		[$for1, $for234, $forOthers] = $parameters;
@@ -61,7 +63,7 @@ final class Czech
 	public static function getDate($date = null, bool $singular = false): string
 	{
 		if ($date === null) {
-			$time = \time();
+			$time = time();
 		} elseif ($date instanceof \DateTime) {
 			$time = $date->getTimestamp();
 		} else {

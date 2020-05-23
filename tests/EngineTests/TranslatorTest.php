@@ -14,39 +14,32 @@ require __DIR__ . '/../bootstrap.php';
 
 class TranslatorTest extends TestCase
 {
-
-	/** @var Translator */
+	/**
+	 * @var TranslatorInterface
+	 */
 	private $translator;
 
 
-	public function __construct(Container $container)
+	public function __construct(
+		Container $container
+	)
 	{
 		$this->translator = $container->getByType(Translator::class);
 	}
 
-
-	/**
-	 * @dataprovider getMessages
-	 * @param string $expected
-	 * @param mixed $message
-	 * @param mixed[] $parameters
-	 */
-	public function testTranslator(string $expected, $message, array $parameters): void
+	public function testTranslate(): void
 	{
-		Assert::same($expected, $this->translator->translate($message, $parameters));
+		// Check simple translation
+		Assert::same('Test', $this->translator->translate('test.test'));
+
+		// Named parameters
+		Assert::same('The number is 5.', $this->translator->translate('test.withParam', ['number' => 5]));
+
+		// Sequential parameters
+		Assert::same('Sample FIRST | THIRD | SECOND', $this->translator->translate('test.sequentialParams.sample', 'FIRST', 'SECOND', 'THIRD'));
 	}
 
-
-	/**
-	 * @return string[]
-	 */
-	public function getMessages(): array
-	{
-		return [
-			['256', 256, []],
-			['Baraja', 'Baraja', []],
-		];
-	}
 }
 
-(new TranslatorTest(Bootstrap::boot()))->run();
+$container = (new Bootstrap())::boot();
+(new TranslatorTest($container))->run();

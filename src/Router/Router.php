@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Router;
 
 
+use function in_array;
 use Mathematicator\Engine\Controller\ErrorTooLongController;
 use Mathematicator\Engine\Controller\OtherController;
 use Mathematicator\Engine\MathFunction\FunctionManager;
@@ -110,7 +111,7 @@ final class Router
 			$queryCache[$this->query] = strtolower(trim(Strings::toAscii($this->query)));
 		}
 
-		if (\in_array($queryCache[$this->query], $queries, true) === true) {
+		if (in_array($queryCache[$this->query], $queries, true) === true) {
 			throw new TerminateException($entity);
 		}
 	}

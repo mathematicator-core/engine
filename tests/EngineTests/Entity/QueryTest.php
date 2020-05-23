@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine\Tests;
+namespace Mathematicator\Engine\Tests\Entity;
 
 
+use DateTime;
 use Mathematicator\Engine\Query;
 use Tester\Assert;
 use Tester\TestCase;
@@ -25,7 +26,7 @@ class QueryTest extends TestCase
 		Assert::same(true, $query->isDefaultDecimals());
 		Assert::same(50.0755381, $query->getLatitude());
 		Assert::same(14.4378005, $query->getLongitude());
-		Assert::true($query->getDateTime() instanceof \DateTime);
+		Assert::true($query->getDateTime() instanceof DateTime);
 	}
 
 

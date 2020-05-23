@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine\Tests;
+namespace Mathematicator\Engine\Tests\MathFunction;
 
 
 use Mathematicator\Engine\MathFunction\FunctionManager;
 use Mathematicator\Engine\MathFunction\Sin;
+use RuntimeException;
 use Tester\Assert;
 use Tester\TestCase;
 
@@ -29,11 +30,11 @@ class FunctionManagerTest extends TestCase
 
 		Assert::exception(function () {
 			FunctionManager::addFunction('cos', new Sin);
-		}, \RuntimeException::class);
+		}, RuntimeException::class);
 
 		Assert::exception(function () {
 			FunctionManager::getFunction('unknown-function');
-		}, \RuntimeException::class);
+		}, RuntimeException::class);
 	}
 
 

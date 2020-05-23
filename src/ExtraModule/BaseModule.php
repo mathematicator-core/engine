@@ -8,6 +8,12 @@ namespace Mathematicator\Engine;
 abstract class BaseModule implements ExtraModuleWithQuery
 {
 
+	/**
+	 * @var Translator
+	 * @inject
+	 */
+	public $translator;
+
 	/** @var EngineSingleResult */
 	protected $result;
 
@@ -16,9 +22,9 @@ abstract class BaseModule implements ExtraModuleWithQuery
 
 
 	/**
-	 * @internal
 	 * @param EngineSingleResult $result
 	 * @return ExtraModule
+	 * @internal
 	 */
 	final public function setEngineSingleResult(EngineSingleResult $result): ExtraModule
 	{
@@ -29,8 +35,8 @@ abstract class BaseModule implements ExtraModuleWithQuery
 
 
 	/**
-	 * @internal
 	 * @param string $query
+	 * @internal
 	 */
 	final public function setQuery(string $query): void
 	{

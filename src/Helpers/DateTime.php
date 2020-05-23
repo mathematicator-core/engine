@@ -5,15 +5,19 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Helper;
 
 
+use Error;
+use function is_array;
+use function is_string;
 use Mathematicator\Engine\MathematicatorException;
+use function time;
 
 final class DateTime
 {
 
-	/** @throws \Error */
+	/** @throws Error */
 	public function __construct()
 	{
-		throw new \Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
+		throw new Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
 	}
 
 
@@ -25,7 +29,7 @@ final class DateTime
 	 */
 	public static function getDateTimeIso(?int $now = null): string
 	{
-		return date('Y-m-d H:i:s', $now ?? \time());
+		return date('Y-m-d H:i:s', $now ?? time());
 	}
 
 
@@ -63,7 +67,7 @@ final class DateTime
 			throw new MathematicatorException('Unsupported lang "' . $lang . '" (supported languages: cz/sk/en)');
 		}
 
-		$diff = ($now = $now ?? \time()) - $time;
+		$diff = ($now = $now ?? time()) - $time;
 		$lengths = [1, 60, 3600, 86400, 2630880, 31570560];
 		$no = 0;
 		$v = 5;
@@ -80,12 +84,12 @@ final class DateTime
 		$no = (int) floor($no);
 		$label = null;
 
-		if (isset($labels[$v]) && \is_string($labels[$v])) {
+		if (isset($labels[$v]) && is_string($labels[$v])) {
 			$label = $labels[$v];
 			if ($lang === 'en' && $no !== 1) {
 				$label .= 's';
 			}
-		} elseif (\is_array($labels[$v])) {
+		} elseif (is_array($labels[$v])) {
 			if ($no === 1) {
 				$label = $labels[$v][0];
 			} elseif ($no >= 2 && $no <= 4) {

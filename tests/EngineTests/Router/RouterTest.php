@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine\Tests;
+namespace Mathematicator\Engine\Tests\Router;
 
 
 use Mathematicator\Engine\Box;
@@ -12,8 +12,13 @@ use Mathematicator\Engine\Controller\OtherController;
 use Mathematicator\Engine\DynamicConfiguration;
 use Mathematicator\Engine\Query;
 use Mathematicator\Engine\Source;
+use Mathematicator\Engine\Tests\Bootstrap;
+use Mathematicator\Engine\Translator;
 use Mathematicator\Router\DynamicRoute;
 use Mathematicator\Router\Router;
+use Mathematicator\Search\Translation\TranslatorHelper;
+use Nette\DI\Container;
+use RuntimeException;
 use Tester\Assert;
 use Tester\TestCase;
 
@@ -21,6 +26,18 @@ require __DIR__ . '/../../bootstrap.php';
 
 class RouterTest extends TestCase
 {
+
+	/** @var Container */
+	private $container;
+
+	/**
+	 * @param Container $container
+	 */
+	public function __construct(Container $container)
+	{
+		$this->container = $container;
+	}
+
 
 	public function testWithoutRoutes(): void
 	{
@@ -39,7 +56,8 @@ class RouterTest extends TestCase
 		Assert::same(ErrorTooLongController::class, $controller);
 
 		/** @var ErrorTooLongController $errorTooLongController */
-		$errorTooLongController = new $controller;
+		$errorTooLongController = $this->container->getByType($controller);
+		$errorTooLongController->translator = $this->container->getByType(Translator::class);
 		$errorTooLongController->createContext($queryEntity = new Query($query, $query));
 		$errorTooLongController->actionDefault();
 
@@ -59,7 +77,7 @@ class RouterTest extends TestCase
 		$box = $boxes[0];
 
 		Assert::same(Box::TYPE_TEXT, $box->getType());
-		Assert::same('Příliš dlouhý dotaz', $box->getTitle());
+		Assert::same('Too long query', $box->getTitle());
 		Assert::same('<i class="fas fa-exclamation-triangle"></i>', $box->getIcon());
 		Assert::same('no-results', $box->getTag());
 	}
@@ -103,7 +121,7 @@ class RouterTest extends TestCase
 		Assert::same(OtherController::class, $controllerClass);
 
 		/** @var OtherController $controller */
-		$controller = new $controllerClass;
+		$controller = $this->container->getByType($controllerClass);
 
 		Assert::type(OtherController::class, $controller);
 
@@ -111,6 +129,7 @@ class RouterTest extends TestCase
 		$_GET['myConfig_y'] = '256';
 		$_GET['second-parameter'] = 'hello';
 		$controller->createContext(new Query('1+1', '1+1'));
+		$controller->translator = $this->container->getByType(Translator::class);
 		$dynamicConfigurations = $controller->getContext()->getDynamicConfigurations();
 
 		Assert::count(1, $dynamicConfigurations);
@@ -136,7 +155,7 @@ class RouterTest extends TestCase
 		$router = new Router;
 		$controllerClass = $router->routeQuery('1+1');
 		/** @var OtherController $controller */
-		$controller = new $controllerClass;
+		$controller = $this->container->getByType($controllerClass);
 
 		$controller->createContext(new Query('1+1', '1+1'));
 
@@ -144,7 +163,7 @@ class RouterTest extends TestCase
 			for ($i = 0; $i <= Context::BOXES_LIMIT + 10; $i++) {
 				$controller->addBox(Box::TYPE_TEXT);
 			}
-		}, \RuntimeException::class);
+		}, RuntimeException::class);
 	}
 
 
@@ -153,7 +172,7 @@ class RouterTest extends TestCase
 		$router = new Router;
 		$controllerClass = $router->routeQuery('1+1');
 		/** @var OtherController $controller */
-		$controller = new $controllerClass;
+		$controller = $this->container->getByType($controllerClass);
 
 		$controller->createContext(new Query('1+1', '1+1'));
 
@@ -163,4 +182,5 @@ class RouterTest extends TestCase
 	}
 }
 
-(new RouterTest)->run();
+$container = (new Bootstrap())::boot();
+(new RouterTest($container))->run();

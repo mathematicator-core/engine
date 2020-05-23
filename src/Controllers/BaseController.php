@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Controller;
 
 
+use function get_class;
 use Mathematicator\Engine\Box;
 use Mathematicator\Engine\Context;
 use Mathematicator\Engine\DynamicConfiguration;
@@ -12,6 +13,8 @@ use Mathematicator\Engine\Query;
 use Mathematicator\Engine\Source;
 use Mathematicator\Engine\TerminateException;
 use Mathematicator\Engine\Translator;
+use RuntimeException;
+use Throwable;
 
 abstract class BaseController implements Controller
 {
@@ -43,8 +46,8 @@ abstract class BaseController implements Controller
 	{
 		try {
 			return $this->context->addBox($type);
-		} catch (\Throwable $e) {
-			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+		} catch (Throwable $e) {
+			throw new RuntimeException($e->getMessage(), $e->getCode(), $e);
 		}
 	}
 
@@ -89,7 +92,7 @@ abstract class BaseController implements Controller
 				'<form action="' . $currentUrl . '" method="get">' . $form . '<table>'
 				. $content
 				. '</table>'
-				. '<input type="submit" value="Použít" class="btn btn-primary mt-2">'
+				. '<input type="submit" value="' . $this->translator->translate('engine.button.apply') . '" class="btn btn-primary mt-2">'
 				. '</form>'
 			);
 	}
@@ -118,9 +121,9 @@ abstract class BaseController implements Controller
 	/**
 	 * Create new context. If context already exist rewrite existing.
 	 *
-	 * @internal
 	 * @param Query $query
 	 * @return Context
+	 * @internal
 	 */
 	final public function createContext(Query $query): Context
 	{
@@ -180,6 +183,6 @@ abstract class BaseController implements Controller
 	 */
 	final public function terminate(): void
 	{
-		throw new TerminateException('Automatically terminated by "' . \get_class($this) . '".');
+		throw new TerminateException('Automatically terminated by "' . get_class($this) . '".');
 	}
 }

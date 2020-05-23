@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
+use InvalidArgumentException;
 use Nette\SmartObject;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
 use Nette\Utils\Strings;
+use RuntimeException;
 
 final class Box
 {
@@ -151,7 +153,7 @@ final class Box
 		if (preg_match('/^(fas?)\s+(fa-[a-z0-9\-]+)$/', Strings::normalize($icon), $parser)) {
 			$this->icon = $parser[1] . ' ' . $parser[2];
 		} else {
-			throw new \RuntimeException('Icon "' . $icon . '" is not valid FontAwesome icon. Use format "fas fa-xxx".');
+			throw new RuntimeException('Icon "' . $icon . '" is not valid FontAwesome icon. Use format "fas fa-xxx".');
 		}
 
 		return $this;
@@ -237,8 +239,8 @@ final class Box
 
 
 	/**
-	 * @internal
 	 * @return string|null
+	 * @internal
 	 */
 	public function getTag(): ?string
 	{
@@ -247,9 +249,9 @@ final class Box
 
 
 	/**
-	 * @internal
 	 * @param string|null $tag
 	 * @return Box
+	 * @internal
 	 */
 	public function setTag(?string $tag): self
 	{
@@ -273,7 +275,7 @@ final class Box
 	 *
 	 * @param Step[]|mixed[] $steps
 	 * @return Box
-	 * @throws \InvalidArgumentException
+	 * @throws InvalidArgumentException
 	 */
 	public function setSteps(array $steps): self
 	{
@@ -281,7 +283,7 @@ final class Box
 
 		foreach ($steps as $step) {
 			if (!$step instanceof Step) {
-				throw new \InvalidArgumentException('Step must be instance of "' . Step::class . '".');
+				throw new InvalidArgumentException('Step must be instance of "' . Step::class . '".');
 			}
 			$return[] = $step;
 		}

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Tests;
 
 
+use Error;
 use Mathematicator\Engine\Helpers;
 use Mathematicator\Engine\Query;
 use Nette\Utils\ArrayHash;
@@ -20,7 +21,7 @@ class HelpersTest extends TestCase
 	{
 		Assert::exception(function () {
 			new Helpers;
-		}, \Error::class);
+		}, Error::class);
 	}
 
 

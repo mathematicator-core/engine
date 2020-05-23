@@ -14,11 +14,11 @@ final class ErrorTooLongController extends BaseController
 	public function actionDefault(): void
 	{
 		$this->addBox(Box::TYPE_TEXT)
-			->setTitle('Příliš dlouhý dotaz')
+			->setTitle($this->translator->translate('engine.error.tooLongQuery.title'))
 			->setText(
-				'<p>Maximální délka vstupního dotazu je momentálně omezena na ' . Query::LENGTH_LIMIT . ' znaků (vloženo ' . Strings::length($this->getQuery()) . ' znaků) v kódování UTF-8.</p>'
-				. '<p>Toto omezení nasazujeme z výkonnostních důvodů.</p>'
-				. '<p>Pokud potřebujete vykonávat náročnější výpočty, kontaktujte nás.</p>'
+				'<p>' . $this->translator->translate('engine.error.tooLongQuery.p1', ['lengthLimit' => Query::LENGTH_LIMIT, 'inputLength' => Strings::length($this->getQuery())]) . '</p>'
+				. '<p>' . $this->translator->translate('engine.error.tooLongQuery.p2') . '</p>'
+				. '<p>' . $this->translator->translate('engine.error.tooLongQuery.p3') . '</p>'
 			)
 			->setIcon('fas fa-exclamation-triangle')
 			->setTag('no-results');
