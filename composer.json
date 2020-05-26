@@ -19,7 +19,7 @@
 		"php": ">=7.2",
 		"baraja-core/localization": "^1.0",
 		"contributte/psr11-container-interface": "^0.4.1",
-		"mathematicator-core/tokenizer": "^2.0",
+		"mathematicator-core/tokenizer": "^2.0@dev",
 		"nette/di": "^3.0",
 		"nette/utils": "^3.0",
 		"symfony/yaml": "^5.0",
@@ -27,14 +27,15 @@
 	},
 	"require-dev": {
 		"baraja-core/doctrine": "^2.0",
+		"brainmaestro/composer-git-hooks": "^2.8",
 		"nette/bootstrap": "^3.0.1",
 		"nette/tester": "^2.3",
 		"phpstan/phpstan": "^0.12.18",
 		"phpstan/phpstan-nette": "^0.12.6"
 	},
 	"suggest": {
-		"nette/di": "To use package in Nette Framework",
-		"tracy/tracy": "For advance debugging"
+		"nette/di": "(^3.0) To use package in Nette Framework",
+		"tracy/tracy": "(^3.0) For advance debugging"
 	},
 	"autoload": {
 		"classmap": [
@@ -47,38 +48,45 @@
 		}
 	},
 	"scripts": {
-		"codecheck:install": [
+		"post-install-cmd": "cghooks add --ignore-lock",
+		"post-update-cmd": "cghooks update",
+		"cs:install": [
 			"composer create-project nette/code-checker temp/code-checker ^3 --no-progress",
 			"composer create-project nette/coding-standard temp/coding-standard ^2 --no-progress"
 		],
-		"codecheck:check": [
+		"cs:check": [
 			"php temp/code-checker/code-checker --short-arrays --strict-types --no-progress",
 			"php temp/coding-standard/ecs check src --config temp/coding-standard/coding-standard-php71.yml"
 		],
-		"codecheck:fix": [
+		"cs:fix": [
 			"php temp/code-checker/code-checker --short-arrays --strict-types --fix --no-progress",
 			"php temp/coding-standard/ecs check src --config temp/coding-standard/coding-standard-php71.yml --fix"
 		],
-		"phpstan": [
-			"vendor/bin/phpstan analyse src -c phpstan.neon --level 8 --no-progress"
+		"phpstan": "vendor/bin/phpstan analyse src -c phpstan.neon --level 8 --no-progress",
+		"fix": [
+			"composer update",
+			"composer cs:fix",
+			"composer phpstan",
+			"composer test"
 		],
-		"check": [
-			"composer run codecheck:fix",
-			"composer run phpstan",
-			"composer run test"
-		],
-		"test": [
-			"vendor/bin/tester -s -c tests/php.ini -p php tests --coverage coverage.xml --coverage-src src"
-		]
+		"test": "vendor/bin/tester -s -c tests/php.ini -p php tests --coverage coverage.xml --coverage-src src",
+		"cghooks": "vendor/bin/cghooks"
 	},
-	"minimum-stability": "dev",
-	"prefer-stable": true,
+	"minimum-stability": "stable",
 	"config": {
 		"sort-packages": true
 	},
 	"extra": {
 		"branch-alias": {
 			"dev-master": "2.0.x-dev"
+		},
+		"hooks": {
+			"post-merge": "composer install",
+			"pre-commit": [
+				"composer cs:check",
+				"composer phpstan",
+				"composer test"
+			]
 		}
 	}
 }
