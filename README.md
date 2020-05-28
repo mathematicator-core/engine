@@ -1,9 +1,17 @@
-Math PHP computational engine
-=============================
+<h1 align="center">
+    Math PHP computational engine
+</h1>
+
+<p align="center">
+    <a href="https://mathematicator.com" target="_blank">
+        <img src="https://avatars3.githubusercontent.com/u/44620375?s=100&v=4">
+    </a>
+</p>
 
 [![Integrity check](https://github.com/mathematicator-core/engine/workflows/Integrity%20check/badge.svg)](https://github.com/mathematicator-core/engine/actions?query=workflow%3A%22Integrity+check%22)
 [![codecov](https://codecov.io/gh/mathematicator-core/engine/branch/master/graph/badge.svg)](https://codecov.io/gh/mathematicator-core/engine)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](./LICENSE)
+[![PHPStan Enabled](https://img.shields.io/badge/PHPStan-enabled%20L8-brightgreen.svg?style=flat)](https://phpstan.org/)
 
 Extremely complex library for advance work with math patterns, tokens and computing.
 
@@ -26,8 +34,7 @@ packages have in common.
 - Common exceptions
 - Common router
 
-Contribution
-----
+## Contribution
 
 ### Tests
 

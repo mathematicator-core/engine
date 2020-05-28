@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Tests\Formatter;
 
 
+use Mathematicator\Engine\Formatter\NaturalTextFormatter;
 use Mathematicator\Engine\Tests\Bootstrap;
-use Mathematicator\NaturalTextFormatter;
 use Nette\DI\Container;
 use Tester\Assert;
 use Tester\TestCase;

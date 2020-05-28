@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Tests;
 
 
-use Mathematicator\NumberRewriter;
+use Mathematicator\Engine\NumberRewriter;
 use Nette\DI\Container;
 use Tester\Assert;
 use Tester\TestCase;

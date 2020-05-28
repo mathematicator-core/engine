@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\MathFunction;
 
 
-interface MathFunction
+interface IMathFunction
 {
 	/**
 	 * @param mixed $haystack

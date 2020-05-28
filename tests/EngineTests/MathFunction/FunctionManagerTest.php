@@ -6,7 +6,7 @@ namespace Mathematicator\Engine\Tests\MathFunction;
 
 
 use Mathematicator\Engine\MathFunction\FunctionManager;
-use Mathematicator\Engine\MathFunction\Sin;
+use Mathematicator\Engine\MathFunction\Entity\Sin ;
 use RuntimeException;
 use Tester\Assert;
 use Tester\TestCase;

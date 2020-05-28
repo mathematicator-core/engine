@@ -6,7 +6,7 @@ namespace Mathematicator\Engine\Tests\Entity;
 
 
 use DateTime;
-use Mathematicator\Engine\Query;
+use Mathematicator\Engine\Entity\Query;
 use Tester\Assert;
 use Tester\TestCase;
 

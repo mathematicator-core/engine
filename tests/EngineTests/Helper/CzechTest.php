@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine\Tests\Helpers;
+namespace Mathematicator\Engine\Tests\Helper;
 
 
 use DateTime;

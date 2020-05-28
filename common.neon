@@ -2,13 +2,13 @@ services:
 	mathematicator.engine:
 		factory: Mathematicator\Engine\Engine
 		setup:
-			- addExtraModule(@Mathematicator\Engine\SampleModule)
+			- addExtraModule(@Mathematicator\Engine\ExtraModule\SampleModule)
 	mathematicator.queryNormalizer:
 		factory: Mathematicator\Engine\QueryNormalizer
-	- Mathematicator\NumberRewriter
-	- Mathematicator\NaturalTextFormatter
-	- Mathematicator\Engine\SampleModule
-	- Mathematicator\Router\Router
+	- Mathematicator\Engine\NumberRewriter
+	- Mathematicator\Engine\Formatter\NaturalTextFormatter
+	- Mathematicator\Engine\ExtraModule\SampleModule
+	- Mathematicator\Engine\Router\Router
 	- Mathematicator\Engine\Controller\OtherController
 	- Mathematicator\Engine\Controller\ErrorTooLongController
 	- Mathematicator\Engine\Translator

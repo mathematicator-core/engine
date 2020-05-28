@@ -7,7 +7,7 @@ namespace Mathematicator\Engine\Tests;
 
 use Error;
 use Mathematicator\Engine\Helpers;
-use Mathematicator\Engine\Query;
+use Mathematicator\Engine\Entity\Query;
 use Nette\Utils\ArrayHash;
 use Tester\Assert;
 use Tester\TestCase;
@@ -96,7 +96,7 @@ class HelpersTest extends TestCase
 		$query = new Query('1+2', '1+2');
 
 		Assert::same('1+2', Helpers::strictScalarType($query, true));
-		Assert::same('Mathematicator\Engine\Query', Helpers::strictScalarType($query, false));
+		Assert::same('Mathematicator\Engine\Entity\Query', Helpers::strictScalarType($query, false));
 	}
 
 

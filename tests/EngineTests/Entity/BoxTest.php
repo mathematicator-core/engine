@@ -6,9 +6,9 @@ namespace Mathematicator\Engine\Tests\Entity;
 
 
 use InvalidArgumentException;
-use Mathematicator\Engine\Box;
-use Mathematicator\Engine\Query;
-use Mathematicator\Engine\Step;
+use Mathematicator\Engine\Entity\Box;
+use Mathematicator\Engine\Entity\Query;
+use Mathematicator\Engine\Step\Step;
 use Nette\Utils\Json;
 use RuntimeException;
 use Tester\Assert;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Tests\Step;
 
 
-use Mathematicator\Engine\Step;
+use Mathematicator\Engine\Step\Step;
 use Tester\Assert;
 use Tester\TestCase;
 

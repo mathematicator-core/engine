@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine;
+namespace Mathematicator\Engine\Entity;
 
 
 use function count;
+use Mathematicator\Engine\Exception\TerminateException;
+use Mathematicator\Engine\Helpers;
 use Nette\SmartObject;
 
 final class Context

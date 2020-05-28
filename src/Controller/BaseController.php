@@ -6,12 +6,12 @@ namespace Mathematicator\Engine\Controller;
 
 
 use function get_class;
-use Mathematicator\Engine\Box;
-use Mathematicator\Engine\Context;
-use Mathematicator\Engine\DynamicConfiguration;
-use Mathematicator\Engine\Query;
-use Mathematicator\Engine\Source;
-use Mathematicator\Engine\TerminateException;
+use Mathematicator\Engine\Entity\Box;
+use Mathematicator\Engine\Entity\Context;
+use Mathematicator\Engine\Entity\DynamicConfiguration;
+use Mathematicator\Engine\Entity\Query;
+use Mathematicator\Engine\Entity\Source;
+use Mathematicator\Engine\Exception\TerminateException;
 use Mathematicator\Engine\Translator;
 use RuntimeException;
 use Throwable;

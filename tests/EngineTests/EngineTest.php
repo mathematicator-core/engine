@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Tests;
 
 
-use Mathematicator\Engine\Box;
+use Mathematicator\Engine\Entity\Box;
 use Mathematicator\Engine\Engine;
-use Mathematicator\Engine\EngineMultiResult;
-use Mathematicator\Engine\EngineSingleResult;
+use Mathematicator\Engine\Entity\EngineMultiResult;
+use Mathematicator\Engine\Entity\EngineSingleResult;
 use Nette\DI\Container;
 use Tester\Assert;
 use Tester\TestCase;

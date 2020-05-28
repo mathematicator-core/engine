@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator;
+namespace Mathematicator\Engine\Formatter;
 
 
 use Mathematicator\Engine\MathFunction\FunctionManager;

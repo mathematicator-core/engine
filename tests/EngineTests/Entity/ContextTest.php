@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Tests\Entity;
 
 
-use Mathematicator\Engine\Box;
-use Mathematicator\Engine\Context;
-use Mathematicator\Engine\Query;
-use Mathematicator\Engine\Source;
-use Mathematicator\Engine\TerminateException;
+use Mathematicator\Engine\Entity\Box;
+use Mathematicator\Engine\Entity\Context;
+use Mathematicator\Engine\Entity\Query;
+use Mathematicator\Engine\Entity\Source;
+use Mathematicator\Engine\Exception\TerminateException;
 use Tester\Assert;
 use Tester\TestCase;
 

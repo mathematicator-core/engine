@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine;
+namespace Mathematicator\Engine\Step;
 
 
 use Nette\SmartObject;
@@ -35,7 +35,7 @@ final class Step
 	 * @param string|null $latex
 	 * @param string|null $description
 	 */
-	public function __construct(?string $title, ?string $latex, ?string $description = null)
+	public function __construct(?string $title = null, ?string $latex = null, ?string $description = null)
 	{
 		$this->title = $title;
 		$this->latex = $latex;

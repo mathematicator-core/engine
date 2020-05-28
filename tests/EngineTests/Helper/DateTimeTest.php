@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine\Tests\Helpers;
+namespace Mathematicator\Engine\Tests\Helper;
 
 
 use Error;
 use Mathematicator\Engine\Helper\DateTime;
-use Mathematicator\Engine\MathematicatorException;
+use Mathematicator\Engine\Exception\MathematicatorException;
 use Tester\Assert;
 use Tester\TestCase;
 

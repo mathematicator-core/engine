@@ -9,7 +9,7 @@ use Error;
 use function in_array;
 use function is_file;
 use function is_resource;
-use Mathematicator\Engine\MathematicatorException;
+use Mathematicator\Engine\Exception\MathematicatorException;
 use RuntimeException;
 
 final class Terminal

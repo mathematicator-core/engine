@@ -5,11 +5,16 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\MathFunction;
 
 
+use Mathematicator\Engine\MathFunction\Entity\Cos;
+use Mathematicator\Engine\MathFunction\Entity\Logarithm;
+use Mathematicator\Engine\MathFunction\Entity\Sin;
+use Mathematicator\Engine\MathFunction\Entity\Sqrt;
+use Mathematicator\Engine\MathFunction\Entity\Tan;
 use RuntimeException;
 
 final class FunctionManager
 {
-	/** @var MathFunction[] (functionName => MathFunction) */
+	/** @var IMathFunction[] (functionName => MathFunction) */
 	private static $functions = [];
 
 
@@ -25,7 +30,7 @@ final class FunctionManager
 
 
 	/**
-	 * @return MathFunction[]
+	 * @return IMathFunction[]
 	 */
 	public static function getFunctions(): array
 	{
@@ -37,9 +42,9 @@ final class FunctionManager
 
 	/**
 	 * @param string $name
-	 * @return MathFunction
+	 * @return IMathFunction
 	 */
-	public static function getFunction(string $name): MathFunction
+	public static function getFunction(string $name): IMathFunction
 	{
 		self::mountBasicFunctions();
 
@@ -51,7 +56,7 @@ final class FunctionManager
 	}
 
 
-	public static function addFunction(string $name, MathFunction $function): void
+	public static function addFunction(string $name, IMathFunction $function): void
 	{
 		if (isset(self::$functions[$name]) === true && self::$functions[$name] !== $function) {
 			throw new RuntimeException('Function "' . $name . '" already exist.');
@@ -79,13 +84,13 @@ final class FunctionManager
 			return;
 		}
 
-		self::addFunction('sin', new Sin);
-		self::addFunction('cos', new Cos);
-		self::addFunction('tan', new Tan);
-		self::addFunction('cotan', new Tan);
-		self::addFunction('tg', new Tan);
-		self::addFunction('log', new Logarithm);
-		self::addFunction('ln', new Logarithm);
-		self::addFunction('sqrt', new Sqrt);
+		self::addFunction('sin', new Sin());
+		self::addFunction('cos', new Cos());
+		self::addFunction('tan', new Tan());
+		self::addFunction('cotan', new Tan());
+		self::addFunction('tg', new Tan());
+		self::addFunction('log', new Logarithm());
+		self::addFunction('ln', new Logarithm());
+		self::addFunction('sqrt', new Sqrt());
 	}
 }

@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Tests\Entity;
 
 
-use Mathematicator\Engine\Box;
-use Mathematicator\Engine\EngineMultiResult;
-use Mathematicator\Engine\EngineSingleResult;
-use Mathematicator\Engine\NoResultsException;
-use Mathematicator\Engine\Source;
-use Mathematicator\Router\DynamicRoute;
+use Mathematicator\Engine\Entity\Box;
+use Mathematicator\Engine\Entity\EngineMultiResult;
+use Mathematicator\Engine\Entity\EngineSingleResult;
+use Mathematicator\Engine\Exception\NoResultsException;
+use Mathematicator\Engine\Entity\Source;
+use Mathematicator\Engine\Router\DynamicRoute;
 use Tester\Assert;
 use Tester\TestCase;
 
