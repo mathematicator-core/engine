@@ -7,7 +7,15 @@ namespace Mathematicator\Engine;
 
 use function get_class;
 use Mathematicator\Engine\Controller\Controller;
-use Mathematicator\Router\Router;
+use Mathematicator\Engine\Entity\EngineMultiResult;
+use Mathematicator\Engine\Entity\EngineResult;
+use Mathematicator\Engine\Entity\EngineSingleResult;
+use Mathematicator\Engine\Entity\Query;
+use Mathematicator\Engine\Exception\InvalidDataException;
+use Mathematicator\Engine\Exception\TerminateException;
+use Mathematicator\Engine\ExtraModule\IExtraModule;
+use Mathematicator\Engine\ExtraModule\IExtraModuleWithQuery;
+use Mathematicator\Engine\Router\Router;
 use Nette\DI\Extensions\InjectExtension;
 use Psr\Container\ContainerInterface;
 
@@ -23,7 +31,7 @@ final class Engine
 	/** @var ContainerInterface */
 	private $container;
 
-	/** @var ExtraModule[] */
+	/** @var IExtraModule[] */
 	private $extraModules = [];
 
 
@@ -65,7 +73,7 @@ final class Engine
 				foreach (InjectExtension::getInjectProperties(get_class($extraModule)) as $property => $service) {
 					$extraModule->{$property} = $this->container->get($service);
 				}
-				if ($extraModule instanceof ExtraModuleWithQuery) {
+				if ($extraModule instanceof IExtraModuleWithQuery) {
 					$extraModule->setQuery($queryEntity->getQuery());
 				}
 				$extraModule->actionDefault();
@@ -77,9 +85,9 @@ final class Engine
 
 
 	/**
-	 * @param ExtraModule $extraModule
+	 * @param IExtraModule $extraModule
 	 */
-	public function addExtraModule(ExtraModule $extraModule): void
+	public function addExtraModule(IExtraModule $extraModule): void
 	{
 		$this->extraModules[] = $extraModule;
 	}

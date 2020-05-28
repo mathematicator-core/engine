@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine\MathFunction;
+namespace Mathematicator\Engine\MathFunction\Entity;
 
 
-final class Cos implements MathFunction
+use Mathematicator\Engine\MathFunction\IMathFunction;
+
+final class Cos implements IMathFunction
 {
 	public function invoke($haystack, ...$params): float
 	{

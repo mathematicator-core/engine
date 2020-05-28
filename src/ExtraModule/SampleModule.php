@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine;
+namespace Mathematicator\Engine\ExtraModule;
 
+
+use Mathematicator\Engine\Entity\Box;
 
 final class SampleModule extends BaseModule
 {

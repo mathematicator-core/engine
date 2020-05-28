@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator;
+namespace Mathematicator\Engine;
 
 
 final class NumberRewriter

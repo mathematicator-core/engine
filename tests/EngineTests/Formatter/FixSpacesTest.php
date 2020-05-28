@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Tests\Formatter;
 
 
-use Mathematicator\FixSpaces;
+use Mathematicator\Engine\Formatter\FixSpaces;
 use Tester\Assert;
 use Tester\TestCase;
 

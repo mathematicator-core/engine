@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine;
+namespace Mathematicator\Engine\Exception;
 
 
 use Exception;
 
-final class DivisionByZero extends MathErrorException
+final class DivisionByZeroException extends MathErrorException
 {
 
 	/** @var string[] */

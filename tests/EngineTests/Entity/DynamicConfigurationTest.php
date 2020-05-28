@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Tests\Entity;
 
 
-use Mathematicator\Engine\DynamicConfiguration;
+use Mathematicator\Engine\Entity\DynamicConfiguration;
 use Tester\Assert;
 use Tester\TestCase;
 

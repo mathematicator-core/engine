@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Router;
+namespace Mathematicator\Engine\Router;
 
 
 final class DynamicRoute

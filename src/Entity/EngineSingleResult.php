@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine;
+namespace Mathematicator\Engine\Entity;
 
 
 use function in_array;

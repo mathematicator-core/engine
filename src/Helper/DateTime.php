@@ -8,7 +8,7 @@ namespace Mathematicator\Engine\Helper;
 use Error;
 use function is_array;
 use function is_string;
-use Mathematicator\Engine\MathematicatorException;
+use Mathematicator\Engine\Exception\MathematicatorException;
 use function time;
 
 final class DateTime

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Controller;
 
 
-use Mathematicator\Engine\Box;
-use Mathematicator\Engine\Query;
+use Mathematicator\Engine\Entity\Box;
+use Mathematicator\Engine\Entity\Query;
 use Nette\Utils\Strings;
 
 final class ErrorTooLongController extends BaseController

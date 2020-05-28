@@ -2,15 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine;
+namespace Mathematicator\Engine\ExtraModule;
 
 
-interface ExtraModule
+use Mathematicator\Engine\Entity\EngineSingleResult;
+
+interface IExtraModule
 {
 
 	/**
 	 * @param EngineSingleResult $result
-	 * @return ExtraModule
+	 * @return IExtraModule
 	 * @internal
 	 */
 	public function setEngineSingleResult(EngineSingleResult $result): self;

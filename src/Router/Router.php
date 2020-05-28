@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Router;
+namespace Mathematicator\Engine\Router;
 
 
 use function in_array;
 use Mathematicator\Engine\Controller\ErrorTooLongController;
 use Mathematicator\Engine\Controller\OtherController;
+use Mathematicator\Engine\Entity\Query;
+use Mathematicator\Engine\Exception\TerminateException;
 use Mathematicator\Engine\MathFunction\FunctionManager;
-use Mathematicator\Engine\Query;
-use Mathematicator\Engine\TerminateException;
 use Nette\Utils\Strings;
 
 final class Router

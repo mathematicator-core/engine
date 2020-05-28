@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mathematicator\Engine;
+namespace Mathematicator\Engine\Entity;
 
 
 use InvalidArgumentException;
+use Mathematicator\Engine\Step\Step;
 use Nette\SmartObject;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;

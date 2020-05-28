@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Controller;
 
 
-use Mathematicator\Engine\Box;
+use Mathematicator\Engine\Entity\Box;
 
 final class OtherController extends BaseController
 {
