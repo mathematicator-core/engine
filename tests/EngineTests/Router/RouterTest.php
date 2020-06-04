@@ -5,30 +5,30 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Tests\Router;
 
 
-use Mathematicator\Engine\Entity\Box;
-use Mathematicator\Engine\Entity\Context;
 use Mathematicator\Engine\Controller\ErrorTooLongController;
 use Mathematicator\Engine\Controller\OtherController;
+use Mathematicator\Engine\Entity\Box;
+use Mathematicator\Engine\Entity\Context;
 use Mathematicator\Engine\Entity\DynamicConfiguration;
 use Mathematicator\Engine\Entity\Query;
 use Mathematicator\Engine\Entity\Source;
-use Mathematicator\Engine\Tests\Bootstrap;
-use Mathematicator\Engine\Translator;
 use Mathematicator\Engine\Router\DynamicRoute;
 use Mathematicator\Engine\Router\Router;
-use Mathematicator\Search\Translation\TranslatorHelper;
+use Mathematicator\Engine\Tests\Bootstrap;
+use Mathematicator\Engine\Translator;
 use Nette\DI\Container;
 use RuntimeException;
 use Tester\Assert;
 use Tester\TestCase;
 
-require __DIR__ . '/../../bootstrap.php';
+require __DIR__ . '/../../Bootstrap.php';
 
 class RouterTest extends TestCase
 {
 
 	/** @var Container */
 	private $container;
+
 
 	/**
 	 * @param Container $container

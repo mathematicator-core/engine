@@ -8,13 +8,13 @@ namespace Mathematicator\Engine\Tests\Entity;
 use Mathematicator\Engine\Entity\Box;
 use Mathematicator\Engine\Entity\EngineMultiResult;
 use Mathematicator\Engine\Entity\EngineSingleResult;
-use Mathematicator\Engine\Exception\NoResultsException;
 use Mathematicator\Engine\Entity\Source;
+use Mathematicator\Engine\Exception\NoResultsException;
 use Mathematicator\Engine\Router\DynamicRoute;
 use Tester\Assert;
 use Tester\TestCase;
 
-require __DIR__ . '/../../bootstrap.php';
+require __DIR__ . '/../../Bootstrap.php';
 
 class EngineResultTest extends TestCase
 {

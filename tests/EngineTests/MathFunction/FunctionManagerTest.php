@@ -5,17 +5,16 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Tests\MathFunction;
 
 
-use Mathematicator\Engine\MathFunction\FunctionManager;
 use Mathematicator\Engine\MathFunction\Entity\Sin ;
+use Mathematicator\Engine\MathFunction\FunctionManager;
 use RuntimeException;
 use Tester\Assert;
 use Tester\TestCase;
 
-require __DIR__ . '/../../bootstrap.php';
+require __DIR__ . '/../../Bootstrap.php';
 
 class FunctionManagerTest extends TestCase
 {
-
 	public function testBasic(): void
 	{
 		$sin = FunctionManager::getFunction('sin');

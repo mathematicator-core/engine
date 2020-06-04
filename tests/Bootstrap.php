@@ -26,12 +26,11 @@ class Bootstrap
 
 		$configurator->createRobotLoader()
 			->addDirectory(__DIR__ . '/../src')
-			->addDirectory(__DIR__ . '/Mocks')
 			->register();
 
 		$configurator
-			// TODO make this work: ->addConfig(__DIR__ . '/../common.neon')
-			->addConfig(__DIR__ . '/test.common.neon');
+			->addConfig(__DIR__ . '/../common.neon')
+			->addConfig(__DIR__ . '/../vendor/mathematicator-core/tokenizer/common.neon');
 
 		$container = $configurator->createContainer();
 

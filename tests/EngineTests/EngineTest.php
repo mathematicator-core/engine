@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Tests;
 
 
-use Mathematicator\Engine\Entity\Box;
 use Mathematicator\Engine\Engine;
+use Mathematicator\Engine\Entity\Box;
 use Mathematicator\Engine\Entity\EngineMultiResult;
 use Mathematicator\Engine\Entity\EngineSingleResult;
 use Nette\DI\Container;
 use Tester\Assert;
 use Tester\TestCase;
 
-require __DIR__ . '/../bootstrap.php';
+require __DIR__ . '/../Bootstrap.php';
 
 class EngineTest extends TestCase
 {

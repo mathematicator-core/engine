@@ -12,22 +12,20 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Tester\Assert;
 use Tester\TestCase;
 
-require __DIR__ . '/../../bootstrap.php';
+require __DIR__ . '/../../Bootstrap.php';
 
 class TranslationTest extends TestCase
 {
-	/**
-	 * @var TranslatorInterface
-	 */
+	/** @var TranslatorInterface */
 	private $translator;
 
 
 	public function __construct(
 		Container $container
-	)
-	{
+	) {
 		$this->translator = $container->getByType(TranslatorHelper::class)->translator;
 	}
+
 
 	public function testTranslate(): void
 	{
@@ -47,7 +45,6 @@ class TranslationTest extends TestCase
 		// Test hierarchy
 		Assert::same('Child of a parent.', $this->translator->trans('parent.child', [], 'test'));
 	}
-
 }
 
 $container = (new Bootstrap())::boot();

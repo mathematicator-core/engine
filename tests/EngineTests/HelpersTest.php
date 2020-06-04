@@ -6,17 +6,16 @@ namespace Mathematicator\Engine\Tests;
 
 
 use Error;
-use Mathematicator\Engine\Helpers;
 use Mathematicator\Engine\Entity\Query;
+use Mathematicator\Engine\Helpers;
 use Nette\Utils\ArrayHash;
 use Tester\Assert;
 use Tester\TestCase;
 
-require __DIR__ . '/../bootstrap.php';
+require __DIR__ . '/../Bootstrap.php';
 
 class HelpersTest extends TestCase
 {
-
 	public function testCreateInstance(): void
 	{
 		Assert::exception(function () {

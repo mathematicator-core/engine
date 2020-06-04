@@ -16,7 +16,3 @@ services:
 
 extensions:
 	psr11: Contributte\Psr11\DI\Psr11ContainerExtension
-
-orm.annotations:
-	paths:
-		Mathematicator: %appDir%/../vendor/mathematicator-core/engine/src
