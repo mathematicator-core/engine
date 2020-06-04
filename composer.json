@@ -17,7 +17,6 @@
 	],
 	"require": {
 		"php": ">=7.2",
-		"baraja-core/localization": "^1.0",
 		"contributte/psr11-container-interface": "^0.4.1",
 		"mathematicator-core/numbers": "^2.1@dev",
 		"mathematicator-core/tokenizer": "^2.1@dev",
@@ -27,7 +26,6 @@
 		"symfony/translation": "^5.0"
 	},
 	"require-dev": {
-		"baraja-core/doctrine": "^2.0",
 		"brainmaestro/composer-git-hooks": "^2.8",
 		"nette/bootstrap": "^3.0.1",
 		"nette/tester": "^2.3",
