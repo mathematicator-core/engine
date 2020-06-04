@@ -6,12 +6,12 @@ namespace Mathematicator\Engine\Tests\Helper;
 
 
 use Error;
-use Mathematicator\Engine\Helper\DateTime;
 use Mathematicator\Engine\Exception\MathematicatorException;
+use Mathematicator\Engine\Helper\DateTime;
 use Tester\Assert;
 use Tester\TestCase;
 
-require __DIR__ . '/../../bootstrap.php';
+require __DIR__ . '/../../Bootstrap.php';
 
 class DateTimeTest extends TestCase
 {

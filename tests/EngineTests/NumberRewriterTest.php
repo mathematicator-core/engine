@@ -10,13 +10,14 @@ use Nette\DI\Container;
 use Tester\Assert;
 use Tester\TestCase;
 
-require __DIR__ . '/../bootstrap.php';
+require __DIR__ . '/../Bootstrap.php';
 
 class NumberRewriterTest extends TestCase
 {
 
 	/** @var NumberRewriter */
 	private $numberRewriter;
+
 
 	public function __construct(Container $container)
 	{

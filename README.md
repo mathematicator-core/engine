@@ -1,5 +1,5 @@
 <h1 align="center">
-    Math PHP computational engine
+    Mathematicator Framework Engine
 </h1>
 
 <p align="center">
@@ -10,20 +10,21 @@
 
 [![Integrity check](https://github.com/mathematicator-core/engine/workflows/Integrity%20check/badge.svg)](https://github.com/mathematicator-core/engine/actions?query=workflow%3A%22Integrity+check%22)
 [![codecov](https://codecov.io/gh/mathematicator-core/engine/branch/master/graph/badge.svg)](https://codecov.io/gh/mathematicator-core/engine)
+[![Latest stable version](https://poser.pugx.org/mathematicator-core/engine/v/stable)](https://packagist.org/packages/mathematicator-core/engine)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](./LICENSE)
 [![PHPStan Enabled](https://img.shields.io/badge/PHPStan-enabled%20L8-brightgreen.svg?style=flat)](https://phpstan.org/)
 
-Extremely complex library for advance work with math patterns, tokens and computing.
+This is a Mathematicator Framework common library for advance work with
+math patterns, tokens and computing. The library is considered as
+a sublayer for other tools in Mathematicator Framework.
 
-> Please help improve this documentation by sending a Pull request.
-
-Install by Composer:
+## Installation
 
 ```
 composer require mathematicator-core/engine
 ```
 
-### What is this package responsible for?
+## Features
 
 This package contains set of tools that other [mathematicator-core](https://github.com/mathematicator-core)
 packages have in common.
@@ -141,7 +142,30 @@ one to the most abstract one:
     </tr>
 </table>
 
+**Third-party packages:**
+
+⚠️ Not guaranteed!
+
+<table>
+    <tr>
+        <td>
+            <b>
+            <a href="https://github.com/cothema/math-php-api">
+                REST API
+            </a>
+            </b>
+        </td>
+        <td>
+            Install the whole pack as a REST API service
+            on your server (Docker ready) or
+            access it via public cloud REST API.
+        </td>
+    </tr>
+</table>
+
 ## Contribution
+
+> Please help to improve this documentation by sending a Pull request.
 
 ### Tests
 
@@ -152,6 +176,13 @@ Before you send a PR, please, check all tests pass.
 This package uses [Nette Tester](https://tester.nette.org/). You can run tests via command:
 ```bash
 composer test
+````
+
+For benchmarking, we use [phpbench](https://github.com/phpbench/phpbench).
+You can run benchmarks this way:
+```bash
+composer global require phpbench/phpbench @dev # only the first time
+phpbench run
 ````
 
 Before PR, please run complete code check via command:

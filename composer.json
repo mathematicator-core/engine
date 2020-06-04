@@ -19,12 +19,12 @@
 		"php": ">=7.2",
 		"baraja-core/localization": "^1.0",
 		"contributte/psr11-container-interface": "^0.4.1",
-		"mathematicator-core/numbers": "^2.0@dev",
-		"mathematicator-core/tokenizer": "^2.0@dev",
+		"mathematicator-core/numbers": "^2.1@dev",
+		"mathematicator-core/tokenizer": "^2.1@dev",
 		"nette/di": "^3.0",
 		"nette/utils": "^3.0",
 		"symfony/yaml": "^5.0",
-		"symfony/translation": "^4.0 || ^5.0"
+		"symfony/translation": "^5.0"
 	},
 	"require-dev": {
 		"baraja-core/doctrine": "^2.0",
@@ -56,12 +56,12 @@
 			"composer create-project nette/coding-standard temp/coding-standard ^2 --no-progress"
 		],
 		"cs:check": [
-			"php temp/code-checker/code-checker --short-arrays --strict-types --no-progress",
-			"php temp/coding-standard/ecs check src --config temp/coding-standard/coding-standard-php71.yml"
+			"php temp/code-checker/code-checker -d src -d tests -d benchmarks --short-arrays --strict-types --no-progress",
+			"php temp/coding-standard/ecs check src tests benchmarks --config temp/coding-standard/coding-standard-php71.yml"
 		],
 		"cs:fix": [
-			"php temp/code-checker/code-checker -d src -d tests --short-arrays --strict-types --fix --no-progress",
-			"php temp/coding-standard/ecs check src --config temp/coding-standard/coding-standard-php71.yml --fix"
+			"php temp/code-checker/code-checker -d src -d tests -d benchmarks --short-arrays --strict-types --fix --no-progress",
+			"php temp/coding-standard/ecs check src tests benchmarks --config temp/coding-standard/coding-standard-php71.yml --fix"
 		],
 		"phpstan": "vendor/bin/phpstan analyse src -c phpstan.neon --level 8 --no-progress",
 		"fix": [
@@ -79,7 +79,7 @@
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "2.0.x-dev"
+			"dev-master": "2.1.x-dev"
 		},
 		"hooks": {
 			"post-merge": "composer install",

@@ -10,22 +10,20 @@ use Nette\DI\Container;
 use Tester\Assert;
 use Tester\TestCase;
 
-require __DIR__ . '/../bootstrap.php';
+require __DIR__ . '/../Bootstrap.php';
 
 class TranslatorTest extends TestCase
 {
-	/**
-	 * @var TranslatorInterface
-	 */
+	/** @var TranslatorInterface */
 	private $translator;
 
 
 	public function __construct(
 		Container $container
-	)
-	{
+	) {
 		$this->translator = $container->getByType(Translator::class);
 	}
+
 
 	public function testTranslate(): void
 	{
@@ -38,7 +36,6 @@ class TranslatorTest extends TestCase
 		// Sequential parameters
 		Assert::same('Sample FIRST | THIRD | SECOND', $this->translator->translate('test.sequentialParams.sample', 'FIRST', 'SECOND', 'THIRD'));
 	}
-
 }
 
 $container = (new Bootstrap())::boot();

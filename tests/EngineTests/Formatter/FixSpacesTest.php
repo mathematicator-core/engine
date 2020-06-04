@@ -9,7 +9,7 @@ use Mathematicator\Engine\Formatter\FixSpaces;
 use Tester\Assert;
 use Tester\TestCase;
 
-require __DIR__ . '/../../bootstrap.php';
+require __DIR__ . '/../../Bootstrap.php';
 
 class FixSpacesTest extends TestCase
 {
