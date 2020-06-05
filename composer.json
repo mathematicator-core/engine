@@ -18,8 +18,8 @@
 	"require": {
 		"php": ">=7.2",
 		"contributte/psr11-container-interface": "^0.4.1",
-		"mathematicator-core/numbers": "^2.1@dev",
-		"mathematicator-core/tokenizer": "^2.1@dev",
+		"mathematicator-core/numbers": "^2.2@dev",
+		"mathematicator-core/tokenizer": "^2.2@dev",
 		"nette/di": "^3.0",
 		"nette/utils": "^3.0",
 		"symfony/yaml": "^5.0",
@@ -77,7 +77,7 @@
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "2.1.x-dev"
+			"dev-master": "2.2.x-dev"
 		},
 		"hooks": {
 			"post-merge": "composer install",
