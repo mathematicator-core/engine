@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Entity;
 
 
-use function in_array;
-
 final class EngineSingleResult extends EngineResult
 {
 
@@ -56,7 +54,7 @@ final class EngineSingleResult extends EngineResult
 		$return = $withoutNoResult === [] ? $this->boxes : $withoutNoResult;
 		if ($this->filters !== []) {
 			foreach ($return as $boxKey => $box) {
-				if (in_array($box->getTag(), $this->filters, true) === false) {
+				if (\in_array($box->getTag(), $this->filters, true) === false) {
 					unset($return[$boxKey]);
 				}
 			}
