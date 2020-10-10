@@ -21,14 +21,12 @@ class QueryNormalizerTest extends TestCase
 
 	public function __construct(Container $container)
 	{
-		$this->queryNormalizer = $container->getService('mathematicator.queryNormalizer');
+		$this->queryNormalizer = $container->getByType(QueryNormalizer::class);
 	}
 
 
 	/**
 	 * @dataprovider getQueries
-	 * @param string $expected
-	 * @param string $query
 	 */
 	public function testQueryNormalizer(string $expected, string $query): void
 	{

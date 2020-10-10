@@ -24,7 +24,7 @@ class EngineTest extends TestCase
 
 	public function __construct(Container $container)
 	{
-		$this->engine = $container->getService('mathematicator.engine');
+		$this->engine = $container->getByType(Engine::class);
 	}
 
 
