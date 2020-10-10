@@ -7,6 +7,7 @@ namespace Mathematicator\Engine\Tests;
 
 use Mathematicator\Engine\Translator;
 use Nette\DI\Container;
+use Symfony\Component\Translation\TranslatorInterface;
 use Tester\Assert;
 use Tester\TestCase;
 
@@ -14,13 +15,13 @@ require __DIR__ . '/../Bootstrap.php';
 
 class TranslatorTest extends TestCase
 {
+
 	/** @var TranslatorInterface */
 	private $translator;
 
 
-	public function __construct(
-		Container $container
-	) {
+	public function __construct(Container $container)
+	{
 		$this->translator = $container->getByType(Translator::class);
 	}
 

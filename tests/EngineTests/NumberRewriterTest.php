@@ -27,8 +27,6 @@ class NumberRewriterTest extends TestCase
 
 	/**
 	 * @dataprovider getNumberRewriterToNumber
-	 * @param string $expected
-	 * @param string $query
 	 */
 	public function testNumberRewriterToNumber(string $expected, string $query): void
 	{

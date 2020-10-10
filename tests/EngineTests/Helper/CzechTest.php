@@ -5,13 +5,9 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Tests\Helper;
 
 
-use DateTime;
-use Error;
 use Mathematicator\Engine\Helper\Czech;
-use RuntimeException;
 use Tester\Assert;
 use Tester\TestCase;
-use function time;
 
 require __DIR__ . '/../../Bootstrap.php';
 
@@ -20,7 +16,6 @@ class CzechTest extends TestCase
 
 	/**
 	 * @dataprovider getGetDateTestCases
-	 * @param string $expected
 	 * @param mixed[] $input
 	 */
 	public function testGetDate(string $expected, array $input): void
@@ -31,7 +26,6 @@ class CzechTest extends TestCase
 
 	/**
 	 * @dataprovider getInflectionTestCases
-	 * @param string $expected
 	 * @param array $input
 	 */
 	public function testInflection(string $expected, array $input): void
@@ -42,7 +36,6 @@ class CzechTest extends TestCase
 
 	/**
 	 * @dataprovider getInflectionExceptionTestCases
-	 * @param string $expected
 	 * @param array $input
 	 */
 	public function testInflectionException(string $expected, array $input): void
@@ -59,8 +52,8 @@ class CzechTest extends TestCase
 	public function getGetDateTestCases(): array
 	{
 		return [
-			['2. května 2020', [new DateTime('2020-05-02 10:50:01'), false]],
-			['2. květen 2020', [new DateTime('2020-05-02 10:50:01'), true]],
+			['2. května 2020', [new \DateTime('2020-05-02 10:50:01'), false]],
+			['2. květen 2020', [new \DateTime('2020-05-02 10:50:01'), true]],
 		];
 	}
 
@@ -69,13 +62,13 @@ class CzechTest extends TestCase
 	{
 		Assert::exception(function () {
 			new Czech;
-		}, Error::class);
+		}, \Error::class);
 	}
 
 
 	public function testEmptyGetDate(): void
 	{
-		Assert::same(Czech::getDate(time(), true), Czech::getDate(null, true));
+		Assert::same(Czech::getDate(\time(), true), Czech::getDate(null, true));
 	}
 
 
@@ -101,7 +94,7 @@ class CzechTest extends TestCase
 	public function getInflectionExceptionTestCases(): array
 	{
 		return [
-			[RuntimeException::class, [1, ['zájezdy', 'zájezdů']]],
+			[\RuntimeException::class, [1, ['zájezdy', 'zájezdů']]],
 		];
 	}
 }

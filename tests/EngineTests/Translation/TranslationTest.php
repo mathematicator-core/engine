@@ -16,13 +16,13 @@ require __DIR__ . '/../../Bootstrap.php';
 
 class TranslationTest extends TestCase
 {
+
 	/** @var TranslatorInterface */
 	private $translator;
 
 
-	public function __construct(
-		Container $container
-	) {
+	public function __construct(Container $container)
+	{
 		$this->translator = $container->getByType(TranslatorHelper::class)->translator;
 	}
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Tests\Helper;
 
 
-use Error;
 use Mathematicator\Engine\Exception\MathematicatorException;
 use Mathematicator\Engine\Helper\DateTime;
 use Tester\Assert;
@@ -18,8 +17,6 @@ class DateTimeTest extends TestCase
 
 	/**
 	 * @dataprovider getDateTimeIsoTestCases
-	 * @param string $expected
-	 * @param int $input
 	 */
 	public function testGetDateTimeIso(string $expected, int $input): void
 	{
@@ -29,7 +26,6 @@ class DateTimeTest extends TestCase
 
 	/**
 	 * @dataprovider getFormatTimeAgoTestCases
-	 * @param string $expected
 	 * @param array $input
 	 */
 	public function testFormatTimeAgo(string $expected, array $input): void
@@ -42,7 +38,7 @@ class DateTimeTest extends TestCase
 	{
 		Assert::exception(function () {
 			new DateTime;
-		}, Error::class);
+		}, \Error::class);
 	}
 
 

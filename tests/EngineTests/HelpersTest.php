@@ -71,7 +71,6 @@ class HelpersTest extends TestCase
 	 * @dataprovider getStrictScalarTypes
 	 * @param mixed $expected
 	 * @param mixed $haystack
-	 * @param bool $rewriteObjectsToString
 	 */
 	public function testStrictScalarType($expected, $haystack, bool $rewriteObjectsToString): void
 	{

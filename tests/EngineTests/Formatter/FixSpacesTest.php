@@ -16,8 +16,6 @@ class FixSpacesTest extends TestCase
 
 	/**
 	 * @dataprovider getFixTestCases
-	 * @param string $expected
-	 * @param string $input
 	 */
 	public function testFix(string $expected, string $input): void
 	{
