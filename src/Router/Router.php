@@ -11,7 +11,6 @@ use Mathematicator\Engine\Entity\Query;
 use Mathematicator\Engine\Exception\TerminateException;
 use Mathematicator\Engine\MathFunction\FunctionManager;
 use Nette\Utils\Strings;
-use function in_array;
 
 final class Router
 {
@@ -97,7 +96,7 @@ final class Router
 		if (isset($queryCache[$this->query]) === false) {
 			$queryCache[$this->query] = strtolower(trim(Strings::toAscii($this->query)));
 		}
-		if (in_array($queryCache[$this->query], $queries, true) === true) {
+		if (\in_array($queryCache[$this->query], $queries, true) === true) {
 			throw new TerminateException($entity);
 		}
 	}

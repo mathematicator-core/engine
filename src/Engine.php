@@ -17,7 +17,6 @@ use Mathematicator\Engine\ExtraModule\IExtraModuleWithQuery;
 use Mathematicator\Engine\Router\Router;
 use Nette\DI\Extensions\InjectExtension;
 use Psr\Container\ContainerInterface;
-use function get_class;
 
 final class Engine
 {
@@ -63,7 +62,7 @@ final class Engine
 
 		foreach ($this->extraModules as $extraModule) {
 			if ($extraModule->setEngineSingleResult($result)->match($queryEntity->getQuery()) === true) {
-				foreach (InjectExtension::getInjectProperties(get_class($extraModule)) as $property => $service) {
+				foreach (InjectExtension::getInjectProperties(\get_class($extraModule)) as $property => $service) {
 					$extraModule->{$property} = $this->container->get($service);
 				}
 				if ($extraModule instanceof IExtraModuleWithQuery) {

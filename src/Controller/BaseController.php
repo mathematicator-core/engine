@@ -12,9 +12,6 @@ use Mathematicator\Engine\Entity\Query;
 use Mathematicator\Engine\Entity\Source;
 use Mathematicator\Engine\Exception\TerminateException;
 use Mathematicator\Engine\Translator;
-use RuntimeException;
-use Throwable;
-use function get_class;
 
 abstract class BaseController implements Controller
 {
@@ -39,8 +36,8 @@ abstract class BaseController implements Controller
 	{
 		try {
 			return $this->context->addBox($type);
-		} catch (Throwable $e) {
-			throw new RuntimeException($e->getMessage(), $e->getCode(), $e);
+		} catch (\Throwable $e) {
+			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
 		}
 	}
 
@@ -149,6 +146,6 @@ abstract class BaseController implements Controller
 	 */
 	final public function terminate(): void
 	{
-		throw new TerminateException('Automatically terminated by "' . get_class($this) . '".');
+		throw new TerminateException('Automatically terminated by "' . \get_class($this) . '".');
 	}
 }

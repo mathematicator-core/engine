@@ -5,20 +5,15 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Helper;
 
 
-use Error;
 use Mathematicator\Engine\Exception\MathematicatorException;
-use RuntimeException;
-use function in_array;
-use function is_file;
-use function is_resource;
 
 final class Terminal
 {
 
-	/** @throws Error */
+	/** @throws \Error */
 	public function __construct()
 	{
-		throw new Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
+		throw new \Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
 	}
 
 
@@ -30,7 +25,7 @@ final class Terminal
 	public static function code(string $path, ?int $line = null): void
 	{
 		echo "\n" . $path . ($line === null ? '' : ' [on line ' . $line . ']') . "\n\n";
-		if (is_file($path) === true) {
+		if (\is_file($path) === true) {
 			echo '----- file -----' . "\n";
 			$fileParser = explode("\n", str_replace(["\r\n", "\r"], "\n", (string) file_get_contents($path)));
 
@@ -93,14 +88,14 @@ final class Terminal
 
 		$fOpen = fopen('php://stdin', 'rb');
 
-		if (is_resource($fOpen) === false) {
-			throw new RuntimeException('Problem with opening "php://stdin".');
+		if (\is_resource($fOpen) === false) {
+			throw new \RuntimeException('Problem with opening "php://stdin".');
 		}
 
 		$input = ($input = trim((string) fgets($fOpen))) === '' ? null : $input;
 
 		if ($possibilities !== [] && $possibilities !== null) {
-			if (in_array($input, $possibilities, true)) {
+			if (\in_array($input, $possibilities, true)) {
 				return $input;
 			}
 
@@ -108,9 +103,7 @@ final class Terminal
 			$staticTtl++;
 
 			if ($staticTtl > 16) {
-				throw new RuntimeException(
-					'The maximum invalid response limit was exceeded. Current limit: ' . $staticTtl
-				);
+				throw new \RuntimeException('The maximum invalid response limit was exceeded. Current limit: ' . $staticTtl);
 			}
 
 			return self::ask($question, $possibilities);
