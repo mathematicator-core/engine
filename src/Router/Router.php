@@ -87,6 +87,7 @@ final class Router
 
 
 	/**
+	 * @param string[] $queries
 	 * @throws TerminateException
 	 */
 	private function staticRoute(array $queries, string $entity): void

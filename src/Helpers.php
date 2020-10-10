@@ -60,6 +60,7 @@ final class Helpers
 	/**
 	 * Convert dirty haystack to scalar haystack. If object implements __toString(), it will be called automatically.
 	 *
+	 * @param mixed $haystack
 	 * @return mixed
 	 */
 	public static function strictScalarType($haystack, bool $rewriteObjectsToString = true)
