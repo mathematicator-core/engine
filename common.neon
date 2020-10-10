@@ -1,18 +1,3 @@
-services:
-	mathematicator.engine:
-		factory: Mathematicator\Engine\Engine
-		setup:
-			- addExtraModule(@Mathematicator\Engine\ExtraModule\SampleModule)
-	mathematicator.queryNormalizer:
-		factory: Mathematicator\Engine\QueryNormalizer
-	- Mathematicator\Engine\NumberRewriter
-	- Mathematicator\Engine\Formatter\NaturalTextFormatter
-	- Mathematicator\Engine\ExtraModule\SampleModule
-	- Mathematicator\Engine\Router\Router
-	- Mathematicator\Engine\Controller\OtherController
-	- Mathematicator\Engine\Controller\ErrorTooLongController
-	- Mathematicator\Engine\Translator
-	- Mathematicator\Engine\Translation\TranslatorHelper
-
 extensions:
+	mathematicator.engine: Mathematicator\Engine\EngineExtension
 	psr11: Contributte\Psr11\DI\Psr11ContainerExtension
