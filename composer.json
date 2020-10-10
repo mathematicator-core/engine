@@ -18,8 +18,8 @@
 	"require": {
 		"php": ">=7.2",
 		"contributte/psr11-container-interface": "^0.4.1",
-		"mathematicator-core/numbers": "^2.2@dev",
-		"mathematicator-core/tokenizer": "^2.2@dev",
+		"mathematicator-core/numbers": "^2.0",
+		"mathematicator-core/tokenizer": "^2.0",
 		"nette/di": "^3.0",
 		"nette/utils": "^3.0",
 		"symfony/yaml": "^5.0",
