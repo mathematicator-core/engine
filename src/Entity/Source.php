@@ -25,11 +25,6 @@ final class Source
 	private $url;
 
 
-	/**
-	 * @param string|null $title
-	 * @param string|null $url
-	 * @param string|null $description
-	 */
 	public function __construct(?string $title = null, ?string $url = null, ?string $description = null)
 	{
 		$this->title = $title;
@@ -38,9 +33,6 @@ final class Source
 	}
 
 
-	/**
-	 * @return string
-	 */
 	public function render(): string
 	{
 		$return = [];
@@ -54,11 +46,9 @@ final class Source
 				$return[] = '<b>' . $title . '</b>';
 			}
 		}
-
 		if ($this->description) {
 			$return[] = htmlspecialchars($this->description, ENT_NOQUOTES | ENT_SUBSTITUTE, 'UTF-8');
 		}
-
 		if ($this->authors !== []) {
 			$authors = [];
 
@@ -73,19 +63,12 @@ final class Source
 	}
 
 
-	/**
-	 * @return string
-	 */
 	public function __toString(): string
 	{
 		return $this->render();
 	}
 
 
-	/**
-	 * @param string $author
-	 * @return Source
-	 */
 	public function addAuthor(string $author): self
 	{
 		$this->authors[] = $author;
@@ -120,10 +103,6 @@ final class Source
 	}
 
 
-	/**
-	 * @param string $title
-	 * @return Source
-	 */
 	public function setTitle(string $title): self
 	{
 		$this->title = $title;
@@ -132,10 +111,6 @@ final class Source
 	}
 
 
-	/**
-	 * @param string $description
-	 * @return Source
-	 */
 	public function setDescription(string $description): self
 	{
 		$this->description = $description;

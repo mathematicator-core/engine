@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Router;
 
 
-use function in_array;
 use Mathematicator\Engine\Controller\ErrorTooLongController;
 use Mathematicator\Engine\Controller\OtherController;
 use Mathematicator\Engine\Entity\Query;
 use Mathematicator\Engine\Exception\TerminateException;
 use Mathematicator\Engine\MathFunction\FunctionManager;
 use Nette\Utils\Strings;
+use function in_array;
 
 final class Router
 {
@@ -23,10 +23,6 @@ final class Router
 	private $dynamicRoutes = [];
 
 
-	/**
-	 * @param string $query
-	 * @return string
-	 */
 	public function routeQuery(string $query): string
 	{
 		$this->query = $query;
@@ -42,10 +38,6 @@ final class Router
 	}
 
 
-	/**
-	 * @param DynamicRoute $dynamicRoute
-	 * @return Router
-	 */
 	public function addDynamicRoute(DynamicRoute $dynamicRoute): self
 	{
 		$this->dynamicRoutes[] = $dynamicRoute;
@@ -74,7 +66,6 @@ final class Router
 
 
 	/**
-	 * @param string $entity
 	 * @throws TerminateException
 	 */
 	private function tooLongQueryRoute(string $entity): void
@@ -86,8 +77,6 @@ final class Router
 
 
 	/**
-	 * @param string $regex
-	 * @param string $entity
 	 * @throws TerminateException
 	 */
 	private function regexRoute(string $regex, string $entity): void
@@ -99,8 +88,6 @@ final class Router
 
 
 	/**
-	 * @param string[] $queries
-	 * @param string $entity
 	 * @throws TerminateException
 	 */
 	private function staticRoute(array $queries, string $entity): void
@@ -110,7 +97,6 @@ final class Router
 		if (isset($queryCache[$this->query]) === false) {
 			$queryCache[$this->query] = strtolower(trim(Strings::toAscii($this->query)));
 		}
-
 		if (in_array($queryCache[$this->query], $queries, true) === true) {
 			throw new TerminateException($entity);
 		}
@@ -118,7 +104,6 @@ final class Router
 
 
 	/**
-	 * @param string $entity
 	 * @throws TerminateException
 	 */
 	private function tokenizeRoute(string $entity): void

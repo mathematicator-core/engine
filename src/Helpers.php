@@ -20,10 +20,6 @@ final class Helpers
 	}
 
 
-	/**
-	 * @param bool $useCache
-	 * @return string|null
-	 */
 	public static function getBaseUrl(bool $useCache = true): ?string
 	{
 		static $return;
@@ -31,7 +27,6 @@ final class Helpers
 		if ($useCache === true && $return !== null) {
 			return $return;
 		}
-
 		if (($currentUrl = self::getCurrentUrl()) !== null) {
 			if (preg_match('/^(https?:\/\/.+)\/www\//', $currentUrl, $localUrlParser)) {
 				$return = $localUrlParser[0];
@@ -39,7 +34,6 @@ final class Helpers
 				$return = $publicUrlParser[1];
 			}
 		}
-
 		if ($return !== null) {
 			$return = rtrim($return, '/');
 		}
@@ -51,8 +45,6 @@ final class Helpers
 	/**
 	 * Return current absolute URL.
 	 * Return null, if current URL does not exist (for example in CLI mode).
-	 *
-	 * @return string|null
 	 */
 	public static function getCurrentUrl(): ?string
 	{
@@ -68,22 +60,18 @@ final class Helpers
 	/**
 	 * Convert dirty haystack to scalar haystack. If object implements __toString(), it will be called automatically.
 	 *
-	 * @param mixed $haystack
-	 * @param bool $rewriteObjectsToString
 	 * @return mixed
 	 */
 	public static function strictScalarType($haystack, bool $rewriteObjectsToString = true)
 	{
 		if (is_array($haystack)) {
 			$return = [];
-
 			foreach ($haystack as $key => $value) {
 				$return[$key] = self::strictScalarType($value, $rewriteObjectsToString);
 			}
 
 			return $return;
 		}
-
 		if (is_object($haystack) === true && is_callable($haystack) === false) {
 			if ($rewriteObjectsToString === true && method_exists($haystack, '__toString')) {
 				return (string) $haystack;

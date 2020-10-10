@@ -24,7 +24,6 @@ final class DateTime
 	/**
 	 * Format datetime to "Y-m-d H:i:s", if null return current datetime.
 	 *
-	 * @param int|null $now
 	 * @return string (Y-m-d H:i:s)
 	 */
 	public static function getDateTimeIso(?int $now = null): string
@@ -35,9 +34,7 @@ final class DateTime
 
 	/**
 	 * @param int $time Unix timestamp of an event
-	 * @param bool $moreAccurate
 	 * @param string $lang [cz, sk, en]
-	 * @param int|null $now
 	 * @return string
 	 * @throws MathematicatorException
 	 */

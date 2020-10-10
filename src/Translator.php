@@ -10,13 +10,11 @@ use Nette\Localization\ITranslator;
 
 final class Translator implements ITranslator
 {
+
 	/** @var TranslatorHelper */
 	private $translatorHelper;
 
 
-	/**
-	 * @param TranslatorHelper $translatorHelper
-	 */
 	public function __construct(TranslatorHelper $translatorHelper)
 	{
 		$this->translatorHelper = $translatorHelper;
@@ -45,6 +43,7 @@ final class Translator implements ITranslator
 		}
 
 		$domain = explode('.', $message)[0];
+
 		return $this->translatorHelper->translator->trans(
 			mb_substr($message, mb_strlen($domain) + 1),
 			$translatorParams,

@@ -55,9 +55,6 @@ final class QueryNormalizer
 
 	/**
 	 * Magic convertor of user input to normalized machine-readable form.
-	 *
-	 * @param string $query
-	 * @return string
 	 */
 	public function normalize(string $query): string
 	{
@@ -90,9 +87,6 @@ final class QueryNormalizer
 	 *    2. Number of left brackets is more, for ex. "3*(5+1".
 	 *    3. Number of right brackets is more, for ex. "5+1)+2".
 	 *    4. The outer brackets are redundant, for ex. "(((1+2)))".
-	 *
-	 * @param string $query
-	 * @return string
 	 */
 	private function taskFixBrackets(string $query): string
 	{
@@ -108,10 +102,6 @@ final class QueryNormalizer
 	}
 
 
-	/**
-	 * @param string $query
-	 * @return string
-	 */
 	private function taskRegexReplaceMap(string $query): string
 	{
 		while (true) {
@@ -130,10 +120,6 @@ final class QueryNormalizer
 	}
 
 
-	/**
-	 * @param string $query
-	 * @return string
-	 */
 	private function taskNormalizeNumber(string $query): string
 	{
 		return (string) preg_replace_callback('/([\d\,]+\,\d{3})\.(\d+)/', static function (array $match): string {
@@ -142,20 +128,12 @@ final class QueryNormalizer
 	}
 
 
-	/**
-	 * @param string $query
-	 * @return string
-	 */
 	private function taskRewriteWordNumber(string $query): string
 	{
 		return $this->numberRewriter->toNumber($query);
 	}
 
 
-	/**
-	 * @param string $query
-	 * @return string
-	 */
 	private function removeEmoji(string $query): string
 	{
 		// Match Emoticons
@@ -177,10 +155,6 @@ final class QueryNormalizer
 	}
 
 
-	/**
-	 * @param string $query
-	 * @return string
-	 */
 	private function replaceSpecialCharacters(string $query): string
 	{
 		$query = str_replace(['½', 'Ã'], [' 1/2', 'á'], $query);
@@ -189,10 +163,6 @@ final class QueryNormalizer
 	}
 
 
-	/**
-	 * @param string $haystack
-	 * @return string
-	 */
 	private function removeRedundantBrackets(string $haystack): string
 	{
 		$returnInner = $haystack;

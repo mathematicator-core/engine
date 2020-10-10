@@ -10,9 +10,10 @@ use Symfony\Component\Translation\Translator;
 
 /**
  * Class TranslatorHelper decorates Translator
+ *
  * @package Mathematicator\Engine\Translation
  */
-class TranslatorHelper
+final class TranslatorHelper
 {
 
 	/** @var Translator */
@@ -47,7 +48,6 @@ class TranslatorHelper
 
 
 	/**
-	 * Adds
 	 * @param string $dir Directory path
 	 * @param string $domain Translation file prefix (without trailing dot)
 	 * @param string $suffix Translation file suffix (without leading dot)

@@ -18,14 +18,9 @@ interface Controller
 	public function actionDefault(): void;
 
 	/**
-	 * @param Query $query
-	 * @return Context
 	 * @throws InvalidDataException
 	 */
 	public function createContext(Query $query): Context;
 
-	/**
-	 * @return Context
-	 */
 	public function getContext(): Context;
 }

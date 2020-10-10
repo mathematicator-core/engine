@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
-use function get_class;
 use Mathematicator\Engine\Controller\Controller;
 use Mathematicator\Engine\Entity\EngineMultiResult;
 use Mathematicator\Engine\Entity\EngineResult;
@@ -18,6 +17,7 @@ use Mathematicator\Engine\ExtraModule\IExtraModuleWithQuery;
 use Mathematicator\Engine\Router\Router;
 use Nette\DI\Extensions\InjectExtension;
 use Psr\Container\ContainerInterface;
+use function get_class;
 
 final class Engine
 {
@@ -35,11 +35,6 @@ final class Engine
 	private $extraModules = [];
 
 
-	/**
-	 * @param Router $router
-	 * @param QueryNormalizer $queryNormalizer
-	 * @param ContainerInterface $container
-	 */
 	public function __construct(Router $router, QueryNormalizer $queryNormalizer, ContainerInterface $container)
 	{
 		$this->router = $router;
@@ -49,8 +44,6 @@ final class Engine
 
 
 	/**
-	 * @param string $query
-	 * @return EngineResult
 	 * @throws InvalidDataException
 	 */
 	public function compute(string $query): EngineResult
@@ -84,9 +77,6 @@ final class Engine
 	}
 
 
-	/**
-	 * @param IExtraModule $extraModule
-	 */
 	public function addExtraModule(IExtraModule $extraModule): void
 	{
 		$this->extraModules[] = $extraModule;
@@ -94,9 +84,6 @@ final class Engine
 
 
 	/**
-	 * @param Query $query
-	 * @param string $serviceName
-	 * @return Controller
 	 * @throws InvalidDataException
 	 */
 	private function invokeController(Query $query, string $serviceName): Controller

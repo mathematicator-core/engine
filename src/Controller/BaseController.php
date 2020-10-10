@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Controller;
 
 
-use function get_class;
 use Mathematicator\Engine\Entity\Box;
 use Mathematicator\Engine\Entity\Context;
 use Mathematicator\Engine\Entity\DynamicConfiguration;
@@ -15,6 +14,7 @@ use Mathematicator\Engine\Exception\TerminateException;
 use Mathematicator\Engine\Translator;
 use RuntimeException;
 use Throwable;
+use function get_class;
 
 abstract class BaseController implements Controller
 {
@@ -29,19 +29,12 @@ abstract class BaseController implements Controller
 	private $context;
 
 
-	/**
-	 * @return Context
-	 */
 	final public function getContext(): Context
 	{
 		return $this->context;
 	}
 
 
-	/**
-	 * @param string $type
-	 * @return Box
-	 */
 	final public function addBox(string $type): Box
 	{
 		try {
@@ -52,9 +45,6 @@ abstract class BaseController implements Controller
 	}
 
 
-	/**
-	 * @param string $key
-	 */
 	final public function addBoxDynamicConfiguration(string $key): void
 	{
 		$configuration = $this->getDynamicConfiguration($key);
@@ -98,20 +88,12 @@ abstract class BaseController implements Controller
 	}
 
 
-	/**
-	 * @param string $boxType
-	 * @param string|null $content
-	 * @return Box
-	 */
 	final public function setInterpret(string $boxType, ?string $content = null): Box
 	{
 		return $this->context->setInterpret($boxType, $content);
 	}
 
 
-	/**
-	 * @return string
-	 */
 	final public function getQuery(): string
 	{
 		return $this->context->getQuery();
@@ -121,8 +103,6 @@ abstract class BaseController implements Controller
 	/**
 	 * Create new context. If context already exist rewrite existing.
 	 *
-	 * @param Query $query
-	 * @return Context
 	 * @internal
 	 */
 	final public function createContext(Query $query): Context
@@ -140,38 +120,24 @@ abstract class BaseController implements Controller
 	}
 
 
-	/**
-	 * @return Query
-	 */
 	final public function getQueryEntity(): Query
 	{
 		return $this->context->getQueryEntity();
 	}
 
 
-	/**
-	 * @param string $query
-	 * @return string
-	 */
 	final public function linkToSearch(string $query): string
 	{
 		return $this->context->link($query);
 	}
 
 
-	/**
-	 * @param string $key
-	 * @return DynamicConfiguration
-	 */
 	final public function getDynamicConfiguration(string $key): DynamicConfiguration
 	{
 		return $this->context->getDynamicConfiguration($key);
 	}
 
 
-	/**
-	 * @param Source $source
-	 */
 	final public function addSource(Source $source): void
 	{
 		$this->context->addSource($source);

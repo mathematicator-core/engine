@@ -25,7 +25,6 @@ final class Czech
 	 *
 	 * inflection($count, ['zájezd', 'zájezdy', 'zájezdů']) => 1 zájezd, 3 zájezdy, 24 zájezdů
 	 *
-	 * @param int $number
 	 * @param string[] $parameters
 	 * @return string
 	 */

@@ -20,10 +20,6 @@ final class NaturalTextFormatter
 	private $tokenizer;
 
 
-	/**
-	 * @param QueryNormalizer $queryNormalizer
-	 * @param Tokenizer $tokenizer
-	 */
 	public function __construct(QueryNormalizer $queryNormalizer, Tokenizer $tokenizer)
 	{
 		$this->queryNormalizer = $queryNormalizer;
@@ -31,10 +27,6 @@ final class NaturalTextFormatter
 	}
 
 
-	/**
-	 * @param string $text
-	 * @return string
-	 */
 	public function formatNaturalText(string $text): string
 	{
 		$return = '';
@@ -57,10 +49,6 @@ final class NaturalTextFormatter
 	}
 
 
-	/**
-	 * @param string $haystack
-	 * @return bool
-	 */
 	private function containsWords(string $haystack): bool
 	{
 		$words = 0;
@@ -87,10 +75,6 @@ final class NaturalTextFormatter
 	}
 
 
-	/**
-	 * @param string $word
-	 * @return bool
-	 */
 	private function wordInAllowedFunctions(string $word): bool
 	{
 		foreach (FunctionManager::getFunctionNames() as $allowedFunction) {

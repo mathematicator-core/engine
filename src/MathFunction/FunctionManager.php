@@ -40,10 +40,6 @@ final class FunctionManager
 	}
 
 
-	/**
-	 * @param string $name
-	 * @return IMathFunction
-	 */
 	public static function getFunction(string $name): IMathFunction
 	{
 		self::mountBasicFunctions();
@@ -67,7 +63,6 @@ final class FunctionManager
 
 
 	/**
-	 * @param string $name
 	 * @param mixed $haystack
 	 * @param array<int, mixed> $params
 	 * @return mixed

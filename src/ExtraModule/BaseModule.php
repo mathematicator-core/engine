@@ -25,8 +25,6 @@ abstract class BaseModule implements IExtraModuleWithQuery
 
 
 	/**
-	 * @param EngineSingleResult $result
-	 * @return IExtraModule
 	 * @internal
 	 */
 	final public function setEngineSingleResult(EngineSingleResult $result): IExtraModule
@@ -38,7 +36,6 @@ abstract class BaseModule implements IExtraModuleWithQuery
 
 
 	/**
-	 * @param string $query
 	 * @internal
 	 */
 	final public function setQuery(string $query): void

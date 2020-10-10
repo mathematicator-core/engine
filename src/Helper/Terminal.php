@@ -6,11 +6,11 @@ namespace Mathematicator\Engine\Helper;
 
 
 use Error;
+use Mathematicator\Engine\Exception\MathematicatorException;
+use RuntimeException;
 use function in_array;
 use function is_file;
 use function is_resource;
-use Mathematicator\Engine\Exception\MathematicatorException;
-use RuntimeException;
 
 final class Terminal
 {
@@ -25,7 +25,6 @@ final class Terminal
 	/**
 	 * Render code snippet to Terminal.
 	 *
-	 * @param string $path
 	 * @param int|null $line -> if not null mark selected line by red color
 	 */
 	public static function code(string $path, ?int $line = null): void
@@ -123,8 +122,6 @@ final class Terminal
 
 	/**
 	 * Render red block with error message.
-	 *
-	 * @param string $message
 	 */
 	public static function renderError(string $message): void
 	{
@@ -149,9 +146,6 @@ final class Terminal
 	/**
 	 * Returns number of characters (not bytes) in UTF-8 string.
 	 * That is the number of Unicode code points which may differ from the number of graphemes.
-	 *
-	 * @param string $s
-	 * @return int
 	 */
 	private static function length(string $s): int
 	{
@@ -159,10 +153,6 @@ final class Terminal
 	}
 
 
-	/**
-	 * @param string $line
-	 * @return string
-	 */
 	private static function formatTerminalLine(string $line): string
 	{
 		return '      ' . $line . (($repeat = 88 - self::length($line)) > 0 ? str_repeat(' ', $repeat) : '') . '      ' . "\n";

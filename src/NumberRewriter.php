@@ -79,10 +79,6 @@ final class NumberRewriter
 	];
 
 
-	/**
-	 * @param string $haystack
-	 * @return string
-	 */
 	public function toNumber(string $haystack): string
 	{
 		$haystack = trim((string) preg_replace('/\s+/', ' ', $haystack));
@@ -100,10 +96,6 @@ final class NumberRewriter
 	}
 
 
-	/**
-	 * @param string $word
-	 * @return string
-	 */
 	private function processWord(string $word): string
 	{
 		foreach (self::$basic as $basicWord => $basicRewrite) {

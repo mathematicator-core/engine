@@ -15,9 +15,6 @@ final class DivisionByZeroException extends MathErrorException
 
 
 	/**
-	 * @param string $message
-	 * @param int $code
-	 * @param Exception|null $previous
 	 * @param string[] $fraction
 	 * @throws MathematicatorException
 	 */

@@ -9,11 +9,6 @@ use Mathematicator\Engine\Entity\Box;
 
 final class SampleModule extends BaseModule
 {
-
-	/**
-	 * @param string $query
-	 * @return bool
-	 */
 	public function match(string $query): bool
 	{
 		return $query === 'help';

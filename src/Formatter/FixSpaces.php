@@ -21,10 +21,6 @@ final class FixSpaces
 	];
 
 
-	/**
-	 * @param string $haystack
-	 * @return string
-	 */
 	public static function fix(string $haystack): string
 	{
 		$haystack = (string) preg_replace('/(\&nbsp\;|\s)+/', ' ', $haystack);

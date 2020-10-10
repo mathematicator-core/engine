@@ -24,9 +24,6 @@ final class EngineSingleResult extends EngineResult
 
 
 	/**
-	 * @param string $query
-	 * @param string $matchedRoute
-	 * @param Box|null $interpret
 	 * @param Box[] $boxes
 	 * @param Source[] $sources
 	 * @param string[] $filters
@@ -43,7 +40,6 @@ final class EngineSingleResult extends EngineResult
 
 	/**
 	 * Get list of active boxes by rank order.
-	 *
 	 * Boxes can be filtered.
 	 *
 	 * @return Box[]
@@ -51,7 +47,6 @@ final class EngineSingleResult extends EngineResult
 	public function getBoxes(): array
 	{
 		$withoutNoResult = [];
-
 		foreach ($this->boxes as $box) {
 			if ($box->getTag() !== 'no-results') {
 				$withoutNoResult[] = $box;
@@ -59,7 +54,6 @@ final class EngineSingleResult extends EngineResult
 		}
 
 		$return = $withoutNoResult === [] ? $this->boxes : $withoutNoResult;
-
 		if ($this->filters !== []) {
 			foreach ($return as $boxKey => $box) {
 				if (in_array($box->getTag(), $this->filters, true) === false) {
@@ -76,10 +70,6 @@ final class EngineSingleResult extends EngineResult
 	}
 
 
-	/**
-	 * @param Box $box
-	 * @return EngineSingleResult
-	 */
 	public function addBox(Box $box): self
 	{
 		$this->boxes[] = $box;
@@ -88,9 +78,6 @@ final class EngineSingleResult extends EngineResult
 	}
 
 
-	/**
-	 * @return Box|null
-	 */
 	public function getInterpret(): ?Box
 	{
 		return $this->interpret;
@@ -106,10 +93,6 @@ final class EngineSingleResult extends EngineResult
 	}
 
 
-	/**
-	 * @param Source $source
-	 * @return EngineSingleResult
-	 */
 	public function addSource(Source $source): self
 	{
 		$this->sources[] = $source;
@@ -118,10 +101,6 @@ final class EngineSingleResult extends EngineResult
 	}
 
 
-	/**
-	 * @param string $filter
-	 * @return EngineSingleResult
-	 */
 	public function addFilter(string $filter): self
 	{
 		$this->filters[] = $filter;
