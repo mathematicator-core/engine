@@ -12,9 +12,19 @@ use Mathematicator\Engine\Formatter\NaturalTextFormatter;
 use Mathematicator\Engine\Router\Router;
 use Mathematicator\Engine\Translation\TranslatorHelper;
 use Nette\DI\CompilerExtension;
+use Nette\Schema\Expect;
+use Nette\Schema\Schema;
 
 final class EngineExtension extends CompilerExtension
 {
+	public function getConfigSchema(): Schema
+	{
+		return Expect::structure([
+			'extraModules' => Expect::arrayOf(Expect::string())->castTo('array'),
+		])->castTo('array');
+	}
+
+
 	public function beforeCompile(): void
 	{
 		$builder = $this->getContainerBuilder();
@@ -26,11 +36,22 @@ final class EngineExtension extends CompilerExtension
 			->setFactory(TranslatorHelper::class);
 
 		$builder->addDefinition($this->prefix('sampleModule'))
-			->setFactory(SampleModule::class);
+			->setFactory(SampleModule::class)
+			->setAutowired(SampleModule::class);
 
-		$builder->addDefinition($this->prefix('engine'))
+		$engine = $builder->addDefinition($this->prefix('engine'))
 			->setFactory(Engine::class)
 			->addSetup('?->addExtraModule(?)', ['@self', '@' . SampleModule::class]);
+
+		if ($this->config['extraModules'] !== []) {
+			foreach ($this->config['extraModules'] as $extraModule) {
+				$builder->addDefinition($this->prefix('extraModuleUser') . '.' . md5($extraModule))
+					->setFactory($extraModule)
+					->setAutowired($extraModule);
+
+				$engine->addSetup('?->addExtraModule(?)', ['@self', '@' . $extraModule]);
+			}
+		}
 
 		$builder->addDefinition($this->prefix('queryNormalizer'))
 			->setFactory(QueryNormalizer::class);
