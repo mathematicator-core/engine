@@ -28,6 +28,8 @@ final class EngineExtension extends CompilerExtension
 	public function beforeCompile(): void
 	{
 		$builder = $this->getContainerBuilder();
+		/** @var mixed[] $config */
+		$config = $this->getConfig();
 
 		$builder->addDefinition($this->prefix('translator'))
 			->setFactory(Translator::class);
@@ -43,8 +45,8 @@ final class EngineExtension extends CompilerExtension
 			->setFactory(Engine::class)
 			->addSetup('?->addExtraModule(?)', ['@self', '@' . SampleModule::class]);
 
-		if (($this->config['extraModules'] ?? []) !== []) {
-			foreach ($this->config['extraModules'] ?? [] as $extraModule) {
+		if (($config['extraModules'] ?? []) !== []) {
+			foreach ($config['extraModules'] ?? [] as $extraModule) {
 				$builder->addDefinition($this->prefix('extraModuleUser') . '.' . md5($extraModule))
 					->setFactory($extraModule)
 					->setAutowired($extraModule);
