@@ -43,8 +43,8 @@ final class EngineExtension extends CompilerExtension
 			->setFactory(Engine::class)
 			->addSetup('?->addExtraModule(?)', ['@self', '@' . SampleModule::class]);
 
-		if ($this->config['extraModules'] !== []) {
-			foreach ($this->config['extraModules'] as $extraModule) {
+		if (isset($this->config['extraModules']) && $this->config['extraModules'] !== []) {
+			foreach ($this->config['extraModules'] ?? [] as $extraModule) {
 				$builder->addDefinition($this->prefix('extraModuleUser') . '.' . md5($extraModule))
 					->setFactory($extraModule)
 					->setAutowired($extraModule);
