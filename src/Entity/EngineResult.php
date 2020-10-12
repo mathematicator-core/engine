@@ -5,12 +5,8 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Entity;
 
 
-use Nette\SmartObject;
-use Nette\Utils\Strings;
-
 abstract class EngineResult
 {
-	use SmartObject;
 
 	/** @var string */
 	private $query;
@@ -18,18 +14,15 @@ abstract class EngineResult
 	/** @var string|null */
 	private $matchedRoute;
 
-	/** @var int */
-	private $time;
-
 	/** @var float */
 	private $startTime;
 
 
-	public function __construct(string $query, ?string $matchedRoute)
+	public function __construct(string $query, ?string $matchedRoute, ?float $startTime = null)
 	{
 		$this->query = $query;
 		$this->matchedRoute = $matchedRoute;
-		$this->startTime = (float) microtime(true);
+		$this->startTime = $startTime ?? (float) microtime(true);
 	}
 
 
@@ -41,7 +34,7 @@ abstract class EngineResult
 
 	final public function getLength(): int
 	{
-		return Strings::length($this->getQuery());
+		return mb_strlen($this->getQuery(), 'UTF-8');
 	}
 
 

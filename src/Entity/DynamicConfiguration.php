@@ -27,37 +27,24 @@ final class DynamicConfiguration
 	private $labels = [];
 
 
-	/**
-	 * @param string $key
-	 */
 	public function __construct(string $key)
 	{
 		$this->key = $key;
 	}
 
 
-	/**
-	 * @return string
-	 */
 	public function getKey(): string
 	{
 		return $this->key;
 	}
 
 
-	/**
-	 * @return string|null
-	 */
 	public function getTitle(): ?string
 	{
 		return $this->title;
 	}
 
 
-	/**
-	 * @param string|null $title
-	 * @return DynamicConfiguration
-	 */
 	public function setTitle(?string $title): self
 	{
 		$this->title = $title;
@@ -66,13 +53,9 @@ final class DynamicConfiguration
 	}
 
 
-	/**
-	 * @return string
-	 */
 	public function getSerialized(): string
 	{
 		$return = '';
-
 		foreach ($this->data as $key => $value) {
 			if (($value = trim((string) $value)) !== '') {
 				$return .= ($return ? '&' : '') . urlencode($key) . '=' . urlencode($value);
@@ -83,11 +66,6 @@ final class DynamicConfiguration
 	}
 
 
-	/**
-	 * @param string $key
-	 * @param string|null $default
-	 * @return string|null
-	 */
 	public function getValue(string $key, ?string $default = null): ?string
 	{
 		$this->defaults[$key] = $default;
@@ -102,7 +80,6 @@ final class DynamicConfiguration
 	public function getValues(): array
 	{
 		$return = $this->data;
-
 		foreach ($this->defaults as $key => $value) {
 			if ($value !== null || isset($this->data[$key]) === false) {
 				$return[$key] = $value;
@@ -122,27 +99,17 @@ final class DynamicConfiguration
 	}
 
 
-	/**
-	 * @param string $key
-	 * @return string
-	 */
 	public function getLabel(string $key): string
 	{
 		return $this->labels[$key] ?? $key;
 	}
 
 
-	/**
-	 * @param string $key
-	 * @param string|null $label
-	 * @return DynamicConfiguration
-	 */
 	public function addLabel(string $key, ?string $label): self
 	{
 		if ($label === null && isset($this->labels[$key])) {
 			unset($this->labels[$key]);
 		}
-
 		if ($label !== null) {
 			$this->labels[$key] = $label;
 		}
@@ -153,7 +120,7 @@ final class DynamicConfiguration
 
 	/**
 	 * @param string[]|null[] $haystack
-	 * @return DynamicConfiguration
+	 * @return self
 	 */
 	public function setValues(array $haystack): self
 	{
@@ -167,11 +134,6 @@ final class DynamicConfiguration
 	}
 
 
-	/**
-	 * @param string $key
-	 * @param string|null $value
-	 * @return DynamicConfiguration
-	 */
 	public function setValue(string $key, ?string $value = null): self
 	{
 		$this->data[$key] = $value;

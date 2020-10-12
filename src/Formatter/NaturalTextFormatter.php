@@ -30,7 +30,6 @@ final class NaturalTextFormatter
 	public function formatNaturalText(string $text): string
 	{
 		$return = '';
-
 		foreach (explode("\n", Strings::normalize($text)) as $line) {
 			if (($line = trim($line)) !== '') {
 				if (!preg_match('/^\s*https?:\/\//', $line) && !$this->containsWords($line)) {

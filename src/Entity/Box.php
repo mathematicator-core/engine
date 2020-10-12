@@ -64,13 +64,6 @@ final class Box
 	private $tag;
 
 
-	/**
-	 * @param string $type
-	 * @param string|null $title
-	 * @param string|null $text
-	 * @param string|null $url
-	 * @param int $rank
-	 */
 	public function __construct(string $type = self::TYPE_UNDEFINED, ?string $title = null, ?string $text = null, ?string $url = null, int $rank = 32)
 	{
 		$this->type = $type;
@@ -81,9 +74,6 @@ final class Box
 	}
 
 
-	/**
-	 * @return string
-	 */
 	public function __toString(): string
 	{
 		return $this->type === self::TYPE_TEXT
@@ -113,7 +103,6 @@ final class Box
 	{
 		if ($table !== []) {
 			$items = [];
-
 			foreach ($table as $key => $value) {
 				$items[] = '<tr>'
 					. '<th' . ($items === [] ? ' style="width:33%"' : '') . '>'
@@ -130,9 +119,6 @@ final class Box
 	}
 
 
-	/**
-	 * @return string
-	 */
 	public function getIcon(): string
 	{
 		if ($this->icon === null) {
@@ -145,10 +131,6 @@ final class Box
 	}
 
 
-	/**
-	 * @param string $icon
-	 * @return Box
-	 */
 	public function setIcon(string $icon): self
 	{
 		if (preg_match('/^(fas?)\s+(fa-[a-z0-9\-]+)$/', Strings::normalize($icon), $parser)) {
@@ -161,19 +143,12 @@ final class Box
 	}
 
 
-	/**
-	 * @return string
-	 */
 	public function getTitle(): string
 	{
 		return $this->title ?? '';
 	}
 
 
-	/**
-	 * @param string $title
-	 * @return Box
-	 */
 	public function setTitle(string $title): self
 	{
 		$this->title = $title;
@@ -182,9 +157,6 @@ final class Box
 	}
 
 
-	/**
-	 * @return string
-	 */
 	public function getText(): string
 	{
 		return $this->text ?? '';
@@ -203,28 +175,18 @@ final class Box
 	}
 
 
-	/**
-	 * @return string|null
-	 */
 	public function getUrl(): ?string
 	{
 		return $this->url;
 	}
 
 
-	/**
-	 * @return int
-	 */
 	public function getRank(): int
 	{
 		return $this->rank;
 	}
 
 
-	/**
-	 * @param int $rank
-	 * @return Box
-	 */
 	public function setRank(int $rank): self
 	{
 		$this->rank = $rank;
@@ -240,7 +202,6 @@ final class Box
 
 
 	/**
-	 * @return string|null
 	 * @internal
 	 */
 	public function getTag(): ?string
@@ -250,8 +211,6 @@ final class Box
 
 
 	/**
-	 * @param string|null $tag
-	 * @return Box
 	 * @internal
 	 */
 	public function setTag(?string $tag): self
@@ -281,7 +240,6 @@ final class Box
 	public function setSteps(array $steps): self
 	{
 		$return = [];
-
 		foreach ($steps as $step) {
 			if (!$step instanceof Step) {
 				throw new InvalidArgumentException('Step must be instance of "' . Step::class . '".');
@@ -298,10 +256,6 @@ final class Box
 	}
 
 
-	/**
-	 * @param Step $step
-	 * @return Box
-	 */
 	public function addStep(Step $step): self
 	{
 		$this->steps[] = $step;
@@ -310,9 +264,6 @@ final class Box
 	}
 
 
-	/**
-	 * @return string
-	 */
 	public function getType(): string
 	{
 		return $this->type;

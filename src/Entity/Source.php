@@ -36,10 +36,8 @@ final class Source
 	public function render(): string
 	{
 		$return = [];
-
 		if ($this->title) {
 			$title = htmlspecialchars($this->title, ENT_NOQUOTES | ENT_SUBSTITUTE, 'UTF-8');
-
 			if ($this->url !== null && Validators::isUrl($this->url)) {
 				$return[] = '<a href="' . $this->url . '" target="_blank">' . $title . '</a>';
 			} else {
@@ -51,7 +49,6 @@ final class Source
 		}
 		if ($this->authors !== []) {
 			$authors = [];
-
 			foreach ($this->authors as $author) {
 				$authors[] = htmlspecialchars($author, ENT_NOQUOTES | ENT_SUBSTITUTE, 'UTF-8');
 			}
@@ -91,10 +88,6 @@ final class Source
 	}
 
 
-	/**
-	 * @param string $url
-	 * @return Source
-	 */
 	public function setUrl(string $url): self
 	{
 		$this->url = $url;
