@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Mathematicator\Engine;
 
 
+use Baraja\ServiceMethodInvoker;
 use Mathematicator\Engine\Controller\Controller;
+use Mathematicator\Engine\Controller\NoResultController;
 use Mathematicator\Engine\Entity\EngineMultiResult;
 use Mathematicator\Engine\Entity\EngineResult;
 use Mathematicator\Engine\Entity\EngineSingleResult;
@@ -85,7 +87,25 @@ final class Engine
 	/**
 	 * @throws InvalidDataException
 	 */
-	private function invokeController(Query $query, string $serviceName): Controller
+	public function createNoResult(string $query, \Throwable $e): EngineSingleResult
+	{
+		$queryEntity = new Query($query, $this->queryNormalizer->normalize($query));
+		$context = $this->invokeController($queryEntity, NoResultController::class, [
+			'e' => $e,
+		])->getContext();
+
+		return new EngineSingleResult(
+			$query, 'NoResultController', null, $context->getBoxes(), $context->getSources(), $queryEntity->getFilteredTags()
+		);
+	}
+
+
+	/**
+	 * @param mixed[] $defaultParameters
+	 * @return Controller
+	 * @throws InvalidDataException
+	 */
+	private function invokeController(Query $query, string $serviceName, array $defaultParameters = []): Controller
 	{
 		/** @var Controller $controller */
 		$controller = $this->container->get($serviceName);
@@ -98,8 +118,11 @@ final class Engine
 		// 2. Create context
 		$controller->createContext($query);
 
+		if (\method_exists($controller, 'actionDefault') === false) {
+			throw new \RuntimeException($controller . ': Method "actionDefault" is required.');
+		}
 		try {
-			$controller->actionDefault();
+			(new ServiceMethodInvoker)->invoke($controller, 'actionDefault', $defaultParameters);
 		} catch (TerminateException $e) {
 		}
 
