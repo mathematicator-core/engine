@@ -5,6 +5,10 @@ helpQuestion: S čím Vám mohu pomoci?
 button:
   apply: Použít
 error:
+  noResult:
+    title: Chyba při vyhledávání
+    message: Pro dotaz "%query%" nelze sestavit výsledky vyhledávání. Chyba o tomto vyhledávání již byla odeslána administrátorům.
+    exceptionMessage: Text chybové hlášky
   tooLongQuery:
     title: Příliš dlouhý dotaz
     p1: Maximální délka vstupního dotazu je momentálně omezena na %lengthLimit% znaků (vloženo %inputLength% znaků) v kódování UTF-8.

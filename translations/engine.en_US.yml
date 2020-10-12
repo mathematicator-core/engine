@@ -5,6 +5,10 @@ helpQuestion: What can I help you with?
 button:
   apply: Apply
 error:
+  noResult:
+    title: Search error
+    message: Unable to build search results for query "%query%". An error with this search has already been sent to administrators.
+    exceptionMessage: Error message text
   tooLongQuery:
     title: Too long query
     p1: The maximum length of an input query is currently limited to %lengthLimit% characters (%inputLength% characters inserted) in UTF-8 encoding.

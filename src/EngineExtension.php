@@ -6,6 +6,7 @@ namespace Mathematicator\Engine;
 
 
 use Mathematicator\Engine\Controller\ErrorTooLongController;
+use Mathematicator\Engine\Controller\NoResultController;
 use Mathematicator\Engine\Controller\OtherController;
 use Mathematicator\Engine\ExtraModule\SampleModule;
 use Mathematicator\Engine\Formatter\NaturalTextFormatter;
@@ -74,5 +75,9 @@ final class EngineExtension extends CompilerExtension
 		$builder->addDefinition($this->prefix('errorTooLongController'))
 			->setFactory(ErrorTooLongController::class)
 			->setAutowired(ErrorTooLongController::class);
+
+		$builder->addDefinition($this->prefix('noResultController'))
+			->setFactory(NoResultController::class)
+			->setAutowired(NoResultController::class);
 	}
 }
