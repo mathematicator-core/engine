@@ -20,6 +20,7 @@
 		"contributte/psr11-container-interface": "^0.4.1",
 		"mathematicator-core/numbers": "^2.1",
 		"mathematicator-core/tokenizer": "^2.1",
+		"baraja-core/service-method-invoker": "^1.0",
 		"nette/di": "^3.0",
 		"nette/utils": "^3.0",
 		"symfony/yaml": "^5.0",

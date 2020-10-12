@@ -26,6 +26,12 @@ abstract class BaseController implements Controller
 	private $context;
 
 
+	final public function __toString(): string
+	{
+		return (string) preg_replace('/^.+\\\\([^\\\\]+)$/', '$1', \get_class($this));
+	}
+
+
 	final public function getContext(): Context
 	{
 		return $this->context;
@@ -44,11 +50,10 @@ abstract class BaseController implements Controller
 
 	final public function addBoxDynamicConfiguration(string $key): void
 	{
-		$configuration = $this->getDynamicConfiguration($key);
-
 		$content = '';
 		$form = '';
 
+		$configuration = $this->getDynamicConfiguration($key);
 		foreach ($configuration->getValues() as $valueKey => $value) {
 			$content .= '<tr>';
 			$content .= '<th>' . htmlspecialchars($configuration->getLabel($valueKey)) . '</th>';
@@ -59,13 +64,11 @@ abstract class BaseController implements Controller
 			$content .= '</tr>';
 			unset($_GET[$key . '_' . $valueKey]);
 		}
-
 		foreach ($_GET as $getKey => $getValue) {
 			$form .= '<input type="hidden" '
 				. 'name="' . htmlspecialchars((string) $getKey) . '" '
 				. 'value="' . htmlspecialchars((string) $getValue) . '">';
 		}
-
 		if (isset($_SERVER['REQUEST_URI'], $_SERVER['HTTP_HOST'])) {
 			$currentUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http')
 				. '://' . preg_replace('/\?.*$/', '', $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);

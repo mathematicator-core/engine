@@ -5,18 +5,13 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Controller;
 
 
+use Baraja\Service;
 use Mathematicator\Engine\Entity\Context;
 use Mathematicator\Engine\Entity\Query;
 use Mathematicator\Engine\Exception\InvalidDataException;
-use Mathematicator\Engine\Exception\TerminateException;
 
-interface Controller
+interface Controller extends Service
 {
-	/**
-	 * @throws TerminateException
-	 */
-	public function actionDefault(): void;
-
 	/**
 	 * @throws InvalidDataException
 	 */
