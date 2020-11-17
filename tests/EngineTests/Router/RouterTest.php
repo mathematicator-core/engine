@@ -25,9 +25,7 @@ require __DIR__ . '/../../Bootstrap.php';
 
 class RouterTest extends TestCase
 {
-
-	/** @var Container */
-	private $container;
+	private Container $container;
 
 
 	public function __construct(Container $container)

@@ -10,9 +10,7 @@ use Nette\Localization\ITranslator;
 
 final class Translator implements ITranslator
 {
-
-	/** @var TranslatorHelper */
-	private $translatorHelper;
+	private TranslatorHelper $translatorHelper;
 
 
 	public function __construct(TranslatorHelper $translatorHelper)

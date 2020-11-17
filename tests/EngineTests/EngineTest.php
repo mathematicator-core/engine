@@ -17,9 +17,7 @@ require __DIR__ . '/../Bootstrap.php';
 
 class EngineTest extends TestCase
 {
-
-	/** @var Engine */
-	private $engine;
+	private Engine $engine;
 
 
 	public function __construct(Container $container)

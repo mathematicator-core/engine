@@ -13,14 +13,12 @@ final class DynamicRoute
 
 	public const TYPE_TOKENIZE = 'tokenize';
 
-	/** @var string */
-	private $type;
+	private string $type;
 
 	/** @var mixed */
 	private $haystack;
 
-	/** @var string */
-	private $controller;
+	private string $controller;
 
 
 	/**

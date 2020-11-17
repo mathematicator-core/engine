@@ -11,7 +11,7 @@ final class QueryNormalizer
 {
 
 	/** @var string[] */
-	private static $regexMap = [
+	private static array $regexMap = [
 		'\s*(\#|\/\/).*$' => '',
 		'(\d)([,;])\s+(\d)' => '$1$2$3',
 		'(\d)\s+(\d)' => '$1$2',
@@ -43,8 +43,7 @@ final class QueryNormalizer
 		'\?$' => '',
 	];
 
-	/** @var NumberRewriter */
-	private $numberRewriter;
+	private NumberRewriter $numberRewriter;
 
 
 	public function __construct()

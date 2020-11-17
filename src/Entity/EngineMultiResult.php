@@ -11,7 +11,7 @@ final class EngineMultiResult extends EngineResult
 {
 
 	/** @var EngineResult[] */
-	private $results;
+	private array $results;
 
 
 	public function __construct(string $query)

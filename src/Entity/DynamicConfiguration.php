@@ -5,26 +5,20 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Entity;
 
 
-use Nette\SmartObject;
-
 final class DynamicConfiguration
 {
-	use SmartObject;
+	private string $key;
 
-	/** @var string */
-	private $key;
-
-	/** @var string|null */
-	private $title;
+	private ?string $title = null;
 
 	/** @var string[]|null[] */
-	private $data = [];
+	private array $data = [];
 
 	/** @var string[]|null[] */
-	private $defaults = [];
+	private array $defaults = [];
 
 	/** @var string[] */
-	private $labels = [];
+	private array $labels = [];
 
 
 	public function __construct(string $key)

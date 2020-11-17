@@ -16,7 +16,7 @@
 		}
 	],
 	"require": {
-		"php": ">=7.2",
+		"php": ">=7.4",
 		"contributte/psr11-container-interface": "^0.4.1",
 		"mathematicator-core/numbers": "^2.1",
 		"mathematicator-core/tokenizer": "^2.1",

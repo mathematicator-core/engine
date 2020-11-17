@@ -7,15 +7,11 @@ namespace Mathematicator\Engine\Entity;
 
 abstract class EngineResult
 {
+	private string $query;
 
-	/** @var string */
-	private $query;
+	private ?string $matchedRoute;
 
-	/** @var string|null */
-	private $matchedRoute;
-
-	/** @var float */
-	private $startTime;
+	private float $startTime;
 
 
 	public function __construct(string $query, ?string $matchedRoute, ?float $startTime = null)

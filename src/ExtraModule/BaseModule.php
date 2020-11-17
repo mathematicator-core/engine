@@ -11,17 +11,12 @@ use Mathematicator\Engine\Translator;
 abstract class BaseModule implements IExtraModuleWithQuery
 {
 
-	/**
-	 * @var Translator
-	 * @inject
-	 */
-	public $translator;
+	/** @inject */
+	public Translator $translator;
 
-	/** @var EngineSingleResult */
-	protected $result;
+	protected EngineSingleResult $result;
 
-	/** @var string */
-	protected $query;
+	protected string $query;
 
 
 	/**

@@ -14,9 +14,7 @@ require __DIR__ . '/../Bootstrap.php';
 
 class NumberRewriterTest extends TestCase
 {
-
-	/** @var NumberRewriter */
-	private $numberRewriter;
+	private NumberRewriter $numberRewriter;
 
 
 	public function __construct(Container $container)

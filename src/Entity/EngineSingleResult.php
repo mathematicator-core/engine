@@ -7,18 +7,16 @@ namespace Mathematicator\Engine\Entity;
 
 final class EngineSingleResult extends EngineResult
 {
-
-	/** @var Box|null */
-	private $interpret;
+	private ?Box $interpret;
 
 	/** @var Box[] */
-	private $boxes;
+	private array $boxes;
 
 	/** @var Source[] */
-	private $sources;
+	private array $sources;
 
 	/** @var string[] */
-	private $filters;
+	private array $filters;
 
 
 	/**

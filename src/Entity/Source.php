@@ -5,24 +5,18 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Entity;
 
 
-use Nette\SmartObject;
 use Nette\Utils\Validators;
 
 final class Source
 {
-	use SmartObject;
-
-	/** @var string|null */
-	private $title;
+	private ?string $title;
 
 	/** @var string[] */
-	private $authors = [];
+	private array $authors = [];
 
-	/** @var string|null */
-	private $description;
+	private ?string $description;
 
-	/** @var string|null */
-	private $url;
+	private ?string $url;
 
 
 	public function __construct(?string $title = null, ?string $url = null, ?string $description = null)
@@ -76,7 +70,6 @@ final class Source
 
 	/**
 	 * @param string[] $authors
-	 * @return Source
 	 */
 	public function setAuthors(array $authors): self
 	{

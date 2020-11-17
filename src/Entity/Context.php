@@ -12,23 +12,20 @@ final class Context
 {
 	public const BOXES_LIMIT = 100;
 
-	/** @var string */
-	private $query;
+	private string $query;
 
-	/** @var Query */
-	private $queryEntity;
+	private Query $queryEntity;
 
 	/** @var Box[] */
-	private $boxes = [];
+	private array $boxes = [];
 
 	/** @var Source[] */
-	private $sources = [];
+	private array $sources = [];
 
 	/** @var DynamicConfiguration[] */
-	private $dynamicConfigurations = [];
+	private array $dynamicConfigurations = [];
 
-	/** @var Box|null */
-	private $interpret;
+	private ?Box $interpret = null;
 
 
 	public function __construct(Query $query)

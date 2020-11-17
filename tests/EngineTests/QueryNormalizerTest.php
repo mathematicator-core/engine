@@ -14,9 +14,7 @@ require __DIR__ . '/../Bootstrap.php';
 
 class QueryNormalizerTest extends TestCase
 {
-
-	/** @var QueryNormalizer */
-	private $queryNormalizer;
+	private QueryNormalizer $queryNormalizer;
 
 
 	public function __construct(Container $container)

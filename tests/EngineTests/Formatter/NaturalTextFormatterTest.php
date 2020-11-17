@@ -15,9 +15,7 @@ require __DIR__ . '/../../Bootstrap.php';
 
 class NaturalTextFormatterTest extends TestCase
 {
-
-	/** @var NaturalTextFormatter */
-	private $naturalTextFormatter;
+	private NaturalTextFormatter $naturalTextFormatter;
 
 
 	public function __construct(Container $container)

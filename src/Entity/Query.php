@@ -5,39 +5,29 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Entity;
 
 
-use Nette\SmartObject;
 use Nette\Utils\DateTime;
 use Nette\Utils\Strings;
 
 final class Query
 {
-	use SmartObject;
-
 	public const LENGTH_LIMIT = 1024;
 
-	/** @var string */
-	private $original;
+	private string $original;
 
-	/** @var string */
-	private $query;
+	private string $query;
 
-	/** @var string */
-	private $locale = 'cs';
+	private \DateTime $dateTime;
 
-	/** @var int */
-	private $decimals = 8;
+	private string $locale = 'cs';
+
+	private int $decimals = 8;
 
 	/** @var bool[] (haystack => true) */
-	private $filteredTags = [];
+	private array $filteredTags = [];
 
-	/** @var float */
-	private $latitude = 50.0755381;
+	private float $latitude = 50.0755381;
 
-	/** @var float */
-	private $longitude = 14.4378005;
-
-	/** @var \DateTime */
-	private $dateTime;
+	private float $longitude = 14.4378005;
 
 
 	public function __construct(string $original, string $query)

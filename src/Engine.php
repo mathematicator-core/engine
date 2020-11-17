@@ -22,18 +22,14 @@ use Psr\Container\ContainerInterface;
 
 final class Engine
 {
+	private Router $router;
 
-	/** @var Router */
-	private $router;
+	private QueryNormalizer $queryNormalizer;
 
-	/** @var QueryNormalizer */
-	private $queryNormalizer;
-
-	/** @var ContainerInterface */
-	private $container;
+	private ContainerInterface $container;
 
 	/** @var IExtraModule[] */
-	private $extraModules = [];
+	private array $extraModules = [];
 
 
 	public function __construct(Router $router, QueryNormalizer $queryNormalizer, ContainerInterface $container)
@@ -102,7 +98,6 @@ final class Engine
 
 	/**
 	 * @param mixed[] $defaultParameters
-	 * @return Controller
 	 * @throws InvalidDataException
 	 */
 	private function invokeController(Query $query, string $serviceName, array $defaultParameters = []): Controller

@@ -11,7 +11,7 @@ final class DivisionByZeroException extends MathErrorException
 {
 
 	/** @var string[] */
-	private $fraction;
+	private array $fraction;
 
 
 	/**

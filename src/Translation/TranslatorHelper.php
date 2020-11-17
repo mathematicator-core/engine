@@ -15,9 +15,7 @@ use Symfony\Component\Translation\Translator;
  */
 final class TranslatorHelper
 {
-
-	/** @var Translator */
-	public $translator;
+	public Translator $translator;
 
 
 	/**
@@ -25,7 +23,7 @@ final class TranslatorHelper
 	 *
 	 * @var string[]
 	 */
-	private $languages = ['cs_CZ', 'en_US'];
+	private array $languages = ['cs_CZ', 'en_US'];
 
 
 	/**
@@ -33,7 +31,7 @@ final class TranslatorHelper
 	 *
 	 * @var string[]
 	 */
-	private $fallbackLanguages = ['en_US', 'cs_CZ'];
+	private array $fallbackLanguages = ['en_US', 'cs_CZ'];
 
 
 	public function __construct()

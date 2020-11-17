@@ -15,7 +15,7 @@ use RuntimeException;
 final class FunctionManager
 {
 	/** @var IMathFunction[] (functionName => MathFunction) */
-	private static $functions = [];
+	private static array $functions = [];
 
 
 	/**

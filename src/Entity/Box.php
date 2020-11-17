@@ -7,7 +7,6 @@ namespace Mathematicator\Engine\Entity;
 
 use InvalidArgumentException;
 use Mathematicator\Engine\Step\Step;
-use Nette\SmartObject;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
 use Nette\Utils\Strings;
@@ -15,8 +14,6 @@ use RuntimeException;
 
 final class Box
 {
-	use SmartObject;
-
 	public const TYPE_UNDEFINED = 'type_undefined';
 
 	public const TYPE_INTERPRET = 'type_interpret';
@@ -35,33 +32,23 @@ final class Box
 
 	public const TYPE_TABLE = 'type_table';
 
-	/** @var string */
-	private $type;
+	private string $type;
 
-	/** @var string|null */
-	private $icon;
+	private ?string $title;
 
-	/** @var string|null */
-	private $title;
+	private ?string  $text;
 
-	/** @var string|null */
-	private $text;
+	private ?string $url;
 
-	/** @var string|null */
-	private $url;
+	private int $rank;
 
-	/** @var int */
-	private $rank;
+	private ?string $icon = null;
 
 	/** @var Step[] */
-	private $steps = [];
+	private array $steps = [];
 
-	/**
-	 * Internal technical identifier.
-	 *
-	 * @var string|null
-	 */
-	private $tag;
+	/** Internal technical identifier. */
+	private ?string $tag = null;
 
 
 	public function __construct(string $type = self::TYPE_UNDEFINED, ?string $title = null, ?string $text = null, ?string $url = null, int $rank = 32)
@@ -84,7 +71,6 @@ final class Box
 
 	/**
 	 * @param mixed[] $table
-	 * @return Box
 	 * @throws JsonException
 	 */
 	public function setTable(array $table): self
@@ -97,7 +83,6 @@ final class Box
 
 	/**
 	 * @param string[]|int[] $table
-	 * @return Box
 	 */
 	public function setKeyValue(array $table = []): self
 	{
@@ -165,7 +150,6 @@ final class Box
 
 	/**
 	 * @param mixed $text
-	 * @return Box
 	 */
 	public function setText($text): self
 	{
@@ -234,7 +218,6 @@ final class Box
 	 * First check all given items. When all items is type for Step, replace current step array.
 	 *
 	 * @param Step[]|mixed[] $steps
-	 * @return Box
 	 * @throws InvalidArgumentException
 	 */
 	public function setSteps(array $steps): self

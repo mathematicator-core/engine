@@ -16,9 +16,7 @@ require __DIR__ . '/../../Bootstrap.php';
 
 class TranslationTest extends TestCase
 {
-
-	/** @var TranslatorInterface */
-	private $translator;
+	private TranslatorInterface $translator;
 
 
 	public function __construct(Container $container)

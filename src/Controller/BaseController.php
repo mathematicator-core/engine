@@ -16,14 +16,10 @@ use Mathematicator\Engine\Translator;
 abstract class BaseController implements Controller
 {
 
-	/**
-	 * @var Translator
-	 * @inject
-	 */
-	public $translator;
+	/** @inject */
+	public Translator $translator;
 
-	/** @var Context */
-	private $context;
+	private Context $context;
 
 
 	final public function __toString(): string

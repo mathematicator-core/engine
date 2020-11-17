@@ -9,7 +9,7 @@ final class NumberRewriter
 {
 
 	/** @var int[] */
-	private static $basic = [
+	private static array $basic = [
 		'nula' => 0, 'jedna' => 1, 'dvě' => 2, 'dva' => 2, 'tři' => 3, 'čtyři' => 4, 'pět' => 5,
 		'šest' => 6, 'sedm' => 7, 'osm' => 8, 'devět' => 9, 'deset' => 10, 'jedenáct' => 11, 'dvanáct' => 12,
 		'třináct' => 13, 'čtrnáct' => 14, 'patnáct' => 15, 'šestnáct' => 16, 'sedmnáct' => 17, 'osmnáct' => 18,
@@ -17,24 +17,24 @@ final class NumberRewriter
 	];
 
 	/** @var string[] */
-	private static $regex = [
+	private static array$regex = [
 		'^(m[ií]nus)\s*(.+)$' => '-$2',
 		'(^|[^\d])(\d+)-ti(\s|$)' => '$1$2$3',
 		'\s*(celé|celých|celá)\s*' => '|',
 	];
 
 	/** @var string[] */
-	private static $teens = [
+	private static array$teens = [
 		1 => 'deset', 'dvacet', 'třicet', 'čtyřicet', 'padesát', 'šedesát', 'sedmdesát', 'osmdesát', 'devadesát', 'sto',
 	];
 
 	/** @var string[] */
-	private static $hundreds = [
+	private static array$hundreds = [
 		1 => 'sto', 'dvě stě', 'tři sta', 'čtyři sta', 'pět set', 'šest set', 'sedm set', 'osm set', 'devět set', 'tisíc',
 	];
 
 	/** @var string[][] */
-	private static $levels = [
+	private static array$levels = [
 		0 => ['', '', ''],
 		3 => ['tisíc', 'tisíce', 'tisíc'],
 		6 => ['milion', 'miliony', 'milionů'],
@@ -65,7 +65,7 @@ final class NumberRewriter
 	];
 
 	/** @var string[][] */
-	private static $fractions = [
+	private static array$fractions = [
 		1 => ['jednina'],
 		2 => ['polovina', 'poloviny', 'polovin'],
 		3 => ['třetina', 'třetiny', 'třetin'],

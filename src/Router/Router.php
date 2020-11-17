@@ -14,12 +14,10 @@ use Nette\Utils\Strings;
 
 final class Router
 {
-
-	/** @var string */
-	private $query;
+	private string $query;
 
 	/** @var DynamicRoute[] */
-	private $dynamicRoutes = [];
+	private array $dynamicRoutes = [];
 
 
 	public function routeQuery(string $query): string

@@ -5,29 +5,19 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Step;
 
 
-use Nette\SmartObject;
-
 final class Step
 {
-	use SmartObject;
+	private ?string $title;
 
-	/** @var string|null */
-	private $title;
+	private ?string $latex;
 
-	/** @var bool */
-	private $htmlTitle = false;
+	private ?string $description;
 
-	/** @var string|null */
-	private $latex;
+	private bool $htmlTitle = false;
 
-	/** @var string|null */
-	private $description;
+	private bool $htmlDescription = false;
 
-	/** @var bool */
-	private $htmlDescription = false;
-
-	/** @var string|null */
-	private $ajaxEndpoint;
+	private ?string $ajaxEndpoint = null;
 
 
 	public function __construct(?string $title = null, ?string $latex = null, ?string $description = null)

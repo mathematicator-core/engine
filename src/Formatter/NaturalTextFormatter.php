@@ -12,12 +12,9 @@ use Nette\Utils\Strings;
 
 final class NaturalTextFormatter
 {
+	private QueryNormalizer $queryNormalizer;
 
-	/** @var QueryNormalizer */
-	private $queryNormalizer;
-
-	/** @var Tokenizer */
-	private $tokenizer;
+	private Tokenizer $tokenizer;
 
 
 	public function __construct(QueryNormalizer $queryNormalizer, Tokenizer $tokenizer)
