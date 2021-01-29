@@ -20,7 +20,7 @@ final class OtherController extends BaseController
 				. '<div style="text-align:center;padding:4em 1em">'
 				. '<img src="https://mathematicator.com/img/error_dinosaur.gif" alt="' . $this->translator->translate('engine.contentSearchFailed') . '">'
 				. '</div>'
-				. '</div>'
+				. '</div>',
 			)
 			->setIcon('fas fa-exclamation-triangle')
 			->setTag('no-results');

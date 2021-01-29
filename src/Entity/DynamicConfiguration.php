@@ -120,7 +120,7 @@ final class DynamicConfiguration
 	{
 		foreach ($haystack as $key => $value) {
 			if (isset($this->data[$key]) === false) {
-				$this->data[$key] = ((string) $value) ?: null;
+				$this->data[$key] = (string) $value ?: null;
 			}
 		}
 

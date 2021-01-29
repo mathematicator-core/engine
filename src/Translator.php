@@ -45,7 +45,7 @@ final class Translator implements ITranslator
 		return $this->translatorHelper->translator->trans(
 			mb_substr($message, mb_strlen($domain) + 1),
 			$translatorParams,
-			$domain
+			$domain,
 		);
 	}
 }

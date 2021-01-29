@@ -79,13 +79,13 @@ final class FunctionManager
 			return;
 		}
 
-		self::addFunction('sin', new Sin());
-		self::addFunction('cos', new Cos());
-		self::addFunction('tan', new Tan());
-		self::addFunction('cotan', new Tan());
-		self::addFunction('tg', new Tan());
-		self::addFunction('log', new Logarithm());
-		self::addFunction('ln', new Logarithm());
-		self::addFunction('sqrt', new Sqrt());
+		self::addFunction('sin', new Sin);
+		self::addFunction('cos', new Cos);
+		self::addFunction('tan', new Tan);
+		self::addFunction('cotan', new Tan);
+		self::addFunction('tg', new Tan);
+		self::addFunction('log', new Logarithm);
+		self::addFunction('ln', new Logarithm);
+		self::addFunction('sqrt', new Sqrt);
 	}
 }

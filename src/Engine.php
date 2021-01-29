@@ -91,7 +91,12 @@ final class Engine
 		])->getContext();
 
 		return new EngineSingleResult(
-			$query, 'NoResultController', null, $context->getBoxes(), $context->getSources(), $queryEntity->getFilteredTags()
+			$query,
+			'NoResultController',
+			null,
+			$context->getBoxes(),
+			$context->getSources(),
+			$queryEntity->getFilteredTags(),
 		);
 	}
 

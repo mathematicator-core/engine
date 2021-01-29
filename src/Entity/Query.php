@@ -109,7 +109,8 @@ final class Query
 				$this->decimals = (int) ($match[1] ?: $match[2]);
 
 				return '';
-			}, $query
+			},
+			$query,
 		);
 
 		$filters = $this->processFilterTags(strtolower(Strings::toAscii($query)));

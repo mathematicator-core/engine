@@ -36,7 +36,7 @@ final class Box
 
 	private ?string $title;
 
-	private ?string  $text;
+	private ?string $text;
 
 	private ?string $url;
 
@@ -51,8 +51,13 @@ final class Box
 	private ?string $tag = null;
 
 
-	public function __construct(string $type = self::TYPE_UNDEFINED, ?string $title = null, ?string $text = null, ?string $url = null, int $rank = 32)
-	{
+	public function __construct(
+		string $type = self::TYPE_UNDEFINED,
+		?string $title = null,
+		?string $text = null,
+		?string $url = null,
+		int $rank = 32
+	) {
 		$this->type = $type;
 		$this->title = $title;
 		$this->text = Strings::normalize((string) $text);

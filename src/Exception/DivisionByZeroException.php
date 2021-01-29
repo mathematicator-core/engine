@@ -25,7 +25,7 @@ final class DivisionByZeroException extends MathErrorException
 		if (!isset($fraction[0], $fraction[1])) {
 			throw new MathematicatorException(
 				'Fraction must be array [0 => INT, 1 => INT].'
-				. "\n" . 'Your input: ' . json_encode($fraction)
+				. "\n" . 'Your input: ' . json_encode($fraction),
 			);
 		}
 

@@ -121,9 +121,7 @@ final class QueryNormalizer
 
 	private function taskNormalizeNumber(string $query): string
 	{
-		return (string) preg_replace_callback('/([\d\,]+\,\d{3})\.(\d+)/', static function (array $match): string {
-			return preg_replace('/\D/', '', $match[1]) . '.' . $match[2];
-		}, $query);
+		return (string) preg_replace_callback('/([\d\,]+\,\d{3})\.(\d+)/', static fn (array $match): string => preg_replace('/\D/', '', $match[1]) . '.' . $match[2], $query);
 	}
 
 
@@ -148,17 +146,13 @@ final class QueryNormalizer
 		$query = (string) preg_replace('/[\x{2600}-\x{26FF}]/u', '', $query);
 
 		// Match Dingbats
-		$query = (string) preg_replace('/[\x{2700}-\x{27BF}]/u', '', $query);
-
-		return $query;
+		return (string) preg_replace('/[\x{2700}-\x{27BF}]/u', '', $query);
 	}
 
 
 	private function replaceSpecialCharacters(string $query): string
 	{
-		$query = str_replace(['½', 'Ã'], [' 1/2', 'á'], $query);
-
-		return $query;
+		return str_replace(['½', 'Ã'], [' 1/2', 'á'], $query);
 	}
 
 

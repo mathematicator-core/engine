@@ -20,7 +20,7 @@ final class SampleModule extends BaseModule
 		$this->result->addBox(
 			(new Box(Box::TYPE_TEXT))
 				->setTitle($this->translator->translate('engine.help'))
-				->setText($this->translator->translate('engine.helpQuestion'))
+				->setText($this->translator->translate('engine.helpQuestion')),
 		);
 	}
 }

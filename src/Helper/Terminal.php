@@ -9,11 +9,10 @@ use Mathematicator\Engine\Exception\MathematicatorException;
 
 final class Terminal
 {
-
 	/** @throws \Error */
 	public function __construct()
 	{
-		throw new \Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
+		throw new \Error('Class ' . static::class . ' is static and cannot be instantiated.');
 	}
 
 
@@ -37,7 +36,7 @@ final class Terminal
 				$currentLine = $i + 1;
 				$highlight = $line === $currentLine;
 
-				echo ($highlight ? "\e[1;37m\e[41m" : "\e[100m")
+				echo($highlight ? "\e[1;37m\e[41m" : "\e[100m")
 					. str_pad(' ' . $currentLine . ': ', 6, ' ') . ($highlight ? '' : "\e[0m")
 					. str_replace("\t", '    ', $fileParser[$i])
 					. ($highlight ? "\e[0m" : '')
@@ -142,7 +141,9 @@ final class Terminal
 	 */
 	private static function length(string $s): int
 	{
-		return function_exists('mb_strlen') ? mb_strlen($s, 'UTF-8') : strlen(utf8_decode($s));
+		return function_exists('mb_strlen')
+			? mb_strlen($s, 'UTF-8')
+			: strlen(utf8_decode($s));
 	}
 
 

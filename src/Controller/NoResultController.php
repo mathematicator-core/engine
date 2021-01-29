@@ -20,7 +20,7 @@ final class NoResultController extends BaseController
 				. '<div class="alert alert-danger">'
 				. '<b>' . $this->translator->translate('engine.error.noResult.exceptionMessage') . ':</b><br>'
 				. htmlspecialchars($e->getMessage(), ENT_QUOTES)
-				. '</div>'
+				. '</div>',
 			)
 			->setIcon('fas fa-exclamation-triangle')
 			->setTag('no-results');

@@ -13,11 +13,10 @@ use function time;
 
 final class DateTime
 {
-
 	/** @throws Error */
 	public function __construct()
 	{
-		throw new Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
+		throw new Error('Class ' . static::class . ' is static and cannot be instantiated.');
 	}
 
 
@@ -38,8 +37,12 @@ final class DateTime
 	 * @return string
 	 * @throws MathematicatorException
 	 */
-	public static function formatTimeAgo(int $time, bool $moreAccurate = true, string $lang = 'cz', ?int $now = null): string
-	{
+	public static function formatTimeAgo(
+		int $time,
+		bool $moreAccurate = true,
+		string $lang = 'cz',
+		?int $now = null
+	): string {
 		if ($lang === 'cz') {
 			$labels = [
 				['sekunda', 'sekundy', 'sekund'],
@@ -97,7 +100,7 @@ final class DateTime
 		}
 
 		$result = $no . ' ' . $label . ' ';
-		if ($moreAccurate === true && ($v >= 1) && (($now - $x) > 0)) {
+		if ($moreAccurate === true && ($v >= 1) && ($now - $x > 0)) {
 			$result .= self::formatTimeAgo($x, false, $lang);
 		}
 

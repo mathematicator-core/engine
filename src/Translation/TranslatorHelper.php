@@ -17,14 +17,12 @@ final class TranslatorHelper
 {
 	public Translator $translator;
 
-
 	/**
 	 * Available translations ordered by priority
 	 *
 	 * @var string[]
 	 */
 	private array $languages = ['cs_CZ', 'en_US'];
-
 
 	/**
 	 * If no translation is available, than this languages are used instead.
@@ -38,7 +36,7 @@ final class TranslatorHelper
 	{
 		$this->translator = new Translator($this->languages[0]);
 
-		$this->translator->addLoader('yaml', new YamlFileLoader());
+		$this->translator->addLoader('yaml', new YamlFileLoader);
 
 		$this->translator->setFallbackLocales($this->fallbackLanguages);
 		$this->translator->setLocale($this->languages[0]);
@@ -58,7 +56,7 @@ final class TranslatorHelper
 				$format,
 				$dir . '/' . ($domain ?: 'messages') . '.' . $languageCode . '.' . $suffix,
 				$languageCode,
-				$domain
+				$domain,
 			);
 		}
 	}

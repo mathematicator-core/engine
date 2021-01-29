@@ -24,7 +24,7 @@ abstract class BaseController implements Controller
 
 	final public function __toString(): string
 	{
-		return (string) preg_replace('/^.+\\\\([^\\\\]+)$/', '$1', \get_class($this));
+		return (string) preg_replace('/^.+\\\\([^\\\\]+)$/', '$1', static::class);
 	}
 
 
@@ -79,7 +79,7 @@ abstract class BaseController implements Controller
 				. $content
 				. '</table>'
 				. '<input type="submit" value="' . $this->translator->translate('engine.button.apply') . '" class="btn btn-primary mt-2">'
-				. '</form>'
+				. '</form>',
 			);
 	}
 
@@ -145,6 +145,6 @@ abstract class BaseController implements Controller
 	 */
 	final public function terminate(): void
 	{
-		throw new TerminateException('Automatically terminated by "' . \get_class($this) . '".');
+		throw new TerminateException('Automatically terminated by "' . static::class . '".');
 	}
 }

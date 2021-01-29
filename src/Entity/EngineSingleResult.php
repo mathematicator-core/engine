@@ -24,8 +24,14 @@ final class EngineSingleResult extends EngineResult
 	 * @param Source[] $sources
 	 * @param string[] $filters
 	 */
-	public function __construct(string $query, string $matchedRoute, ?Box $interpret = null, array $boxes = [], array $sources = [], array $filters = [])
-	{
+	public function __construct(
+		string $query,
+		string $matchedRoute,
+		?Box $interpret = null,
+		array $boxes = [],
+		array $sources = [],
+		array $filters = []
+	) {
 		parent::__construct($query, $matchedRoute);
 		$this->interpret = $interpret;
 		$this->boxes = $boxes;
@@ -58,9 +64,7 @@ final class EngineSingleResult extends EngineResult
 			}
 		}
 
-		usort($return, static function (Box $a, Box $b): int {
-			return $a->getRank() < $b->getRank() ? 1 : -1;
-		});
+		usort($return, static fn (Box $a, Box $b): int => $a->getRank() < $b->getRank() ? 1 : -1);
 
 		return $return;
 	}
