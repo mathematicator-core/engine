@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Entity;
 
 
-use Nette\Utils\DateTime;
 use Nette\Utils\Strings;
 
 final class Query
@@ -16,7 +15,7 @@ final class Query
 
 	private string $query;
 
-	private \DateTime $dateTime;
+	private \DateTimeImmutable $dateTime;
 
 	private string $locale = 'cs';
 
@@ -34,7 +33,7 @@ final class Query
 	{
 		$this->original = $original;
 		$this->query = $this->process($query);
-		$this->dateTime = DateTime::from('now');
+		$this->dateTime = new \DateTimeImmutable('now');
 	}
 
 
@@ -86,7 +85,7 @@ final class Query
 	}
 
 
-	public function getDateTime(): \DateTime
+	public function getDateTime(): \DateTimeImmutable
 	{
 		return $this->dateTime;
 	}

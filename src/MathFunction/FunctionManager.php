@@ -62,14 +62,9 @@ final class FunctionManager
 	}
 
 
-	/**
-	 * @param mixed $haystack
-	 * @param array<int, mixed> $params
-	 * @return mixed
-	 */
-	public static function invoke(string $name, $haystack, ...$params)
+	public static function invoke(string $name, mixed $haystack, iterable ...$params): mixed
 	{
-		return self::getFunction($name)->invoke($haystack, $params);
+		return self::getFunction($name)->invoke($haystack, ... $params);
 	}
 
 

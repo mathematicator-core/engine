@@ -9,7 +9,7 @@ use Mathematicator\Engine\MathFunction\IMathFunction;
 
 final class Logarithm implements IMathFunction
 {
-	public function invoke($haystack, ...$params): float
+	public function invoke(mixed $haystack, mixed ...$params): float
 	{
 		return log((float) $haystack, (float) ($params[0][0] ?? 10));
 	}

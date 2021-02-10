@@ -114,7 +114,6 @@ final class DynamicConfiguration
 
 	/**
 	 * @param string[]|null[] $haystack
-	 * @return self
 	 */
 	public function setValues(array $haystack): self
 	{

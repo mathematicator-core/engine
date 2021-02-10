@@ -7,10 +7,5 @@ namespace Mathematicator\Engine\MathFunction;
 
 interface IMathFunction
 {
-	/**
-	 * @param mixed $haystack
-	 * @param mixed ...$params
-	 * @return mixed
-	 */
-	public function invoke($haystack, ...$params);
+	public function invoke(mixed $haystack, mixed ...$params): mixed;
 }

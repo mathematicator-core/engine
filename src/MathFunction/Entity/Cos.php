@@ -9,7 +9,7 @@ use Mathematicator\Engine\MathFunction\IMathFunction;
 
 final class Cos implements IMathFunction
 {
-	public function invoke($haystack, ...$params): float
+	public function invoke(mixed $haystack, mixed ...$params): float
 	{
 		return cos((float) $haystack);
 	}

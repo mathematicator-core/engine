@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Entity;
 
 
+use Baraja\Url\Url;
 use Mathematicator\Engine\Exception\TerminateException;
 use Mathematicator\Engine\Helpers;
 
@@ -133,6 +134,6 @@ final class Context
 	 */
 	public function link(string $query): string
 	{
-		return Helpers::getBaseUrl() . '/search' . (($query = trim($query)) !== '' ? '?q=' . urlencode($query) : '');
+		return Url::get()->getBaseUrl() . '/search' . (($query = trim($query)) !== '' ? '?q=' . urlencode($query) : '');
 	}
 }

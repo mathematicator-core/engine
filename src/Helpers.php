@@ -15,54 +15,12 @@ final class Helpers
 	/** @throws Error */
 	public function __construct()
 	{
-		throw new Error('Class ' . static::class . ' is static and cannot be instantiated.');
+		throw new Error('Class ' . self::class . ' is static and cannot be instantiated.');
 	}
 
 
-	public static function getBaseUrl(bool $useCache = true): ?string
-	{
-		static $return;
-
-		if ($useCache === true && $return !== null) {
-			return $return;
-		}
-		if (($currentUrl = self::getCurrentUrl()) !== null) {
-			if (preg_match('/^(https?:\/\/.+)\/www\//', $currentUrl, $localUrlParser)) {
-				$return = $localUrlParser[0];
-			} elseif (preg_match('/^(https?:\/\/[^\/]+)/', $currentUrl, $publicUrlParser)) {
-				$return = $publicUrlParser[1];
-			}
-		}
-		if ($return !== null) {
-			$return = rtrim($return, '/');
-		}
-
-		return $return;
-	}
-
-
-	/**
-	 * Return current absolute URL.
-	 * Return null, if current URL does not exist (for example in CLI mode).
-	 */
-	public static function getCurrentUrl(): ?string
-	{
-		if (!isset($_SERVER['REQUEST_URI'], $_SERVER['HTTP_HOST'])) {
-			return null;
-		}
-
-		return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http')
-			. '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-	}
-
-
-	/**
-	 * Convert dirty haystack to scalar haystack. If object implements __toString(), it will be called automatically.
-	 *
-	 * @param mixed $haystack
-	 * @return mixed
-	 */
-	public static function strictScalarType($haystack, bool $rewriteObjectsToString = true)
+	/** Convert dirty haystack to scalar haystack. If object implements __toString(), it will be called automatically. */
+	public static function strictScalarType(mixed $haystack, bool $rewriteObjectsToString = true): mixed
 	{
 		if (is_array($haystack)) {
 			$return = [];

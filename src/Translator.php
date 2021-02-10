@@ -23,7 +23,6 @@ final class Translator implements ITranslator
 	/**
 	 * @param mixed $message
 	 * @param mixed ...$parameters
-	 * @return string
 	 */
 	public function translate($message, ...$parameters): string
 	{

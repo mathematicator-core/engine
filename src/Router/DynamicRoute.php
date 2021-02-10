@@ -15,16 +15,12 @@ final class DynamicRoute
 
 	private string $type;
 
-	/** @var mixed */
-	private $haystack;
+	private mixed $haystack;
 
 	private string $controller;
 
 
-	/**
-	 * @param mixed $haystack
-	 */
-	public function __construct(string $type, $haystack, string $controller)
+	public function __construct(string $type, mixed $haystack, string $controller)
 	{
 		$this->type = $type;
 		$this->haystack = $haystack;
@@ -38,10 +34,7 @@ final class DynamicRoute
 	}
 
 
-	/**
-	 * @return mixed
-	 */
-	public function getHaystack()
+	public function getHaystack(): mixed
 	{
 		return $this->haystack;
 	}

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mathematicator\Engine\Tests;
 
 
+use Baraja\Url\Url;
 use Error;
 use Mathematicator\Engine\Entity\Query;
 use Mathematicator\Engine\Helpers;
@@ -29,14 +30,14 @@ class HelpersTest extends TestCase
 		unset($_SERVER['REQUEST_URI'], $_SERVER['HTTP_HOST']);
 
 		// CLI mode
-		Assert::same(null, Helpers::getCurrentUrl());
+		Assert::same(null, Url::get()->getCurrentUrl());
 
 		$_SERVER['REQUEST_URI'] = '/kontakt';
 		$_SERVER['HTTP_HOST'] = 'baraja.cz';
 		$_SERVER['HTTPS'] = 'on';
 
 		// Request mode
-		Assert::same('https://baraja.cz/kontakt', Helpers::getCurrentUrl());
+		Assert::same('https://baraja.cz/kontakt', Url::get()->getCurrentUrl());
 	}
 
 
@@ -47,13 +48,13 @@ class HelpersTest extends TestCase
 		$_SERVER['HTTPS'] = 'on';
 
 		// First call
-		Assert::same('https://baraja.cz', Helpers::getBaseUrl(false));
+		Assert::same('https://baraja.cz', Url::get()->getBaseUrl());
 
 		// Second call is using cache but cache is disabled
-		Assert::same('https://baraja.cz', Helpers::getBaseUrl(false));
+		Assert::same('https://baraja.cz', Url::get()->getBaseUrl());
 
 		// Second call is using cache
-		Assert::same('https://baraja.cz', Helpers::getBaseUrl(true));
+		Assert::same('https://baraja.cz', Url::get()->getBaseUrl());
 	}
 
 
@@ -63,7 +64,7 @@ class HelpersTest extends TestCase
 		$_SERVER['HTTP_HOST'] = 'localhost';
 		unset($_SERVER['HTTPS']);
 
-		Assert::same('http://localhost/baraja/www', Helpers::getBaseUrl(false));
+		Assert::same('http://localhost/baraja/www', Url::get()->getBaseUrl());
 	}
 
 
