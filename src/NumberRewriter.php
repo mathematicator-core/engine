@@ -7,34 +7,28 @@ namespace Mathematicator\Engine;
 
 final class NumberRewriter
 {
-
-	/** @var int[] */
-	private static array $basic = [
+	public const BASIC = [
 		'nula' => 0, 'jedna' => 1, 'dvě' => 2, 'dva' => 2, 'tři' => 3, 'čtyři' => 4, 'pět' => 5,
 		'šest' => 6, 'sedm' => 7, 'osm' => 8, 'devět' => 9, 'deset' => 10, 'jedenáct' => 11, 'dvanáct' => 12,
 		'třináct' => 13, 'čtrnáct' => 14, 'patnáct' => 15, 'šestnáct' => 16, 'sedmnáct' => 17, 'osmnáct' => 18,
 		'devatenáct' => 19, 'dvacet' => 20,
 	];
 
-	/** @var string[] */
-	private static array $regex = [
+	public const REGEX = [
 		'^(m[ií]nus)\s*(.+)$' => '-$2',
 		'(^|[^\d])(\d+)-ti(\s|$)' => '$1$2$3',
 		'\s*(celé|celých|celá)\s*' => '|',
 	];
 
-	/** @var string[] */
-	private static array $teens = [
+	public const TEENS = [
 		1 => 'deset', 'dvacet', 'třicet', 'čtyřicet', 'padesát', 'šedesát', 'sedmdesát', 'osmdesát', 'devadesát', 'sto',
 	];
 
-	/** @var string[] */
-	private static array $hundreds = [
+	public const HUNDREDS = [
 		1 => 'sto', 'dvě stě', 'tři sta', 'čtyři sta', 'pět set', 'šest set', 'sedm set', 'osm set', 'devět set', 'tisíc',
 	];
 
-	/** @var string[][] */
-	private static array $levels = [
+	public const LEVELS = [
 		0 => ['', '', ''],
 		3 => ['tisíc', 'tisíce', 'tisíc'],
 		6 => ['milion', 'miliony', 'milionů'],
@@ -64,8 +58,7 @@ final class NumberRewriter
 		600 => ['centilion', 'centiliony', 'centilionů'],
 	];
 
-	/** @var string[][] */
-	private static array $fractions = [
+	public const FRACTIONS = [
 		1 => ['jednina'],
 		2 => ['polovina', 'poloviny', 'polovin'],
 		3 => ['třetina', 'třetiny', 'třetin'],
@@ -83,7 +76,7 @@ final class NumberRewriter
 	{
 		$haystack = trim((string) preg_replace('/\s+/', ' ', $haystack));
 
-		foreach (self::$regex as $key => $value) {
+		foreach (self::REGEX as $key => $value) {
 			$haystack = (string) preg_replace('/' . $key . '/', $value, $haystack);
 		}
 
@@ -98,7 +91,7 @@ final class NumberRewriter
 
 	private function processWord(string $word): string
 	{
-		foreach (self::$basic as $basicWord => $basicRewrite) {
+		foreach (self::BASIC as $basicWord => $basicRewrite) {
 			if ($basicWord === $word) {
 				return (string) $basicRewrite;
 			}

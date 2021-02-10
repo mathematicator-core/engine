@@ -7,7 +7,6 @@ namespace Mathematicator\Engine\Entity;
 
 use Baraja\Url\Url;
 use Mathematicator\Engine\Exception\TerminateException;
-use Mathematicator\Engine\Helpers;
 
 final class Context
 {
@@ -57,7 +56,8 @@ final class Context
 			throw new TerminateException(__METHOD__);
 		}
 
-		$this->boxes[] = ($box = new Box($type));
+		$box = new Box($type);
+		$this->boxes[] = $box;
 
 		return $box;
 	}

@@ -24,8 +24,8 @@ class QueryTest extends TestCase
 		Assert::same('cs', $query->getLocale());
 		Assert::same(8, $query->getDecimals());
 		Assert::same(true, $query->isDefaultDecimals());
-		Assert::same(50.0755381, $query->getLatitude());
-		Assert::same(14.4378005, $query->getLongitude());
+		Assert::same(50.0_755_381, $query->getLatitude());
+		Assert::same(14.4_378_005, $query->getLongitude());
 		Assert::true($query->getDateTime() instanceof DateTime);
 	}
 

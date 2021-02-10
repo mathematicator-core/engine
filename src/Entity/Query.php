@@ -9,7 +9,7 @@ use Nette\Utils\Strings;
 
 final class Query
 {
-	public const LENGTH_LIMIT = 1024;
+	public const LENGTH_LIMIT = 1_024;
 
 	private string $original;
 
@@ -24,9 +24,9 @@ final class Query
 	/** @var bool[] (haystack => true) */
 	private array $filteredTags = [];
 
-	private float $latitude = 50.0755381;
+	private float $latitude = 50.0_755_381;
 
-	private float $longitude = 14.4378005;
+	private float $longitude = 14.4_378_005;
 
 
 	public function __construct(string $original, string $query)

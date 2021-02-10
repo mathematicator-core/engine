@@ -45,6 +45,6 @@ abstract class EngineResult
 	 */
 	final public function getTime(): float
 	{
-		return (microtime(true) - $this->startTime) * 1000;
+		return (microtime(true) - $this->startTime) * 1_000;
 	}
 }

@@ -64,7 +64,7 @@ final class FunctionManager
 
 	public static function invoke(string $name, mixed $haystack, iterable ...$params): mixed
 	{
-		return self::getFunction($name)->invoke($haystack, ... $params);
+		return self::getFunction($name)->invoke($haystack, ...$params);
 	}
 
 

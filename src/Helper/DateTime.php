@@ -68,7 +68,7 @@ final class DateTime
 		}
 
 		$diff = ($now = $now ?? time()) - $time;
-		$lengths = [1, 60, 3600, 86400, 2630880, 31570560];
+		$lengths = [1, 60, 3_600, 86_400, 2_630_880, 31_570_560];
 		$no = 0;
 		$v = 5;
 
